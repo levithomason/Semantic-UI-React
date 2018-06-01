@@ -1,4 +1,4 @@
-const GLOBALLY_KNOWN_PROPS = ['as', 'rules', 'styles', 'variables']
+const GLOBALLY_KNOWN_PROPS = ['as', 'rules', 'styles', 'variables', 'childKey']
 
 const isKnownProp = prop => GLOBALLY_KNOWN_PROPS.some(x => x === prop)
 
