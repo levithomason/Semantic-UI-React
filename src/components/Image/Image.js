@@ -44,9 +44,7 @@ class Image extends Component {
   }
 }
 
-export const Image_ = createComponent(Image, {
+export default createComponent(Image, {
   rules: imageRules,
   variables: imageVariables,
 })
-
-export default Image

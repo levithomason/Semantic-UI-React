@@ -166,9 +166,7 @@ class ListItem extends React.Component {
   }
 }
 
-export const ListItem_ = createComponent(ListItem, {
+export default createComponent(ListItem, {
   rules: listItemRules,
   variables: listVariables,
 })
-
-export default ListItem
