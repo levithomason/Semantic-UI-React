@@ -144,8 +144,6 @@ class Layout extends React.Component {
   }
 }
 
-export const Layout_ = createComponent(Layout, {
+export default createComponent(Layout, {
   rules: layoutRules,
 })
-
-export default Layout

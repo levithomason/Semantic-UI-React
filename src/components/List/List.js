@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import createComponent from '../../lib/createComponent'
-import { ListItem_ as ListItem } from './ListItem'
+import ListItem from './ListItem'
 import listRules from './listRules'
 
 class List extends React.Component {
@@ -75,8 +75,6 @@ class List extends React.Component {
   }
 }
 
-export const List_ = createComponent(List, {
+export default createComponent(List, {
   rules: listRules,
 })
-
-export default List
