@@ -73,7 +73,7 @@ export default (Component, options = {}) => {
   apiPath = apiPath.reduce((acc, next) => [...acc, next.replace(acc.join(''), '')], [])
 
   // find the apiPath in the semanticUIReact object
-  const isSubComponent = _.isFunction(_.get(semanticUIReact, apiPath))
+  const isSubcomponent = _.isFunction(_.get(semanticUIReact, apiPath))
 
   if (META.isPrivate(constructorName)) {
     it('is not exported as a component nor sub component', () => {
@@ -83,7 +83,7 @@ export default (Component, options = {}) => {
           ' It cannot be exposed on the top level API',
       )
 
-      expect(isSubComponent).to.equal(
+      expect(isSubcomponent).to.equal(
         false,
         `"${constructorName}" is private (starts with "_").` +
           ' It cannot be a static prop of another component (sub-component)',
@@ -104,7 +104,7 @@ export default (Component, options = {}) => {
 
   if (_meta.parent) {
     it('is a static component on its parent', () => {
-      expect(isSubComponent).to.equal(
+      expect(isSubcomponent).to.equal(
         true,
         `\`${constructorName}\` is a child component (has a _meta.parent).` +
           ` It must be a static prop of its parent \`${_meta.parent}\``,
@@ -146,11 +146,11 @@ export default (Component, options = {}) => {
           'strong',
         ]
         try {
-          tags.forEach(tag => {
+          tags.forEach((tag) => {
             shallow(<Component {...requiredProps} as={tag} />).should.have.tagName(tag)
           })
         } catch (err) {
-          tags.forEach(tag => {
+          tags.forEach((tag) => {
             const wrapper = shallow(<Component {...requiredProps} as={tag} />)
             wrapper.type().should.not.equal(Component)
             wrapper.should.have.prop('as', tag)
@@ -173,8 +173,8 @@ export default (Component, options = {}) => {
       })
 
       it('renders as a ReactClass or passes "as" to the next component', () => {
+        // eslint-disable-next-line react/prefer-stateless-function
         class MyComponent extends React.Component {
-          // eslint-disable-line react/prefer-stateless-function
           render() {
             return <div data-my-react-class />
           }
@@ -195,7 +195,7 @@ export default (Component, options = {}) => {
         const MyComponent = () => null
 
         shallow(
-          <Component {...requiredProps} as={MyComponent} data-extra-prop="foo" />,
+          <Component {...requiredProps} as={MyComponent} data-extra-prop='foo' />,
         ).should.have.descendants('[data-extra-prop="foo"]')
       })
     })
@@ -237,7 +237,7 @@ export default (Component, options = {}) => {
       // This test catches the case where a developer forgot to call the event prop
       // after handling it internally. It also catch cases where the synthetic event was not passed back.
       _.each(syntheticEvent.types, ({ eventShape, listeners }) => {
-        _.each(listeners, listenerName => {
+        _.each(listeners, (listenerName) => {
           // onKeyDown => keyDown
           const eventName = _.camelCase(listenerName.replace('on', ''))
 
@@ -384,7 +384,7 @@ export default (Component, options = {}) => {
           'className',
         )
 
-        defaultClasses.split(' ').forEach(defaultClass => {
+        defaultClasses.split(' ').forEach((defaultClass) => {
           mixedClasses.should.include(
             defaultClass,
             [

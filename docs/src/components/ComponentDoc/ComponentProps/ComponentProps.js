@@ -47,7 +47,7 @@ export default class ComponentProps extends Component {
     return (
       <div>
         <ComponentPropsHeader
-          hasSubComponents={componentNames.length > 1}
+          hasSubcomponents={componentNames.length > 1}
           showProps={!!activeName}
           onClick={this.handleToggle}
         />

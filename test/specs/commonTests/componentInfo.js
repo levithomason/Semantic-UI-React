@@ -37,12 +37,12 @@ const componentInfo = componentCtx.keys().map((key) => {
   const filePath = key
   const filename = path.basename(key)
   const filenameWithoutExt = path.basename(key, '.js')
-  const subComponentName =
+  const subcomponentName =
     _.has(_meta, 'parent') && _.has(_meta, 'name') ? _meta.name.replace(_meta.parent, '') : null
 
   // name of the component, sub component, or plural parent for sub component groups
   const componentClassName = (META.isChild(Component)
-    ? subComponentName.replace(/Group$/, `${_meta.parent}s`)
+    ? subcomponentName.replace(/Group$/, `${_meta.parent}s`)
     : _meta.name
   ).toLowerCase()
 
@@ -51,7 +51,7 @@ const componentInfo = componentCtx.keys().map((key) => {
     Component,
     constructorName,
     componentClassName,
-    subComponentName,
+    subcomponentName,
     filePath,
     filename,
     filenameWithoutExt,
