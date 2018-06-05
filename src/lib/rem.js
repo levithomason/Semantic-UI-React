@@ -12,38 +12,41 @@ import { htmlFontSize } from 'src/themes/teams/siteVariables'
 const rem = (value) => {
   const default1RemSizeInPx = 10
 
-  if (!_.isNumber(value)) {
-    throw new Error(`Expected number got: '${typeof value}'.`)
+  const htmlFontSizeValue = parseFloat(htmlFontSize) || 0
+  const htmlFontSizeUnit = htmlFontSize.replace(htmlFontSizeValue, '')
+
+  const fontSizeMultiplier = default1RemSizeInPx / htmlFontSizeValue
+  const convertedValueInRems = fontSizeMultiplier * value
+
+  if (_.isUndefined(value)) {
+    return '0rem'
   }
 
-  let fontSizeMultiplier
+  if (process.env.NODE_ENV !== 'production') {
+    if (!_.isNumber(value)) {
+      throw new Error(`Expected number, but got: '${typeof value}'.`)
+    }
 
-  if (_.isString(htmlFontSize)) {
-    const pxIndex = htmlFontSize.indexOf('px')
+    if (htmlFontSizeValue <= 0) {
+      throw new Error(`Invalid htmlFontSizeValue of: '${htmlFontSize}'.`)
+    }
 
-    if (pxIndex > 0) {
-      const htmlFontSizeWithoutPx = htmlFontSize.substring(0, pxIndex)
-      fontSizeMultiplier = default1RemSizeInPx / htmlFontSizeWithoutPx
-    } else {
+    if (!_.isString(htmlFontSize)) {
+      throw new Error(`Expected htmlFontSize to be a string, but got: '${htmlFontSize}'.`)
+    }
+
+    if (htmlFontSizeUnit !== 'px') {
+      throw new Error(`Expected htmlFontSize to be in px, but got: '${htmlFontSizeUnit}'.`)
+    }
+
+    if (!_.isNumber(convertedValueInRems)) {
       throw new Error(
-        `Expected siteVariables htmlFontSize to be in px, but got: '${htmlFontSize}'.`,
+        `Unable to convert value: '${value}' to rems, got: '${convertedValueInRems}'.`,
       )
     }
   }
 
-  const convertedValueInRems = fontSizeMultiplier * value
-
-  if (!_.isNumber(convertedValueInRems)) {
-    throw new Error(`Unable to convert value: '${value}' to rems, got: '${convertedValueInRems}'.`)
-  }
-
-  if (convertedValueInRems === 0) {
-    return '0'
-  }
-
-  const remValue = `${parseFloat(convertedValueInRems.toFixed(3))}rem`
-
-  return convertedValueInRems >= 1 ? remValue : remValue.substring(1, remValue.length)
+  return `${parseFloat(convertedValueInRems.toFixed(3))}rem`
 }
 
 export default rem
