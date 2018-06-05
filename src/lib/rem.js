@@ -12,15 +12,15 @@ import { htmlFontSize } from 'src/themes/teams/siteVariables'
 const rem = (value) => {
   const default1RemSizeInPx = 10
 
+  if (_.isUndefined(value)) {
+    return '0rem'
+  }
+
   const htmlFontSizeValue = parseFloat(htmlFontSize) || 0
   const htmlFontSizeUnit = htmlFontSize.replace(htmlFontSizeValue, '')
 
   const fontSizeMultiplier = default1RemSizeInPx / htmlFontSizeValue
   const convertedValueInRems = fontSizeMultiplier * value
-
-  if (_.isUndefined(value)) {
-    return '0rem'
-  }
 
   if (process.env.NODE_ENV !== 'production') {
     if (!_.isNumber(value)) {
@@ -46,7 +46,7 @@ const rem = (value) => {
     }
   }
 
-  return `${parseFloat(convertedValueInRems.toFixed(3))}rem`
+  return `${_.round(convertedValueInRems, 4)}rem`
 }
 
 export default rem

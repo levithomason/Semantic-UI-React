@@ -11,7 +11,7 @@ describe('rem', () => {
   it('should return 0.714rem with a base font size of 14px.', () => {
     siteVariables.htmlFontSize = '14px'
 
-    expect(rem(1)).toEqual('0.714rem')
+    expect(rem(1)).toEqual('0.7143rem')
   })
 
   it('should return 1.25rem with a base font size of 8px.', () => {
@@ -36,7 +36,7 @@ describe('rem', () => {
     }).toThrowError()
   })
 
-  it('should throw error rem value is provided as a string', () => {
+  it('should throw error when rem value is provided as a string', () => {
     siteVariables.htmlFontSize = '8px'
 
     expect(() => {
