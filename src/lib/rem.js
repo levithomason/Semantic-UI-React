@@ -21,7 +21,7 @@ const rem = (value) => {
   if (_.isString(htmlFontSize)) {
     const pxIndex = htmlFontSize.indexOf('px')
 
-    if (pxIndex > -1) {
+    if (pxIndex > 0) {
       const htmlFontSizeWithoutPx = htmlFontSize.substring(0, pxIndex)
       fontSizeMultiplier = default1RemSizeInPx / htmlFontSizeWithoutPx
     } else {
