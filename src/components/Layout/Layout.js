@@ -5,11 +5,6 @@ import createComponent from '../../lib/createComponent'
 import layoutRules from './layoutRules'
 
 class Layout extends React.Component {
-  static _meta = {
-    type: 'component',
-    name: 'Layout',
-  }
-
   static propTypes = {
     className: PropTypes.string,
     styles: PropTypes.object,

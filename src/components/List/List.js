@@ -5,11 +5,6 @@ import ListItem from './ListItem'
 import listRules from './listRules'
 
 class List extends React.Component {
-  static _meta = {
-    type: 'component',
-    name: 'List',
-  }
-
   static propTypes = {
     /** Toggle debug mode */
     debug: PropTypes.bool,

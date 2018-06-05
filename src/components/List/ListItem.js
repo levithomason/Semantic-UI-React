@@ -8,12 +8,6 @@ import listVariables from './listVariables'
 import listItemRules from './listItemRules'
 
 class ListItem extends React.Component {
-  static _meta = {
-    type: 'component',
-    component: 'ListItem',
-    parent: 'List',
-  }
-
   static propTypes = {
     contentMedia: PropTypes.any,
 
