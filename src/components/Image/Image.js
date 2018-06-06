@@ -3,7 +3,6 @@ import React from 'react'
 import cx from 'classnames'
 
 import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
-
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 
@@ -13,7 +12,7 @@ import imageVariables from './imageVariables'
 const Image = (props) => {
   const ElementType = getElementType(Image, props)
   const rest = getUnhandledProps(Image, props)
-  const { styles } = this.props
+  const { styles } = props
 
   return <ElementType {...rest} className={cx('ui-image', styles.root)} />
 }
