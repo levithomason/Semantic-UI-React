@@ -71,7 +71,6 @@ const webpackConfig = {
         propTypes: require('prop-types/package.json').version,
         react: require('react/package.json').version,
         reactDOM: require('react-dom/package.json').version,
-        sui: require('semantic-ui-css/package.json').version,
         suir: require('./package.json').version,
       },
     }),

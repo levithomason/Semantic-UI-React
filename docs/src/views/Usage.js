@@ -6,8 +6,6 @@ import { semanticUIDocsURL, semanticUIRepoURL, semanticUICSSRepoURL } from 'docs
 import { Button, Container, Header, List, Message, Segment } from 'semantic-ui-react'
 import Logo from '../components/Logo/Logo'
 
-const suiCSSVersion = pkg.devDependencies['semantic-ui-css'].replace(/[~^]/, '')
-
 const Usage = () => (
   <Container id='usage-page'>
     <Segment basic textAlign='center'>
@@ -75,9 +73,9 @@ const Usage = () => (
       </p>
       <Segment>
         <pre>
-          {'<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/'}
-          {suiCSSVersion}
-          {'/semantic.min.css"></link>'}
+          {
+            '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link>'
+          }
         </pre>
       </Segment>
 
