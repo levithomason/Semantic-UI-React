@@ -1,5 +1,4 @@
 export AutoControlledComponent from './AutoControlledComponent'
-export BaseComponent from './BaseComponent'
 export hasChildren from './hasChildren'
 
 export * as customPropTypes from './customPropTypes'
