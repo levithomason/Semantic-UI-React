@@ -1,1 +1,1 @@
-export default from './eventStack'
+export { default } from './eventStack'

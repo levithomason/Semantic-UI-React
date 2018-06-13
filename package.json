@@ -86,6 +86,7 @@
     "@babel/register": "^7.0.0-beta.49",
     "@babel/runtime": "^7.0.0-beta.49",
     "@babel/standalone": "^7.0.0-beta.49",
+    "@types/node": "^10.3.2",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^23.0.1",
@@ -142,6 +143,8 @@
     "simulant": "^0.2.2",
     "ta-scripts": "^2.5.2",
     "through2": "^2.0.3",
+    "ts-node": "^6.1.0",
+    "typescript": "^2.9.1",
     "webpack": "^3.5.4",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2"

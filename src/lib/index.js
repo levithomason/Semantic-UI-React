@@ -1,15 +1,16 @@
-export AutoControlledComponent from './AutoControlledComponent'
-export childrenExist from './childrenExist'
+import * as customPropTypes from './customPropTypes'
+import * as SUI from './SUI'
 
-export * as customPropTypes from './customPropTypes'
+export { default as AutoControlledComponent } from './AutoControlledComponent'
+export { default as childrenExist } from './childrenExist'
 export { debug, makeDebugger } from './debug'
-export eventStack from './eventStack'
+export { default as eventStack } from './eventStack'
 export { felaRenderer, felaRtlRenderer } from './felaRenderer'
 
 export * from './factories'
-export getUnhandledProps from './getUnhandledProps'
-export getElementType from './getElementType'
-export createComponent from './createComponent'
+export { default as getUnhandledProps } from './getUnhandledProps'
+export { default as getElementType } from './getElementType'
+export { default as createComponent } from './createComponent'
 export {
   htmlImageProps,
   htmlInputAttrs,
@@ -18,9 +19,9 @@ export {
   partitionHTMLProps,
 } from './htmlPropsUtils'
 
-export isBrowser from './isBrowser'
-export doesNodeContainClick from './doesNodeContainClick'
-export leven from './leven'
-export * as SUI from './SUI'
+export { default as isBrowser } from './isBrowser'
+export { default as doesNodeContainClick } from './doesNodeContainClick'
+export { default as leven } from './leven'
 
-export rem from './rem'
+export { default as rem } from './rem'
+export { customPropTypes, SUI }
