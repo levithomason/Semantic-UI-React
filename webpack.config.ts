@@ -10,17 +10,29 @@ const { __DEV__, __TEST__, __PROD__ } = config.compiler_globals
 const webpackConfig: any = {
   name: 'client',
   target: 'web',
-  devtool: config.compiler_devtool,
+  devtool: 'sourcemap',
   externals: {},
   module: {
     noParse: [],
-    rules: [],
+    rules: [
+      {
+        test: /\.(js|ts|tsx)$/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
   },
   plugins: [],
   resolve: {
-    modules: [paths.base(), 'node_modules'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
       stardust: paths.src(),
+      src: paths.src(),
+      docs: paths.base('docs'),
+      'package.json': paths.base('package.json'),
     },
   },
 }
@@ -163,30 +175,5 @@ if (!__TEST__) {
     /faker/,
   ]
 }
-
-// ------------------------------------
-// Rules
-// ------------------------------------
-const jsLoaders = [
-  {
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: true,
-      plugins: __DEV__ ? ['react-hot-loader/babel'] : [],
-    },
-  },
-]
-
-webpackConfig.module.rules = [
-  ...webpackConfig.module.rules,
-  {
-    //
-    // Babel
-    //
-    test: /\.js$/,
-    exclude: /node_modules/,
-    use: jsLoaders,
-  },
-]
 
 export default webpackConfig

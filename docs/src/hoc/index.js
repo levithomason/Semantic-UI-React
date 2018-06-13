@@ -1,2 +1,2 @@
-export neverUpdate from './neverUpdate'
-export updateForKeys from './updateForKeys'
+export { default as neverUpdate } from './neverUpdate'
+export { default as updateForKeys } from './updateForKeys'

@@ -1,9 +1,9 @@
-export hasSubcomponents from './hasSubcomponents'
-export hasUIClassName from './hasUIClassName'
+export { default as hasSubcomponents } from './hasSubcomponents'
+export { default as hasUIClassName } from './hasUIClassName'
 
 export * from './implementsClassNameProps'
-export implementsCreateMethod from './implementsCreateMethod'
-export implementsShorthandProp from './implementsShorthandProp'
+export { default as implementsCreateMethod } from './implementsCreateMethod'
+export { default as implementsShorthandProp } from './implementsShorthandProp'
 
-export isConformant from './isConformant'
-export rendersChildren from './rendersChildren'
+export { default as isConformant } from './isConformant'
+export { default as rendersChildren } from './rendersChildren'

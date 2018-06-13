@@ -24,5 +24,13 @@
     "noImplicitThis": false,
     "noImplicitAny": false,
     "strictNullChecks": false
-  }
+  },
+  "include": [
+    "src",
+    "docs",
+    "test",
+    "gulp",
+    "build",
+    "types"
+  ]
 }

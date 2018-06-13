@@ -14,7 +14,7 @@ const { log, PluginError } = g.util
 // Clean
 // ----------------------------------------
 
-task('clean:dist', (cb) => {
+task('clean:dist', cb => {
   rimraf(`${config.paths.dist()}/*`, cb)
 })
 
@@ -22,17 +22,17 @@ task('clean:dist', (cb) => {
 // Build
 // ----------------------------------------
 
-task('build:dist:commonjs:js', (cb) => {
-  sh(`cross-env NODE_ENV=build babel ${paths.src()} -d ${paths.dist('commonjs')}`, cb)
+task('build:dist:commonjs:js', cb => {
+  sh(`tsc ${paths.src()} --outDir ${paths.dist('commonjs')}`, cb)
 })
 
 task('build:dist:commonjs', parallel('build:dist:commonjs:js'))
 
-task('build:dist:es', (cb) => {
-  sh(`cross-env NODE_ENV=build-es babel ${paths.src()} -d ${paths.dist('es')}`, cb)
+task('build:dist:es', cb => {
+  sh(`tsc ${paths.src()} --outDir ${paths.dist('es')}`, cb)
 })
 
-task('build:dist:umd', (cb) => {
+task('build:dist:umd', cb => {
   process.env.NODE_ENV = 'build'
   const webpackUMDConfig = require('../../webpack.umd.config').default
   const compiler = webpack(webpackUMDConfig)

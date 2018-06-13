@@ -1,2 +1,4 @@
-export * as siteVariables from './siteVariables'
-export normalizeCSS from './normalizeCSS'
+import * as siteVariables from './siteVariables'
+
+export { siteVariables }
+export { default as normalizeCSS } from './normalizeCSS'
