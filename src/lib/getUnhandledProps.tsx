@@ -11,7 +11,7 @@ const isKnownProp = prop => GLOBALLY_KNOWN_PROPS.some(x => x === prop)
  */
 const getUnhandledProps = (Component, props) => {
   // TODO(zuko): we need to generated `handledProps`
-  const handledProps = Object.keys(Component.propTypes)
+  const handledProps = Component.propTypes ? Object.keys(Component.propTypes) : []
 
   if (process.env.NODE_ENV !== 'production') {
     if (!Array.isArray(handledProps)) {

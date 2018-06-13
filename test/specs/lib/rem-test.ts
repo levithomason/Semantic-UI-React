@@ -1,5 +1,7 @@
 import { rem } from 'src/lib'
-import * as siteVariables from 'src/themes/teams/siteVariables'
+import * as TODO_FIX_ME from 'src/themes/teams/siteVariables'
+
+const siteVariables: any = TODO_FIX_ME
 
 describe('rem', () => {
   it('should return 1rem with base font size of 10px.', () => {

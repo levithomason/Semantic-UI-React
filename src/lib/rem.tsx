@@ -9,7 +9,7 @@ import { htmlFontSize } from '../themes/teams/siteVariables'
  * @param {number} value The rem value to convert to rems based on the HTML font size.
  * @returns {string} The value converted to the rem value based on the htmlFontSize.
  */
-const rem = (value) => {
+const rem = (value?: number) => {
   const default1RemSizeInPx = 10
 
   if (_.isUndefined(value)) {
@@ -17,7 +17,7 @@ const rem = (value) => {
   }
 
   const htmlFontSizeValue = parseFloat(htmlFontSize) || 0
-  const htmlFontSizeUnit = htmlFontSize.replace(htmlFontSizeValue, '')
+  const htmlFontSizeUnit = htmlFontSize.replace(htmlFontSizeValue.toString(), '')
 
   const fontSizeMultiplier = default1RemSizeInPx / htmlFontSizeValue
   const convertedValueInRems = fontSizeMultiplier * value

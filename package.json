@@ -19,8 +19,8 @@
     "postdeploy:docs": "gulp --series build:changelog deploy:changelog",
     "lint": "cross-env NODE_ENV=production eslint .",
     "lint:fix": "yarn lint --fix",
-    "prettier": "prettier --list-different \"**/*.js\"",
-    "prettier:fix": "prettier --write \"**/*.js\"",
+    "prettier": "prettier --list-different \"**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --write \"**/*.{ts,tsx}\"",
     "precommit": "lint-staged && gulp build:docs:toc",
     "postcommit": "git update-index --again",
     "prerelease": "yarn lint && yarn test && cross-env NODE_ENV=production yarn build",
@@ -31,12 +31,12 @@
     "prestart": "yarn satisfied --fix yarn",
     "start": "gulp --series dll docs",
     "satisfied": "satisfied --skip-invalid",
-    "pretest": "yarn satisfied && gulp dll build:docs:docgen",
+    "pretest": "yarn satisfied",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "yarn test --watchAll"
   },
   "lint-staged": {
-    "**/*.js": [
+    "**/*.{ts,tsx}": [
       "prettier --write",
       "eslint --fix",
       "git add"
@@ -53,10 +53,10 @@
   },
   "homepage": "https://github.com/Semantic-Org/Semantic-UI-React#readme",
   "jest": {
-    "testRegex": "/test/.*-test\\.js$",
-    "setupTestFrameworkScriptFile": "<rootDir>/test/setup.js",
+    "testRegex": ".*-test",
+    "setupTestFrameworkScriptFile": "<rootDir>/test/setup.ts",
     "transform": {
-      "^.+\\.(js|ts|tsx)$": "ts-jest"
+      "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "moduleNameMapper": {
       "docs/(.*)$": "<rootDir>/docs/$1",
@@ -81,6 +81,7 @@
   },
   "devDependencies": {
     "@babel/standalone": "^7.0.0-beta.49",
+    "@types/jest": "^23.1.0",
     "@types/node": "^10.3.2",
     "awesome-typescript-loader": "^4.0.1",
     "babel-eslint": "^8.2.3",
