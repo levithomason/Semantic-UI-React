@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { connect, FelaTheme } from 'react-fela'
 
+import callable from './callable'
 import { createShorthandFactory } from './factories'
-
-const callable = val => (typeof val !== 'function' ? () => val : val)
 
 const createComponent = (Component, config) => {
   const displayName = Component.name || Component.displayName

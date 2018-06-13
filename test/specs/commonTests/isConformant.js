@@ -4,7 +4,6 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import * as semanticUIReact from 'semantic-ui-react'
 
-import { componentInfoContext } from 'docs/src/utils'
 import { assertBodyContains, consoleUtil, sandbox, syntheticEvent } from 'test/utils'
 import helpers from './commonHelpers'
 
@@ -44,13 +43,38 @@ export default (Component, options = {}) => {
     )
   }
 
-  const info = componentInfoContext.byDisplayName[constructorName]
+  // ----------------------------------------
+  // Component info
+  // ----------------------------------------
+  // This is pretty ugly because:
+  // - jest doesn't support custom error messages
+  // - jest will run all test
+  const infoJSONPath = `docs/src/componentInfo/${Component.displayName}.info.json`
+
+  let info
+
+  try {
+    info = require(infoJSONPath)
+  } catch (err) {
+    // handled in the test() below
+    test('component info file exists', () => {
+      throw new Error(
+        [
+          '!! ==========================================================',
+          `!! Missing ${infoJSONPath}.`,
+          '!! Run `yarn test` or `yarn test:watch` again to generate one.',
+          '!! ==========================================================',
+        ].join('\n'),
+      )
+    })
+    return
+  }
 
   // ----------------------------------------
   // Class and file name
   // ----------------------------------------
-  it(`constructor name matches filename "${constructorName}"`, () => {
-    constructorName.should.equal(info.filenameWithoutExt)
+  test(`constructor name matches filename "${constructorName}"`, () => {
+    expect(constructorName).toEqual(info.filenameWithoutExt)
   })
 
   // ----------------------------------------
@@ -63,7 +87,7 @@ export default (Component, options = {}) => {
   const foundAsSubcomponent = _.isFunction(_.get(semanticUIReact, info.apiPath))
 
   // require all components to be exported at the top level
-  it('is exported at the top level', () => {
+  test('is exported at the top level', () => {
     expect(isTopLevelAPIProp).to.equal(
       true,
       [`"${info.displayName}" must be exported at top level.`, 'Export it in `src/index.js`.'].join(
@@ -73,7 +97,7 @@ export default (Component, options = {}) => {
   })
 
   if (info.isChild) {
-    it('is a static component on its parent', () => {
+    test('is a static component on its parent', () => {
       expect(foundAsSubcomponent).to.equal(
         true,
         `\`${info.displayName}\` is a child component (is in ${info.repoPath}).` +
@@ -86,7 +110,7 @@ export default (Component, options = {}) => {
   // Props
   // ----------------------------------------
   if (rendersChildren) {
-    it('spreads user props', () => {
+    test('spreads user props', () => {
       const propName = 'data-is-conformant-spread-props'
       const props = { [propName]: true }
 
@@ -96,7 +120,7 @@ export default (Component, options = {}) => {
 
   if (rendersChildren && !rendersPortal) {
     describe('"as" prop (common)', () => {
-      it('renders the component as HTML tags or passes "as" to the next component', () => {
+      test('renders the component as HTML tags or passes "as" to the next component', () => {
         // silence element nesting warnings
         consoleUtil.disableOnce()
 
@@ -128,7 +152,7 @@ export default (Component, options = {}) => {
         }
       })
 
-      it('renders as a functional component or passes "as" to the next component', () => {
+      test('renders as a functional component or passes "as" to the next component', () => {
         const MyComponent = () => null
 
         try {
@@ -142,7 +166,7 @@ export default (Component, options = {}) => {
         }
       })
 
-      it('renders as a ReactClass or passes "as" to the next component', () => {
+      test('renders as a ReactClass or passes "as" to the next component', () => {
         // eslint-disable-next-line react/prefer-stateless-function
         class MyComponent extends React.Component {
           render() {
@@ -161,7 +185,7 @@ export default (Component, options = {}) => {
         }
       })
 
-      it('passes extra props to the component it is renders as', () => {
+      test('passes extra props to the component it is renders as', () => {
         const MyComponent = () => null
 
         shallow(
@@ -172,12 +196,12 @@ export default (Component, options = {}) => {
   }
 
   describe('handles props', () => {
-    it('defines handled props in Component.handledProps', () => {
+    test('defines handled props in Component.handledProps', () => {
       Component.should.have.any.keys('handledProps')
       Component.handledProps.should.be.an('array')
     })
 
-    it('Component.handledProps includes all handled props', () => {
+    test('Component.handledProps includes all handled props', () => {
       const computedProps = _.union(
         Component.autoControlledProps,
         _.keys(Component.defaultProps),
@@ -197,7 +221,7 @@ export default (Component, options = {}) => {
   // Events
   // ----------------------------------------
   if (rendersChildren) {
-    it('handles events transparently', () => {
+    test('handles events transparently', () => {
       // Events should be handled transparently, working just as they would in vanilla React.
       // Example, both of these handler()s should be called with the same event:
       //
@@ -274,7 +298,7 @@ export default (Component, options = {}) => {
   // Has no deprecated _meta
   // ----------------------------------------
   describe('_meta', () => {
-    it('does not exist', () => {
+    test('does not exist', () => {
       expect(Component._meta).to.be.undefined()
     })
   })
@@ -282,64 +306,65 @@ export default (Component, options = {}) => {
   // ----------------------------------------
   // Handles className
   // ----------------------------------------
-  if (rendersChildren) {
-    describe('className (common)', () => {
-      it(`has the Semantic UI className "${info.componentClassName}"`, () => {
-        const wrapper = render(<Component {...requiredProps} />)
-        // don't test components with no className at all (i.e. MessageItem)
-        if (wrapper.prop('className')) {
-          wrapper.should.have.className(info.componentClassName)
-        }
-      })
+  if (!rendersChildren) {
+    return
+  }
+  describe('className (common)', () => {
+    test(`has the Semantic UI className "${info.componentClassName}"`, () => {
+      const wrapper = render(<Component {...requiredProps} />)
+      // don't test components with no className at all (i.e. MessageItem)
+      if (wrapper.prop('className')) {
+        wrapper.should.have.className(info.componentClassName)
+      }
+    })
 
-      it("applies user's className to root component", () => {
-        const className = 'is-conformant-class-string'
+    test("applies user's className to root component", () => {
+      const className = 'is-conformant-class-string'
 
-        // Portal powered components can render to two elements, a trigger and the actual component
-        // The actual component is shown when the portal is open
-        // If a trigger is rendered, open the portal and make assertions on the portal element
-        if (rendersPortal) {
-          const mountNode = document.createElement('div')
-          document.body.appendChild(mountNode)
+      // Portal powered components can render to two elements, a trigger and the actual component
+      // The actual component is shown when the portal is open
+      // If a trigger is rendered, open the portal and make assertions on the portal element
+      if (rendersPortal) {
+        const mountNode = document.createElement('div')
+        document.body.appendChild(mountNode)
 
-          const wrapper = mount(<Component {...requiredProps} className={className} />, {
-            attachTo: mountNode,
-          })
-          wrapper.setProps({ open: true })
-
-          // portals/popups/etc may render the component to somewhere besides descendants
-          // we look for the component anywhere in the DOM
-          assertBodyContains(`.${className}`)
-
-          wrapper.detach()
-          document.body.removeChild(mountNode)
-        } else {
-          shallow(<Component {...requiredProps} className={className} />).should.have.className(
-            className,
-          )
-        }
-      })
-
-      it("user's className does not override the default classes", () => {
-        const defaultClasses = shallow(<Component {...requiredProps} />).prop('className')
-
-        if (!defaultClasses) return
-
-        const userClasses = faker.hacker.verb()
-        const mixedClasses = shallow(<Component {...requiredProps} className={userClasses} />).prop(
-          'className',
-        )
-
-        defaultClasses.split(' ').forEach((defaultClass) => {
-          mixedClasses.should.include(
-            defaultClass,
-            [
-              'Make sure you are using the `getUnhandledProps` util to spread the `rest` props.',
-              'This may also be of help: https://facebook.github.io/react/docs/transferring-props.html.',
-            ].join(' '),
-          )
+        const wrapper = mount(<Component {...requiredProps} className={className} />, {
+          attachTo: mountNode,
         })
+        wrapper.setProps({ open: true })
+
+        // portals/popups/etc may render the component to somewhere besides descendants
+        // we look for the component anywhere in the DOM
+        assertBodyContains(`.${className}`)
+
+        wrapper.detach()
+        document.body.removeChild(mountNode)
+      } else {
+        shallow(<Component {...requiredProps} className={className} />).should.have.className(
+          className,
+        )
+      }
+    })
+
+    test("user's className does not override the default classes", () => {
+      const defaultClasses = shallow(<Component {...requiredProps} />).prop('className')
+
+      if (!defaultClasses) return
+
+      const userClasses = faker.hacker.verb()
+      const mixedClasses = shallow(<Component {...requiredProps} className={userClasses} />).prop(
+        'className',
+      )
+
+      defaultClasses.split(' ').forEach((defaultClass) => {
+        mixedClasses.should.include(
+          defaultClass,
+          [
+            'Make sure you are using the `getUnhandledProps` util to spread the `rest` props.',
+            'This may also be of help: https://facebook.github.io/react/docs/transferring-props.html.',
+          ].join(' '),
+        )
       })
     })
-  }
+  })
 }
