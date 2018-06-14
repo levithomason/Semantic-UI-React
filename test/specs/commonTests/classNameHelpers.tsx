@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { shallow } from 'enzyme'
 import React, { createElement } from 'react'
 
 import { consoleUtil } from 'test/utils'
@@ -6,10 +7,11 @@ import { consoleUtil } from 'test/utils'
 export const classNamePropValueBeforePropName = (Component, propKey, propValues, options = {}) => {
   const { className = propKey, requiredProps = {} } = options
 
-  propValues.forEach((propVal) => {
+  propValues.forEach(propVal => {
     it(`adds "${propVal} ${className}" to className`, () => {
-      shallow(createElement(Component, { ...requiredProps, [propKey]: propVal }))
-        .should.have.className(`${propVal} ${className}`)
+      shallow(
+        createElement(Component, { ...requiredProps, [propKey]: propVal }),
+      ).should.have.className(`${propVal} ${className}`)
     })
   })
 }
@@ -17,17 +19,19 @@ export const classNamePropValueBeforePropName = (Component, propKey, propValues,
 export const noClassNameFromBoolProps = (Component, propKey, propValues, options = {}) => {
   const { className = propKey, requiredProps = {} } = options
 
-  _.each([true, false], bool => it(`does not add any className when ${bool}`, () => {
-    consoleUtil.disableOnce()
+  _.each([true, false], bool =>
+    it(`does not add any className when ${bool}`, () => {
+      consoleUtil.disableOnce()
 
-    const wrapper = shallow(createElement(Component, { ...requiredProps, [propKey]: bool }))
+      const wrapper = shallow(createElement(Component, { ...requiredProps, [propKey]: bool }))
 
-    wrapper.should.not.have.className(className)
-    wrapper.should.not.have.className('true')
-    wrapper.should.not.have.className('false')
+      wrapper.should.not.have.className(className)
+      wrapper.should.not.have.className('true')
+      wrapper.should.not.have.className('false')
 
-    propValues.forEach(propVal => wrapper.should.not.have.className(propVal.toString()))
-  }))
+      propValues.forEach(propVal => wrapper.should.not.have.className(propVal.toString()))
+    }),
+  )
 }
 
 export const noDefaultClassNameFromProp = (Component, propKey, propValues, options = {}) => {

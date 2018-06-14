@@ -28,9 +28,9 @@ const layoutRules = ({
 }) => ({
   root: {
     ...(debug && debugRoot()),
-    display: 'grid',
     justifyItems,
     alignItems,
+    display: 'grid',
     [vertical ? 'gridTemplateRows' : 'gridTemplateColumns']: [
       // Heads up!
       // IE11 Doesn't support grid-gap, insert virtual columns instead

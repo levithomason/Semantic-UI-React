@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { shallow } from 'enzyme'
 import React, { isValidElement } from 'react'
 import { createShorthand, createShorthandFactory } from 'src/lib'
 
@@ -15,31 +16,31 @@ const getShorthand = ({
   mapValueToProps = () => ({}),
   overrideProps,
   value,
-}) => createShorthand(Component, mapValueToProps, value, { defaultProps, overrideProps })
+}: any) => createShorthand(Component, mapValueToProps, value, { defaultProps, overrideProps })
 
 // ----------------------------------------
 // Common tests
 // ----------------------------------------
 
-const itReturnsNull = (value) => {
+const itReturnsNull = value => {
   test('returns null', () => {
     expect(getShorthand({ value })).toBe(null)
   })
 }
 
-const itReturnsNullGivenDefaultProps = (value) => {
+const itReturnsNullGivenDefaultProps = value => {
   test('returns null given defaultProps object', () => {
     expect(getShorthand({ value, defaultProps: { 'data-foo': 'foo' } })).toBe(null)
   })
 }
 
-const itReturnsAValidElement = (value) => {
+const itReturnsAValidElement = value => {
   test('returns a valid element', () => {
     expect(isValidElement(getShorthand({ value }))).toBe(true)
   })
 }
 
-const itAppliesDefaultProps = (value) => {
+const itAppliesDefaultProps = value => {
   test('applies defaultProps', () => {
     const defaultProps = { some: 'defaults' }
 
@@ -47,7 +48,7 @@ const itAppliesDefaultProps = (value) => {
   })
 }
 
-const itDoesNotIncludePropsFromMapValueToProps = (value) => {
+const itDoesNotIncludePropsFromMapValueToProps = value => {
   test('does not include props from mapValueToProps', () => {
     const props = { 'data-foo': 'foo' }
     const wrapper = shallow(getShorthand({ value, mapValueToProps: () => props }))
@@ -121,7 +122,7 @@ describe('factories', () => {
     test('throw if passed Component that is not a string nor function', () => {
       const badComponents = [undefined, null, true, false, [], {}, 123]
 
-      _.each(badComponents, (badComponent) => {
+      _.each(badComponents, badComponent => {
         const badUsage = () => createShorthandFactory(badComponent, () => ({}))
 
         expect(badUsage).toThrowError()
@@ -149,7 +150,7 @@ describe('factories', () => {
     test('throw if passed Component that is not a string nor function', () => {
       const badComponents = [undefined, null, true, false, [], {}, 123]
 
-      _.each(badComponents, (badComponent) => {
+      _.each(badComponents, badComponent => {
         const badUsage = () => createShorthand(badComponent, () => ({}))
 
         expect(badUsage).toThrowError()
@@ -159,7 +160,7 @@ describe('factories', () => {
     describe('defaultProps', () => {
       test('can be an object', () => {
         const defaultProps = { 'data-some': 'defaults' }
-        expect(shallow(getShorthand({ value: 'foo', defaultProps })).props()).toEqual(defaultProps)
+        expect(shallow(getShorthand({ defaultProps, value: 'foo' })).props()).toEqual(defaultProps)
       })
     })
 
@@ -170,7 +171,7 @@ describe('factories', () => {
 
       describe('on an element', () => {
         test('works with a string', () => {
-          expect(getShorthand({ value: <div key='foo' /> })).toHaveProperty('key', 'foo')
+          expect(getShorthand({ value: <div key="foo" /> })).toHaveProperty('key', 'foo')
         })
 
         test('works with a number', () => {
@@ -182,7 +183,7 @@ describe('factories', () => {
 
           expect(getShorthand({ value: <div key={0} /> })).toHaveProperty('key', '0')
 
-          expect(getShorthand({ value: <div key='' /> })).toHaveProperty('key', '')
+          expect(getShorthand({ value: <div key="" /> })).toHaveProperty('key', '')
         })
       })
 
@@ -222,7 +223,7 @@ describe('factories', () => {
 
       describe('on an element', () => {
         test('works with a string', () => {
-          expect(getShorthand({ value: <div childKey='foo' /> })).toHaveProperty('key', 'foo')
+          expect(getShorthand({ value: <div childKey="foo" /> })).toHaveProperty('key', 'foo')
         })
 
         test('works with a number', () => {
@@ -234,7 +235,7 @@ describe('factories', () => {
 
           expect(getShorthand({ value: <div childKey={0} /> })).toHaveProperty('key', '0')
 
-          expect(getShorthand({ value: <div childKey='' /> })).toHaveProperty('key', '')
+          expect(getShorthand({ value: <div childKey="" /> })).toHaveProperty('key', '')
         })
       })
 
@@ -261,7 +262,7 @@ describe('factories', () => {
       test('can be an object', () => {
         const overrideProps = { 'data-some': 'overrides' }
 
-        expect(shallow(getShorthand({ value: 'foo', overrideProps })).props()).toEqual(
+        expect(shallow(getShorthand({ overrideProps, value: 'foo' })).props()).toEqual(
           overrideProps,
         )
       })
@@ -269,7 +270,7 @@ describe('factories', () => {
       test('can be a function that returns defaultProps', () => {
         const overrideProps = () => ({ 'data-some': 'overrides' })
 
-        expect(shallow(getShorthand({ value: 'foo', overrideProps })).props()).toEqual(
+        expect(shallow(getShorthand({ overrideProps, value: 'foo' })).props()).toEqual(
           overrideProps(),
         )
       })
@@ -328,8 +329,8 @@ describe('factories', () => {
       itReturnsAValidElement(<div />)
       itAppliesDefaultProps(<div />)
       itDoesNotIncludePropsFromMapValueToProps(<div />)
-      itMergesClassNames('element', 'user', { value: <div className='user' /> })
-      itAppliesProps('element', { foo: 'foo' }, { value: <div foo='foo' /> })
+      itMergesClassNames('element', 'user', { value: <div className="user" /> })
+      itAppliesProps('element', { foo: 'foo' }, { value: <div foo="foo" /> })
       itOverridesDefaultProps(
         'element',
         { some: 'defaults', overridden: false },
@@ -337,7 +338,7 @@ describe('factories', () => {
         { value: <div overridden /> },
       )
       itOverridesDefaultPropsWithFalseyProps('element', {
-        value: <div undef={undefined} nil={null} zero={0} empty='' />,
+        value: <div undef={undefined} nil={null} zero={0} empty="" />,
       })
     })
 
@@ -420,7 +421,7 @@ describe('factories', () => {
         const spy = jest.fn(() => <div />)
         const defaultProps = { defaults: true }
 
-        getShorthand({ Component: 'p', defaultProps, value: spy })
+        getShorthand({ defaultProps, Component: 'p', value: spy })
 
         expect(spy).toHaveBeenCalledWith('p', defaultProps, undefined)
       })
@@ -429,7 +430,7 @@ describe('factories', () => {
         const spy = jest.fn(() => <div />)
         const overrideProps = { overrides: true }
 
-        getShorthand({ Component: 'p', overrideProps, value: spy })
+        getShorthand({ overrideProps, Component: 'p', value: spy })
 
         expect(spy).toHaveBeenCalledWith('p', overrideProps, undefined)
       })

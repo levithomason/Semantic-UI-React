@@ -18,13 +18,13 @@ const semanticUIReactCompleter = {
   getCompletions(editor, session, pos, prefix, callback) {
     const completions = []
 
-    _.each(parentComponents, (component) => {
+    _.each(parentComponents, component => {
       const { name } = component._meta
       // Component
       completions.push({ caption: name, value: name, meta: 'Component' })
 
       // Its props (propTypes do not exist in prod, use handledProps added by babel)
-      _.each(component.handledProps, (propName) => {
+      _.each(component.handledProps, propName => {
         // don't add duplicate prop completions
         if (_.find(completions, { value: propName })) return
 
@@ -37,16 +37,16 @@ const semanticUIReactCompleter = {
 
 languageTools.addCompleter(semanticUIReactCompleter)
 
-function Editor(props) {
+const Editor: any = props => {
   const { id, mode, value, ...rest } = props
 
   return (
     <AceEditor
       name={id}
       mode={mode}
-      theme='tomorrow'
-      width='100%'
-      height='100px'
+      theme="tomorrow"
+      width="100%"
+      height="100px"
       value={value}
       enableBasicAutocompletion
       enableLiveAutocompletion

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /**
  * Why choose inheritance over a HOC?  Multiple advantages for this particular use case.
  * In short, we need identical functionality to setState(), unless there is a prop defined

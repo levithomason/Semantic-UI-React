@@ -59,8 +59,14 @@ const controlsWrapperStyle = {
  * Renders a `component` and the raw `code` that produced it.
  * Allows toggling the the raw `code` code block.
  */
-class ComponentExample extends PureComponent {
-  state = { knobs: {} }
+class ComponentExample extends PureComponent<any, any> {
+  state: any = { knobs: {} }
+  anchorName: any
+  sourceCode: any
+  kebabExamplePath: any
+  KnobsComponent: any
+  ghBugHref: any
+  ghEditHref: any
 
   static contextTypes = {
     onPassed: PropTypes.func,
@@ -212,7 +218,6 @@ class ComponentExample extends PureComponent {
   resetJSX = () => {
     const { sourceCode } = this.state
     const original = this.getOriginalSourceCode()
-    // eslint-disable-next-line no-alert
     if (sourceCode !== original && confirm('Lose your changes?')) {
       this.setState({ sourceCode: original })
       this.renderSourceCode()
@@ -255,14 +260,14 @@ class ComponentExample extends PureComponent {
     // These are used in the code editor scope when rewriting imports to const statements
     // We use require() to preserve variable names
     // Webpack rewrites import names
-    /* eslint-disable no-unused-vars */
+    /* tslint:disable */
     const FAKER = require('faker')
     const LODASH = require('lodash')
     const REACT = require('react')
     const STARDUST = require('stardust')
     let WIREFRAME
     let COMMON
-    /* eslint-enable no-unused-vars */
+    /* tslint:enable */
 
     // Should use an AST transform here... oh well :/
     // Rewrite the example file into an IIFE that returns a component
@@ -317,7 +322,7 @@ class ComponentExample extends PureComponent {
 
     try {
       const { code } = Babel.transform(IIFE, babelConfig)
-      const Example = eval(code) // eslint-disable-line no-eval
+      const Example = eval(code) // tslint:disable-line no-eval
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {
@@ -442,7 +447,7 @@ class ComponentExample extends PureComponent {
     const { error, showCode, sourceCode } = this.state
     if (!showCode) return
 
-    const style = { width: '100%' }
+    const style: any = { width: '100%' }
     if (error) {
       style.boxShadow = `inset 0 0 0 1em ${errorStyle.background}`
     }

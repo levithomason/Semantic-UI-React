@@ -1,6 +1,5 @@
 // Copy of sindre's leven, wrapped in dead code elimination for production
 // https://github.com/sindresorhus/leven/blob/master/index.js
-/* eslint-disable complexity, import/no-mutable-exports, no-multi-assign, no-nested-ternary, no-plusplus */
 
 let leven = (a, b) => 0
 

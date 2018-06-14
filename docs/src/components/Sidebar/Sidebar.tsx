@@ -13,10 +13,10 @@ import componentMenu from 'docs/src/componentMenu'
 import { getComponentPathname, typeOrder, repoURL } from 'docs/src/utils'
 import pkg from 'package.json'
 
-const selectedItemLabelStyle = { color: '#35bdb2', float: 'right' }
+const selectedItemLabelStyle: any = { color: '#35bdb2', float: 'right' }
 const selectedItemLabel = <span style={selectedItemLabelStyle}>Press Enter</span>
 
-class Sidebar extends Component {
+class Sidebar extends Component<any, any> {
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -24,6 +24,7 @@ class Sidebar extends Component {
     style: PropTypes.object,
   }
   state = { query: '' }
+  _searchInput: any
   filteredMenu = componentMenu
 
   componentDidMount() {
@@ -41,10 +42,10 @@ class Sidebar extends Component {
 
   setSearchInput() {
     // TODO: Replace findDOMNode with Ref component when it will be merged
-    this._searchInput = findDOMNode(this).querySelector('.ui.input input') // eslint-disable-line react/no-find-dom-node
+    this._searchInput = (findDOMNode(this) as any).querySelector('.ui.input input')
   }
 
-  handleDocumentKeyDown = (e) => {
+  handleDocumentKeyDown = e => {
     const code = keyboardKey.getCode(e)
     const isAZ = code >= 65 && code <= 90
     const hasModifier = e.altKey || e.ctrlKey || e.metaKey
@@ -66,7 +67,7 @@ class Sidebar extends Component {
       query: e.target.value,
     })
 
-  handleSearchKeyDown = (e) => {
+  handleSearchKeyDown = e => {
     const { history } = this.props
     const { selectedItemIndex } = this.state
     const code = keyboardKey.getCode(e)
@@ -94,7 +95,7 @@ class Sidebar extends Component {
     }
   }
 
-  menuItemsByType = _.map((nextType) => {
+  menuItemsByType = _.map(nextType => {
     const items = _.flow(
       _.filter(({ type }) => type === nextType),
       _.map(info => (
@@ -104,7 +105,7 @@ class Sidebar extends Component {
           onClick={this.handleItemClick}
           as={NavLink}
           to={getComponentPathname(info)}
-          activeClassName='active'
+          activeClassName="active"
         />
       )),
     )(componentMenu)
@@ -126,7 +127,7 @@ class Sidebar extends Component {
     const containsMatches = []
     const escapedQuery = _.escapeRegExp(query)
 
-    _.each((info) => {
+    _.each(info => {
       if (new RegExp(`^${escapedQuery}`, 'i').test(info.displayName)) {
         startsWithMatches.push(info)
       } else if (new RegExp(escapedQuery, 'i').test(info.displayName)) {
@@ -135,7 +136,7 @@ class Sidebar extends Component {
     }, componentMenu)
 
     this.filteredMenu = [...startsWithMatches, ...containsMatches]
-    const menuItems = _.map((info) => {
+    const menuItems = _.map(info => {
       itemIndex += 1
       const isSelected = itemIndex === selectedItemIndex
 
@@ -163,9 +164,9 @@ class Sidebar extends Component {
     const { style } = this.props
     const { query } = this.state
     return (
-      <Menu vertical fixed='left' inverted style={{ ...style }}>
+      <Menu vertical fixed="left" inverted style={{ ...style }}>
         <Menu.Item>
-          <Logo spaced='right' size='mini' />
+          <Logo spaced="right" size="mini" />
           <strong>
             Semantic UI React &nbsp;
             <small>
@@ -176,25 +177,25 @@ class Sidebar extends Component {
         <Menu.Item>
           <Menu.Header>Getting Started</Menu.Header>
           <Menu.Menu>
-            <Menu.Item as={NavLink} to='/introduction' activeClassName='active'>
+            <Menu.Item as={NavLink} to="/introduction" activeClassName="active">
               Introduction
             </Menu.Item>
-            <Menu.Item as={NavLink} to='/usage' activeClassName='active'>
+            <Menu.Item as={NavLink} to="/usage" activeClassName="active">
               Usage
             </Menu.Item>
-            <Menu.Item as={NavLink} to='/theming' activeClassName='active'>
+            <Menu.Item as={NavLink} to="/theming" activeClassName="active">
               Theming
             </Menu.Item>
-            <Menu.Item as='a' href={repoURL} target='_blank' rel='noopener noreferrer'>
-              <Icon name='github' /> GitHub
+            <Menu.Item as="a" href={repoURL} target="_blank" rel="noopener noreferrer">
+              <Icon name="github" /> GitHub
             </Menu.Item>
             <Menu.Item
-              as='a'
+              as="a"
               href={`${repoURL}/blob/master/CHANGELOG.md`}
-              target='_blank'
-              rel='noopener noreferrer'
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Icon name='file alternate outline' /> CHANGELOG
+              <Icon name="file alternate outline" /> CHANGELOG
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>
@@ -203,9 +204,9 @@ class Sidebar extends Component {
         </Menu.Item>
         <Menu.Item active>
           <Input
-            className='transparent inverted icon'
-            icon='search'
-            placeholder='Search components...'
+            className="transparent inverted icon"
+            icon="search"
+            placeholder="Search components..."
             value={query}
             onChange={this.handleSearchChange}
             onKeyDown={this.handleSearchKeyDown}

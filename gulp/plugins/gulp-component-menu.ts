@@ -34,7 +34,6 @@ export default () => {
       const pluginError = new gutil.PluginError(pluginName, err)
       pluginError.message += `\nFile: ${file.path}.`
       this.emit('error', pluginError)
-      // eslint-disable-next-line no-console
       console.log(err)
     }
   }

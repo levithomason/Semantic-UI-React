@@ -1,6 +1,7 @@
 import faker from 'faker'
 import _ from 'lodash'
 import React from 'react'
+import { shallow } from 'enzyme'
 import ReactDOMServer from 'react-dom/server'
 
 import { assertBodyContains, consoleUtil, syntheticEvent } from 'test/utils'
@@ -17,7 +18,7 @@ import Provider from '../../../src/components/Provider'
  * @param {boolean} [options.rendersPortal=false] Does this component render a Portal powered component?
  * @param {Object} [options.requiredProps={}] Props required to render Component without errors or warnings.
  */
-export default (Component, options = {}) => {
+export default (Component, options: any = {}) => {
   const { eventTargets = {}, requiredProps = {}, rendersPortal = false } = options
   const { throwError } = helpers('isConformant', Component)
 
@@ -185,7 +186,6 @@ export default (Component, options = {}) => {
       })
 
       test('renders as a ReactClass or passes "as" to the next component', () => {
-        // eslint-disable-next-line react/prefer-stateless-function
         class MyComponent extends React.Component {
           render() {
             return <div data-my-react-class />
@@ -207,7 +207,7 @@ export default (Component, options = {}) => {
         const MyComponent = () => null
         const wrapper = mount(
           renderWithProvider(
-            <Component {...requiredProps} as={MyComponent} data-extra-prop='foo' />,
+            <Component {...requiredProps} as={MyComponent} data-extra-prop="foo" />,
           ),
         )
 
@@ -259,7 +259,7 @@ export default (Component, options = {}) => {
     // This test catches the case where a developer forgot to call the event prop
     // after handling it internally. It also catch cases where the synthetic event was not passed back.
     _.each(syntheticEvent.types, ({ eventShape, listeners }) => {
-      _.each(listeners, (listenerName) => {
+      _.each(listeners, listenerName => {
         // onKeyDown => keyDown
         const eventName = _.camelCase(listenerName.replace('on', ''))
 

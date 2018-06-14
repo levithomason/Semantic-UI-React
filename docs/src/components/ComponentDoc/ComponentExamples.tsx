@@ -6,7 +6,7 @@ import { exampleContext } from 'docs/src/utils'
 import { Grid } from 'semantic-ui-react'
 import ContributionPrompt from './ContributionPrompt'
 
-export default class ComponentExamples extends Component {
+export default class ComponentExamples extends Component<any, any> {
   static propTypes = {
     displayName: PropTypes.string.isRequired,
   }

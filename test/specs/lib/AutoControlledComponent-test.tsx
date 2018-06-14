@@ -1,14 +1,12 @@
-/* eslint-disable no-console */
 import faker from 'faker'
 import _ from 'lodash'
 import React from 'react'
-
+import { shallow } from 'enzyme'
 import { AutoControlledComponent } from 'src/lib'
 import { consoleUtil } from 'test/utils'
 
 let TestClass
 
-/* eslint-disable */
 const createTestClass = (options = {}) =>
   class Test extends AutoControlledComponent {
     static autoControlledProps = options.autoControlledProps
@@ -18,7 +16,6 @@ const createTestClass = (options = {}) =>
     }
     render = () => <div />
   }
-/* eslint-enable */
 
 const toDefaultName = prop => `default${prop.slice(0, 1).toUpperCase() + prop.slice(1)}`
 
@@ -195,7 +192,7 @@ describe('extending AutoControlledComponent', () => {
 
       TestClass = createTestClass({ autoControlledProps, defaultProps, state: {} })
 
-      expect(shallow(<TestClass foo='initial' />).state()).toHaveProperty('foo', 'initial')
+      expect(shallow(<TestClass foo="initial" />).state()).toHaveProperty('foo', 'initial')
     })
 
     test('defaults "checked" to false if not present', () => {
@@ -320,7 +317,7 @@ describe('extending AutoControlledComponent', () => {
       const defaultProps = { defaultFoo: 'default' }
 
       TestClass = createTestClass({ autoControlledProps, defaultProps, state: {} })
-      const wrapper = shallow(<TestClass foo='initial' />)
+      const wrapper = shallow(<TestClass foo="initial" />)
 
       // default value
       expect(wrapper.state()).toHaveProperty('foo', 'initial')

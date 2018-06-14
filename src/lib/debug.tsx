@@ -11,10 +11,8 @@ if (isBrowser() && process.env.NODE_ENV !== 'production' && process.env.NODE_ENV
   try {
     DEBUG = window.localStorage.debug
   } catch (e) {
-    /* eslint-disable no-console */
     console.error('Semantic-UI-React could not enable debug.')
     console.error(e)
-    /* eslint-enable no-console */
   }
 
   // enable what ever settings we got from storage

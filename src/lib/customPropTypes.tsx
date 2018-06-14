@@ -33,7 +33,6 @@ export const suggest = suggestions => {
     throw new Error('Invalid argument supplied to suggest, expected an instance of array.')
   }
 
-  /* eslint-disable max-nested-callbacks */
   const findBestSuggestions = _.memoize(str => {
     const propValueWords = str.split(' ')
 
@@ -59,7 +58,6 @@ export const suggest = suggestions => {
       _.take(3),
     )(suggestions)
   })
-  /* eslint-enable max-nested-callbacks */
 
   // Convert the suggestions list into a hash map for O(n) lookup times. Ensure
   // the words in each key are sorted alphabetically so that we have a consistent

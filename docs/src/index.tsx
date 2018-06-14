@@ -70,7 +70,7 @@ if (__DEV__) {
         document.scrollingElement.scrollTop = scrollTop
         document.scrollingElement.scrollLeft = scrollLeft
       } catch (e) {
-        console.error(e) // eslint-disable-line no-console
+        console.error(e)
       }
     })
   }

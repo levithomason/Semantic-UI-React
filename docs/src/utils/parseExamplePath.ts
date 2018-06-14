@@ -9,10 +9,10 @@
  *   exampleName: string
  * }}
  */
-const parseExamplePath = (examplePath) => {
+const parseExamplePath = examplePath => {
   const [type, displayName, section, exampleName] = examplePath.split('/').slice(-4)
 
-  return { type: type.replace(/s$/, ''), displayName, section, exampleName }
+  return { displayName, section, exampleName, type: type.replace(/s$/, '') }
 }
 
 export default parseExamplePath

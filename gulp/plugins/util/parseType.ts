@@ -1,7 +1,7 @@
 const _ = require('lodash')
-const SUI = require('../../../src/lib/SUI') // eslint-disable-line no-unused-vars
+const SUI = require('../../../src/lib/SUI')
 
-const evalValue = value => eval(value) // eslint-disable-line no-eval
+const evalValue = value => eval(value) // tslint:disable-line no-eval
 
 const isTransformable = value =>
   typeof value === 'string' && (value.includes('SUI') || value.includes('names'))
@@ -15,14 +15,14 @@ const transformEnumValues = values =>
     return value.replace(/'/g, '')
   })
 
-const parseEnum = (type) => {
+const parseEnum = type => {
   const { value } = type
 
   if (isTransformable(value)) return { ...type, value: uniqValues(evalValue(value)) }
   return { ...type, value: uniqValues(transformEnumValues(value)) }
 }
 
-const parseUnion = (union) => {
+const parseUnion = union => {
   const { value } = union
   const values = _.flatten(_.map(_.filter(value, { name: 'enum' }), type => parseEnum(type).value))
 

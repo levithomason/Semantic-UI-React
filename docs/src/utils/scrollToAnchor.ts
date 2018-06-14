@@ -7,7 +7,7 @@ const mathSign =
     return val > 0 ? 1 : -1
   }
 
-const scrollToAnchor = (lastOffsetY, lastAcceleration = 0.1) => {
+const scrollToAnchor = (lastOffsetY?, lastAcceleration = 0.1) => {
   const anchor = location.hash && document.querySelector(location.hash)
   const offsetY = window.scrollY || window.pageYOffset
 

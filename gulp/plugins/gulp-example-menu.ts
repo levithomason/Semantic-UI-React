@@ -36,16 +36,15 @@ export default () => {
     }
 
     try {
-      // eslint-disable-next-line no-unused-vars
       const [type, displayName, sectionName, exampleName] = _.split(file.path, path.sep).slice(-4)
       const { examples } = parseDocSection(file.contents)
 
       _.merge(exampleFilesByDisplayName, {
         [displayName]: {
           [sectionName]: {
-            order: getSectionOrder(sectionName),
             sectionName,
             examples,
+            order: getSectionOrder(sectionName),
           },
         },
       })
@@ -55,7 +54,6 @@ export default () => {
       const pluginError = new gutil.PluginError(pluginName, err)
       pluginError.message += `\nFile: ${file.path}.`
       this.emit('error', pluginError)
-      // eslint-disable-next-line no-console
       console.log(err)
     }
   }

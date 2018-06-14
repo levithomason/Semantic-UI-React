@@ -17,7 +17,12 @@ import React, { cloneElement, isValidElement } from 'react'
  * @param {object|function} [options.overrideProps={}] Override props object or function (called with regular props)
  * @returns {object|null}
  */
-export function createShorthand(Component, mapValueToProps, val, options: any = {}) {
+export function createShorthand(
+  Component: any,
+  mapValueToProps: any,
+  val?: any,
+  options: any = {},
+) {
   if (typeof Component !== 'function' && typeof Component !== 'string') {
     throw new Error('createShorthand() Component must be a string or function.')
   }
@@ -32,7 +37,6 @@ export function createShorthand(Component, mapValueToProps, val, options: any = 
   const valIsPrimitiveValue = valIsString || valIsNumber || _.isArray(val)
 
   // unhandled type return null
-  /* eslint-disable no-console */
   if (!valIsFunction && !valIsReactElement && !valIsPropsObject && !valIsPrimitiveValue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
@@ -45,7 +49,6 @@ export function createShorthand(Component, mapValueToProps, val, options: any = 
     }
     return null
   }
-  /* eslint-enable no-console */
 
   // ----------------------------------------
   // Build up props
@@ -65,7 +68,6 @@ export function createShorthand(Component, mapValueToProps, val, options: any = 
     : overrideProps
 
   // Merge props
-  /* eslint-disable react/prop-types */
   const props = { ...defaultProps, ...usersProps, ...overrideProps }
 
   // Merge className
@@ -113,7 +115,6 @@ export function createShorthand(Component, mapValueToProps, val, options: any = 
 
   // Call functions with args similar to createElement()
   if (valIsFunction) return val(Component, props, props.children)
-  /* eslint-enable react/prop-types */
 }
 
 // ============================================================

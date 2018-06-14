@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { shallow } from 'enzyme'
 import React, { createElement } from 'react'
 
 import { createShorthand } from 'src/lib'
@@ -6,9 +7,13 @@ import { consoleUtil } from 'test/utils'
 import { noDefaultClassNameFromProp } from './classNameHelpers'
 import helpers from './commonHelpers'
 
-const shorthandComponentName = (ShorthandComponent) => {
+const shorthandComponentName = ShorthandComponent => {
   if (typeof ShorthandComponent === 'string') return ShorthandComponent
-  return _.get(ShorthandComponent, '_meta.name') || ShorthandComponent.displayName || ShorthandComponent.name
+  return (
+    _.get(ShorthandComponent, '_meta.name') ||
+    ShorthandComponent.displayName ||
+    ShorthandComponent.name
+  )
 }
 
 /**
@@ -25,7 +30,7 @@ const shorthandComponentName = (ShorthandComponent) => {
  * @param {Object} [options.shorthandDefaultProps] Default props for the shorthand component.
  * @param {Object} [options.shorthandOverrideProps] Override props for the shorthand component.
  */
-export default (Component, options = {}) => {
+export default (Component, options: any = {}) => {
   const {
     alwaysPresent,
     assertExactMatch = true,
@@ -46,7 +51,7 @@ export default (Component, options = {}) => {
     assertRequired(ShorthandComponent, 'a `ShorthandComponent`')
 
     const name = shorthandComponentName(ShorthandComponent)
-    const assertValidShorthand = (value) => {
+    const assertValidShorthand = value => {
       const shorthandElement = createShorthand(ShorthandComponent, mapValueToProps, value, {
         defaultProps: shorthandDefaultProps,
         overrideProps: shorthandOverrideProps,
@@ -58,22 +63,21 @@ export default (Component, options = {}) => {
 
     if (alwaysPresent || (Component.defaultProps && Component.defaultProps[propKey])) {
       it(`has default ${name} when not defined`, () => {
-        shallow(<Component {...requiredProps} />)
-          .should.have.descendants(name)
+        shallow(<Component {...requiredProps} />).should.have.descendants(name)
       })
     } else {
       noDefaultClassNameFromProp(Component, propKey, [], options)
 
       it(`has no ${name} when not defined`, () => {
-        shallow(<Component {...requiredProps} />)
-          .should.not.have.descendants(name)
+        shallow(<Component {...requiredProps} />).should.not.have.descendants(name)
       })
     }
 
     if (!alwaysPresent) {
       it(`has no ${name} when null`, () => {
-        shallow(createElement(Component, { ...requiredProps, [propKey]: null }))
-          .should.not.have.descendants(ShorthandComponent)
+        shallow(
+          createElement(Component, { ...requiredProps, [propKey]: null }),
+        ).should.not.have.descendants(ShorthandComponent)
       })
     }
 
