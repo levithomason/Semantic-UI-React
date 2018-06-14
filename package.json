@@ -54,7 +54,12 @@
   "homepage": "https://github.com/Semantic-Org/Semantic-UI-React#readme",
   "jest": {
     "testRegex": "/test/.*-test\\.tsx?$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup.ts",
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
@@ -102,6 +107,7 @@
     "gulp-debug": "^4.0.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-plumber": "^1.2.0",
+    "gulp-typescript": "^5.0.0-alpha.1",
     "gulp-util": "^3.0.8",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",

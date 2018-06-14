@@ -1,8 +1,8 @@
 import webpack from 'webpack'
 
-import config from './config'
-import pkg from './package.json'
-import webpackConfig from './webpack.config'
+import config from '../config'
+import pkg from '../package.json'
+import webpackConfig from '../webpack.config'
 
 const { paths } = config
 
@@ -10,7 +10,7 @@ const webpackUMDConfig = {
   target: 'web',
   devtool: false,
   entry: {
-    [pkg.name]: paths.src('umd.js'),
+    [pkg.name]: paths.src('umd.ts'),
   },
   externals: {
     react: 'React',
@@ -33,6 +33,7 @@ const webpackUMDConfig = {
       },
     }),
   ],
+  resolve: webpackConfig.resolve,
   module: {
     noParse: webpackConfig.module.noParse,
     rules: webpackConfig.module.rules,

@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import config from './config'
+import config from '../config'
 
 const { paths } = config
 const webpackDllConfig: any = { module: {} }

@@ -1,4 +1,4 @@
-import { FelaTheme } from 'react-fela'
+const { FelaTheme } = require('react-fela')
 import PropTypes from 'prop-types'
 import React from 'react'
 

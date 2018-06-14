@@ -1,4 +1,4 @@
-import { task, series, parallel } from 'gulp'
+import { task, series, parallel, src, dest } from 'gulp'
 import loadPlugins from 'gulp-load-plugins'
 import rimraf from 'rimraf'
 import webpack from 'webpack'
@@ -21,20 +21,23 @@ task('clean:dist', cb => {
 // ----------------------------------------
 // Build
 // ----------------------------------------
-
-task('build:dist:commonjs:js', cb => {
-  sh(`tsc ${paths.src()} --outDir ${paths.dist('commonjs')}`, cb)
+task('build:dist:commonjs', () => {
+  const typescript = g.typescript.createProject(paths.base('build/tsconfig.commonjs.json'))
+  return src(paths.src('**/*.{ts,tsx}'))
+    .pipe(typescript())
+    .pipe(dest(paths.dist('commonjs')))
 })
 
-task('build:dist:commonjs', parallel('build:dist:commonjs:js'))
-
 task('build:dist:es', cb => {
-  sh(`tsc ${paths.src()} --outDir ${paths.dist('es')}`, cb)
+  const typescript = g.typescript.createProject(paths.base('build/tsconfig.es.json'))
+  return src(paths.src('**/*.{ts,tsx}'))
+    .pipe(typescript())
+    .pipe(dest(paths.dist('es')))
 })
 
 task('build:dist:umd', cb => {
   process.env.NODE_ENV = 'build'
-  const webpackUMDConfig = require('../../webpack.umd.config').default
+  const webpackUMDConfig = require('../../build/webpack.config.umd').default
   const compiler = webpack(webpackUMDConfig)
 
   compiler.run((err, stats) => {

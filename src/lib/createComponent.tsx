@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import { connect, FelaTheme } from 'react-fela'
+const { connect, FelaTheme } = require('react-fela')
 
 import callable from './callable'
 import { createShorthandFactory } from './factories'

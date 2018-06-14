@@ -1,2 +1,4 @@
 // Themes
-export * as teams from './teams'
+import * as teams from './teams'
+
+export { teams }

@@ -12,7 +12,7 @@ const { log, PluginError } = g.util
 // Clean
 // ----------------------------------------
 
-task('clean:dll', (cb) => {
+task('clean:dll', cb => {
   rimraf(config.paths.base('dll'), cb)
 })
 
@@ -20,8 +20,8 @@ task('clean:dll', (cb) => {
 // Build
 // ----------------------------------------
 
-task('build:dll', (cb) => {
-  const webpackDLLConfig = require('../../webpack.dll').default
+task('build:dll', cb => {
+  const webpackDLLConfig = require('../../build/webpack.config.dll').default
   const compiler = webpack(webpackDLLConfig)
 
   compiler.run((err, stats) => {
@@ -49,7 +49,4 @@ task('build:dll', (cb) => {
 // Default
 // ----------------------------------------
 
-task('dll', series(
-  'clean:dll',
-  'build:dll',
-))
+task('dll', series('clean:dll', 'build:dll'))

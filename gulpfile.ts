@@ -11,4 +11,4 @@ require('./gulp/tasks/dist')
 require('./gulp/tasks/docs')
 
 // global tasks
-task('build', series('dll', parallel('build:dist', 'build:docs')))
+task('build', parallel('build:dist'))
