@@ -4,13 +4,13 @@ import { rem } from 'src/lib'
 
 import Knobs from 'docs/src/components/Knobs/Knobs'
 
-const LayoutExampleGapKnobs = (props) => {
+const LayoutExampleGapKnobs: any = props => {
   const { onKnobChange, gap, vertical } = props
 
   return (
     <Knobs>
-      <Knobs.Scalar name='gap' value={gap} onChange={onKnobChange} />
-      <Knobs.Boolean name='vertical' value={vertical} onChange={onKnobChange} />
+      <Knobs.Scalar name="gap" value={gap} onChange={onKnobChange} />
+      <Knobs.Boolean name="vertical" value={vertical} onChange={onKnobChange} />
     </Knobs>
   )
 }

@@ -5,12 +5,17 @@ import KnobsField from './KnobsField'
 import KnobsLabel from './KnobsLabel'
 import KnobsValue from './KnobsValue'
 
-class KnobsScalar extends Component {
+class KnobsScalar extends Component<any, any> {
   static propTypes = {
     onChange: PropTypes.func,
     name: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   }
+
+  defaultValue: any
+  defaultUnit: any
+  parseValue: any
+  makeUnitValue: any
 
   componentWillMount() {
     const { value } = this.props
@@ -38,10 +43,10 @@ class KnobsScalar extends Component {
         <KnobsValue>{value}</KnobsValue>
         <br />
         <input
-          type='range'
-          min='0'
+          type="range"
+          min="0"
           max={this.defaultValue * 3}
-          step='1'
+          step="1"
           value={this.parseValue(value)}
           onChange={this.handleChange}
         />

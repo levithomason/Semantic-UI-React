@@ -3,7 +3,7 @@ import React from 'react'
 
 import ComponentExample from './ComponentExample'
 
-const ShorthandExample = ({ description, ...rest }) => (
+const ShorthandExample: any = ({ description, ...rest }) => (
   <ComponentExample {...rest} description={description} />
 )
 

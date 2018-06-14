@@ -2,7 +2,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 
-export default class ComponentPropDefaultValue extends PureComponent {
+export default class ComponentPropDefaultValue extends PureComponent<any, any> {
   static propTypes = {
     value: PropTypes.node,
   }

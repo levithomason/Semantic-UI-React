@@ -10,7 +10,7 @@ import ComponentControlsMaximize from './ComponentControlsMaximize'
 import ComponentControlsShowHtml from './ComponentControlsShowHtml'
 import ComponentControlsRtl from './ComponentControlsRtl'
 
-const ComponentControls = (props) => {
+const ComponentControls: any = props => {
   const {
     anchorName,
     examplePath,
@@ -33,7 +33,7 @@ const ComponentControls = (props) => {
         while Menu should have `display: inline-flex`
       */}
       <div>
-        <Menu color='green' compact icon size='small' text>
+        <Menu color="green" compact icon size="small" text>
           <ComponentControlsEditCode active={showCode} onClick={onShowCode} />
           <ComponentControlsShowVariables active={showVariables} onClick={onShowVariables} />
           <ComponentControlsShowHtml active={showHTML} onClick={onShowHTML} />

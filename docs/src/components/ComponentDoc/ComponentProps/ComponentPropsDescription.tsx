@@ -7,7 +7,7 @@ const descriptionStyle = {
   fontSize: '1.08em',
 }
 
-export default class ComponentPropsDescription extends PureComponent {
+export default class ComponentPropsDescription extends PureComponent<any, any> {
   static propTypes = {
     description: PropTypes.string,
   }

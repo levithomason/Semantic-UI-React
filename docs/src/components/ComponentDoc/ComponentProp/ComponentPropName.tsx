@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import { Icon, Popup } from 'semantic-ui-react'
 
-export default class ComponentPropName extends PureComponent {
+export default class ComponentPropName extends PureComponent<any, any> {
   static propTypes = {
     name: PropTypes.string,
     required: PropTypes.bool,
@@ -16,11 +16,11 @@ export default class ComponentPropName extends PureComponent {
         <code>{name}</code>
         {required && (
           <Popup
-            content='Required'
+            content="Required"
             inverted
-            position='right center'
-            size='tiny'
-            trigger={<Icon color='red' name='asterisk' size='small' />}
+            position="right center"
+            size="tiny"
+            trigger={<Icon color="red" name="asterisk" size="small" />}
           />
         )}
       </div>

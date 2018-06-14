@@ -106,25 +106,25 @@ const MenuItemLinkAugmentationHTML = `<div class="ui menu">
   </a>
 </div>`
 
-const Comparison = ({ jsx, html }) => (
-  <Segment className='code-example'>
-    <Grid columns='equal' centered textAlign='left'>
-      <Grid.Column computer='8' largeScreen='7' widescreen='7' width='16'>
-        <Label size='tiny' attached='top left'>
+const Comparison: any = ({ jsx, html }) => (
+  <Segment className="code-example">
+    <Grid columns="equal" centered textAlign="left">
+      <Grid.Column computer="8" largeScreen="7" widescreen="7" width="16">
+        <Label size="tiny" attached="top left">
           JSX
         </Label>
         <Editor id={btoa(jsx)} value={jsx} readOnly />
       </Grid.Column>
-      <Grid.Column largeScreen='2' only='large screen' textAlign='center'>
+      <Grid.Column largeScreen="2" only="large screen" textAlign="center">
         <Divider vertical>
-          <Icon name='right arrow circle' />
+          <Icon name={'right arrow circle' as any} />
         </Divider>
       </Grid.Column>
-      <Grid.Column computer='8' largeScreen='7' widescreen='7' width='16'>
-        <Label size='tiny' attached='top right'>
+      <Grid.Column computer="8" largeScreen="7" widescreen="7" width="16">
+        <Label size="tiny" attached="top right">
           Rendered HTML
         </Label>
-        <Editor id={btoa(html)} mode='html' value={html} readOnly />
+        <Editor id={btoa(html)} mode="html" value={html} readOnly />
       </Grid.Column>
     </Grid>
   </Segment>
@@ -136,17 +136,17 @@ Comparison.propTypes = {
 }
 
 const Introduction = () => (
-  <Container id='introduction-page'>
-    <Segment basic textAlign='center'>
-      <Logo centered size='small' />
-      <Header as='h1' textAlign='center'>
+  <Container id="introduction-page">
+    <Segment basic textAlign="center">
+      <Logo centered size="small" />
+      <Header as="h1" textAlign="center">
         Semantic UI React
         <Header.Subheader>{pkg.description}</Header.Subheader>
       </Header>
     </Segment>
 
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Introduction
       </Header>
       <p>
@@ -154,15 +154,15 @@ const Introduction = () => (
         <a href={semanticUIDocsURL}>Semantic UI</a> .
       </p>
       <List>
-        <List.Item icon='check' content='jQuery Free' />
-        <List.Item icon='check' content='Declarative API' />
-        <List.Item icon='check' content='Augmentation' />
-        <List.Item icon='check' content='Shorthand Props' />
-        <List.Item icon='check' content='Sub Components' />
-        <List.Item icon='check' content='Auto Controlled State' />
+        <List.Item icon="check" content="jQuery Free" />
+        <List.Item icon="check" content="Declarative API" />
+        <List.Item icon="check" content="Augmentation" />
+        <List.Item icon="check" content="Shorthand Props" />
+        <List.Item icon="check" content="Sub Components" />
+        <List.Item icon="check" content="Auto Controlled State" />
       </List>
       <p>
-        Installation instructions are provided in the <Link to='/usage'>Usage</Link> section.
+        Installation instructions are provided in the <Link to="/usage">Usage</Link> section.
       </p>
     </Segment>
 
@@ -170,7 +170,7 @@ const Introduction = () => (
      *  jQuery Free
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         jQuery Free
       </Header>
       <p>
@@ -188,7 +188,7 @@ const Introduction = () => (
      *  Declarative API
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Declarative API
       </Header>
       <p>Declarative APIs provide for robust features and prop validation.</p>
@@ -201,7 +201,7 @@ const Introduction = () => (
      *  Augmentation
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Augmentation
       </Header>
       <p>
@@ -223,7 +223,7 @@ const Introduction = () => (
      *  Shorthand Props
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Shorthand Props
       </Header>
       <p>
@@ -231,13 +231,13 @@ const Introduction = () => (
         are spread on the child components.
       </p>
 
-      <Header as='h3'>Child Object Arrays</Header>
+      <Header as="h3">Child Object Arrays</Header>
       <p>
         Components with repeating children accept arrays of plain objects.
         <a
-          href='https://facebook.github.io/react/docs/context.html#parent-child-coupling'
-          target='_blank'
-          rel='noopener noreferrer'
+          href="https://facebook.github.io/react/docs/context.html#parent-child-coupling"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           &nbsp;Facebook is fond of this&nbsp;
         </a>
@@ -245,14 +245,14 @@ const Introduction = () => (
       </p>
       <Comparison jsx={AccordionJSX} html={AccordionHTML} />
 
-      <Header as='h3'>{'icon={...}'}</Header>
+      <Header as="h3">{'icon={...}'}</Header>
       <p>
         The <code>icon</code> prop is standard for many components. It can accept an Icon{' '}
         <code>name</code>, an Icon props object, or an <code>{'<Icon />'}</code> instance.
       </p>
       <Comparison jsx={MessageIconJSX} html={MessageIconHTML} />
 
-      <Header as='h3'>{'image={...}'}</Header>
+      <Header as="h3">{'image={...}'}</Header>
       <p>
         The <code>image</code> prop is standard for many components. It can accept an image{' '}
         <code>src</code>, an Image props object, or an <code>{'<Image />'}</code> instance.
@@ -264,7 +264,7 @@ const Introduction = () => (
      *  Sub Components
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Sub Components
       </Header>
       <p>
@@ -278,16 +278,16 @@ const Introduction = () => (
      *  Auto Controlled State
      * -------------------------------------- */}
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Auto Controlled State
       </Header>
 
       <p>
         React has the concept of
         <a
-          href='https://facebook.github.io/react/docs/forms.html'
-          target='_blank'
-          rel='noopener noreferrer'
+          href="https://facebook.github.io/react/docs/forms.html"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           &nbsp;controlled and uncontrolled&nbsp;
         </a>

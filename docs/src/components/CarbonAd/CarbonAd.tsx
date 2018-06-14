@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 const style = { minHeight: 173 }
 
 class CarbonAd extends Component {
+  lastHref: any
+
   componentDidMount() {
     this.lastHref = location.href
 
@@ -20,17 +22,17 @@ class CarbonAd extends Component {
   componentWillUpdate() {
     if (location.href !== this.lastHref) {
       this.lastHref = location.href
-      _.invoke(window._carbonads, 'refresh')
+      _.invoke(window['_carbonads'], 'refresh')
     }
   }
 
-  ifRef = (cb) => {
+  ifRef = cb => {
     const ref = document.querySelector('#docs-carbonads')
     if (ref) cb(ref)
   }
 
   render() {
-    return <div id='docs-carbonads' style={style} />
+    return <div id="docs-carbonads" style={style} />
   }
 }
 

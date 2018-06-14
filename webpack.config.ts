@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import _ from 'lodash'
 import webpack from 'webpack'
+import { CheckerPlugin as AsyncTypeScriptChecker } from 'awesome-typescript-loader'
 
 import config from './config'
 
@@ -20,7 +21,7 @@ const webpackConfig: any = {
     pathinfo: true,
     publicPath: config.compiler_public_path,
   },
-  devtool: 'sourcemap',
+  devtool: config.compiler_devtool,
   externals: {
     'anchor-js': 'AnchorJS',
     '@babel/standalone': 'Babel',
@@ -38,12 +39,15 @@ const webpackConfig: any = {
         loader: 'awesome-typescript-loader',
         exclude: /node_modules/,
         options: {
-          transpileOnly: true,
+          useCache: true,
+          configFileName: paths.base('build/tsconfig.docs.json'),
+          errorsAsWarnings: __DEV__,
         },
       },
     ],
   },
   plugins: [
+    new AsyncTypeScriptChecker(),
     new webpack.DefinePlugin(config.compiler_globals),
     new webpack.DllReferencePlugin({
       context: paths.base('node_modules'),

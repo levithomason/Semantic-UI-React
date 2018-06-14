@@ -5,10 +5,10 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { updateForKeys } from 'docs/src/hoc'
 import ComponentControlsToolTip from './ComponentControlsToolTip'
 
-const ComponentControlsShowHtml = ({ active, onClick }) => (
-  <ComponentControlsToolTip content='Show HTML'>
+const ComponentControlsShowHtml: any = ({ active, onClick }) => (
+  <ComponentControlsToolTip content="Show HTML">
     <Menu.Item active={active} onClick={onClick}>
-      <Icon color={active ? 'green' : 'grey'} size='large' name='html5' fitted />
+      <Icon color={active ? 'green' : 'grey'} size="large" name="html5" fitted />
     </Menu.Item>
   </ComponentControlsToolTip>
 )

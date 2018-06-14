@@ -9,7 +9,7 @@ import KnobsValue from './KnobsValue'
 import KnobsBoolean from './KnobsBoolean'
 import KnobsScalar from './KnobsScalar'
 
-const Knobs = createComponent(
+const Knobs: any = createComponent(
   () => ({
     padding: rem(1),
     background: '#eee',

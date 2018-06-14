@@ -20,7 +20,7 @@ const exampleEndStyle = {
   paddingTop: '75vh',
 }
 
-class ComponentDoc extends Component {
+class ComponentDoc extends Component<any, any> {
   static childContextTypes = {
     onPassed: PropTypes.func,
   }
@@ -30,7 +30,7 @@ class ComponentDoc extends Component {
     info: componentInfoShape.isRequired,
   }
 
-  state = {}
+  state: any = {}
 
   componentWillMount() {
     const { history } = this.props
@@ -79,7 +79,7 @@ class ComponentDoc extends Component {
           <Grid.Row style={topRowStyle}>
             <Grid.Column>
               <Header
-                as='h1'
+                as="h1"
                 content={info.displayName}
                 subheader={_.join(info.docblock.description, ' ')}
               />
@@ -94,13 +94,13 @@ class ComponentDoc extends Component {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row columns='equal'>
+          <Grid.Row columns="equal">
             <Grid.Column>
               <div ref={this.handleExamplesRef}>
                 <ComponentExamples displayName={info.displayName} />
               </div>
-              <div style={exampleEndStyle}>
-                This is the bottom <Icon name='pointing down' />
+              <div style={exampleEndStyle as any}>
+                This is the bottom <Icon name="pointing down" />
               </div>
             </Grid.Column>
             <Grid.Column computer={5} largeScreen={4} widescreen={4}>

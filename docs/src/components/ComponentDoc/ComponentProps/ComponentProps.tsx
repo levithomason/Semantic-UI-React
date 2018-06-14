@@ -8,9 +8,9 @@ import ComponentTable from '../ComponentTable'
 import ComponentPropsComponents from './ComponentPropsComponents'
 import ComponentPropsDescription from './ComponentPropsDescription'
 
-const propsContainerStyle = { overflowX: 'auto' }
+const propsContainerStyle: any = { overflowX: 'auto' }
 
-export default class ComponentProps extends Component {
+export default class ComponentProps extends Component<any, any> {
   static propTypes = {
     displayName: PropTypes.string.isRequired,
     props: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -48,12 +48,12 @@ export default class ComponentProps extends Component {
     const { displayName } = this.props
     const { activeDisplayName, componentGroup } = this.state
     const displayNames = _.keys(componentGroup)
-    const { docblock, props } = componentGroup[activeDisplayName] || {}
+    const { docblock, props } = (componentGroup[activeDisplayName] || {}) as any
     const description = _.get(docblock, 'description', [])
 
     return (
       <div>
-        <Checkbox slider checked={!!activeDisplayName} label='Props' onClick={this.handleToggle} />
+        <Checkbox slider checked={!!activeDisplayName} label="Props" onClick={this.handleToggle} />
         <ComponentPropsComponents
           activeDisplayName={activeDisplayName}
           displayNames={displayNames}

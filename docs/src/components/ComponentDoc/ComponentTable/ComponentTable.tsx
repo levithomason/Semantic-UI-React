@@ -9,8 +9,8 @@ import ComponentTableRow from './ComponentTableRow'
 /**
  * Displays a table of a Component's PropTypes.
  */
-const ComponentTable = ({ props }) => (
-  <Table compact='very' basic='very'>
+const ComponentTable: any = ({ props }) => (
+  <Table compact="very" basic="very">
     <ComponentTableHeader />
     <Table.Body>
       {_.map(props, propDef => <ComponentTableRow {...propDef} key={propDef.name} />)}

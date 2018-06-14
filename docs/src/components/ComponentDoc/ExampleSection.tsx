@@ -10,10 +10,10 @@ const sectionStyle = {
   paddingBottom: '5em',
 }
 
-const ExampleSection = ({ title, children, ...rest }) => (
+const ExampleSection: any = ({ title, children, ...rest }) => (
   <Grid padded style={sectionStyle} {...rest}>
     <Grid.Column>
-      <Header as='h2' style={headerStyle} className='no-anchor'>
+      <Header as="h2" style={headerStyle} className="no-anchor">
         {title}
       </Header>
       {children}

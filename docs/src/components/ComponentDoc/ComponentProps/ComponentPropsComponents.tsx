@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react'
 
 import { updateForKeys } from 'docs/src/hoc'
 
-const ComponentPropsComponents = ({
+const ComponentPropsComponents: any = ({
   activeDisplayName,
   displayNames,
   onItemClick,
@@ -14,7 +14,7 @@ const ComponentPropsComponents = ({
   if (displayNames.length === 1) return null
 
   return (
-    <Menu color='green' compact size='small' secondary>
+    <Menu color="green" compact size="small" secondary>
       {_.map(displayNames, displayName => (
         <Menu.Item
           key={displayName}

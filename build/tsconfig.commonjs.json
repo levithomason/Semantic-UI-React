@@ -23,7 +23,7 @@
     "strictNullChecks": false
   },
   "include": [
-    "src",
-    "types"
+    "../src",
+    "../types"
   ]
 }

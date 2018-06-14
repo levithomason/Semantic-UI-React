@@ -1,6 +1,6 @@
 import React from 'react'
-import pkg from 'package.json'
 import { NavLink } from 'react-router-dom'
+import pkg from '../../../package.json'
 
 import { semanticUIDocsURL, semanticUIRepoURL, semanticUICSSRepoURL } from 'docs/src/utils'
 import { Button, Container, Header, List, Message, Segment } from 'semantic-ui-react'
@@ -9,17 +9,17 @@ import Logo from '../components/Logo/Logo'
 const suiCSSVersion = pkg.devDependencies['semantic-ui-css'].replace(/[~^]/, '')
 
 const Usage = () => (
-  <Container id='usage-page'>
-    <Segment basic textAlign='center'>
-      <Logo centered size='small' />
-      <Header as='h1' textAlign='center'>
+  <Container id="usage-page">
+    <Segment basic textAlign="center">
+      <Logo centered size="small" />
+      <Header as="h1" textAlign="center">
         Semantic UI React
         <Header.Subheader>{pkg.description}</Header.Subheader>
       </Header>
     </Segment>
 
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         JavaScript
       </Header>
       <p>The Semantic UI React package can be installed via Yarn:</p>
@@ -35,36 +35,36 @@ const Usage = () => (
         The method you choose to include the stylesheet in your project will depend on the level of
         customisation you require.
       </p>
-      <Header as='h3'>Examples</Header>
+      <Header as="h3">Examples</Header>
       <p>
         For examples on how to import and use Semantic UI React components, click the code icon next
         to any example. Here are a few direct links:
       </p>
       <ul>
         <li>
-          <NavLink to='/elements/button#button-example-button'>Button</NavLink>
+          <NavLink to="/elements/button#button-example-button">Button</NavLink>
         </li>
         <li>
-          <NavLink to='/elements/list#list-example-list'>List</NavLink>
+          <NavLink to="/elements/list#list-example-list">List</NavLink>
         </li>
         <li>
-          <NavLink to='/views/card#card-example-card'>Card</NavLink>
+          <NavLink to="/views/card#card-example-card">Card</NavLink>
         </li>
         <li>
-          <NavLink to='/modules/modal#modal-example-modal'>Modal</NavLink>
+          <NavLink to="/modules/modal#modal-example-modal">Modal</NavLink>
         </li>
       </ul>
     </Segment>
 
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         CSS
       </Header>
 
       {/* ----------------------------------------
        *  Content Delivery Network (CDN)
        * -------------------------------------- */}
-      <Header as='h3'>Content Delivery Network (CDN)</Header>
+      <Header as="h3">Content Delivery Network (CDN)</Header>
       <p>
         You can use the default Semantic UI stylesheet by including a Semantic UI CDN link in your
         <em> index.html</em> file.
@@ -84,7 +84,7 @@ const Usage = () => (
       {/* ----------------------------------------
        *  Semantic-UI-CSS package
        * -------------------------------------- */}
-      <Header as='h3'>Semantic UI CSS package</Header>
+      <Header as="h3">Semantic UI CSS package</Header>
       <p>
         The <a href={semanticUICSSRepoURL}>Semantic UI CSS package</a> is automatically synced with
         the main Semantic UI repository to provide a lightweight CSS only version of Semantic UI.
@@ -106,7 +106,7 @@ const Usage = () => (
       {/* ----------------------------------------
        *  Semantic-UI package
        * -------------------------------------- */}
-      <Header as='h3'>Semantic UI package</Header>
+      <Header as="h3">Semantic UI package</Header>
       <p>
         Install the full <a href={semanticUIRepoURL}>Semantic UI package</a>.
       </p>
@@ -131,7 +131,7 @@ const Usage = () => (
     </Segment>
 
     <Segment basic padded>
-      <Header as='h2' dividing>
+      <Header as="h2" dividing>
         Bundlers
       </Header>
       <p>
@@ -139,7 +139,7 @@ const Usage = () => (
         recipes with some of them. You can use them as start point for your projects.
       </p>
 
-      <Header as='h3'>Webpack 3</Header>
+      <Header as="h3">Webpack 3</Header>
       <p>
         Webpack 3 fully supports Semantic UI React, it also supports Tree Shaking. Please ensure
         that you build your app in production mode before release, it will strip{' '}
@@ -153,48 +153,48 @@ const Usage = () => (
         </p>
         <List>
           <List.Item
-            icon='github'
+            icon="github"
             content={
               <a
-                href='https://github.com/webpack/webpack/issues/1750'
-                rel='noopener noreferrer'
-                target='_blank'
+                href="https://github.com/webpack/webpack/issues/1750"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 webpack/webpack#1750
               </a>
             }
           />
           <List.Item
-            icon='github'
+            icon="github"
             content={
               <a
-                href='https://github.com/webpack/webpack/issues/2867'
-                rel='noopener noreferrer'
-                target='_blank'
+                href="https://github.com/webpack/webpack/issues/2867"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 webpack/webpack#2867
               </a>
             }
           />
           <List.Item
-            icon='github'
+            icon="github"
             content={
               <a
-                href='https://github.com/webpack/webpack/issues/2899'
-                rel='noopener noreferrer'
-                target='_blank'
+                href="https://github.com/webpack/webpack/issues/2899"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 webpack/webpack#2899
               </a>
             }
           />
           <List.Item
-            icon='github'
+            icon="github"
             content={
               <a
-                href='https://github.com/webpack/webpack/issues/3092'
-                rel='noopener noreferrer'
-                target='_blank'
+                href="https://github.com/webpack/webpack/issues/3092"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 webpack/webpack#3092
               </a>
@@ -210,22 +210,22 @@ const Usage = () => (
       </Message>
 
       <Button
-        content='Webpack boilerplate'
-        href='https://github.com/Semantic-Org/Semantic-UI-React/tree/master/examples/webpack3'
-        icon='github'
-        labelPosition='left'
+        content="Webpack boilerplate"
+        href="https://github.com/Semantic-Org/Semantic-UI-React/tree/master/examples/webpack3"
+        icon="github"
+        labelPosition="left"
       />
       <Button
-        content='Example configuration of plugin'
-        href='https://github.com/Semantic-Org/Semantic-UI-React/tree/master/examples/webpack3/.babelrc'
-        icon='github'
-        labelPosition='left'
+        content="Example configuration of plugin"
+        href="https://github.com/Semantic-Org/Semantic-UI-React/tree/master/examples/webpack3/.babelrc"
+        icon="github"
+        labelPosition="left"
       />
       <Button
-        content='babel-plugin-direct-import'
-        href='https://github.com/umidbekkarimov/babel-plugin-direct-import'
-        icon='github'
-        labelPosition='left'
+        content="babel-plugin-direct-import"
+        href="https://github.com/umidbekkarimov/babel-plugin-direct-import"
+        icon="github"
+        labelPosition="left"
       />
     </Segment>
   </Container>

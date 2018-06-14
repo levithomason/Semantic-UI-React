@@ -4,9 +4,9 @@ import React from 'react'
 import { repoURL } from 'docs/src/utils'
 import { Message, Icon } from 'semantic-ui-react'
 
-const ContributionPrompt = ({ children }) => (
+const ContributionPrompt: any = ({ children }) => (
   <Message info icon>
-    <Icon name='bullhorn' />
+    <Icon name="bullhorn" />
     <Message.Content>
       <p>{children}</p>
       <p>

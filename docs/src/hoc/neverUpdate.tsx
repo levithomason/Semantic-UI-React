@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const neverUpdate = ChildComponent =>
+const neverUpdate = (ChildComponent): any =>
   class extends Component {
     shouldComponentUpdate() {
       return false

@@ -8,7 +8,7 @@ import ComponentPropEnum from '../ComponentProp/ComponentPropEnum'
 import ComponentPropFunctionSignature from '../ComponentProp/ComponentPropFunctionSignature'
 import ComponentPropName from '../ComponentProp/ComponentPropName'
 
-export default class ComponentTableRow extends Component {
+export default class ComponentTableRow extends Component<any, any> {
   static propTypes = {
     defaultValue: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.string),
@@ -19,7 +19,7 @@ export default class ComponentTableRow extends Component {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   }
 
-  state = {}
+  state: any = {}
 
   toggleEnums = () => this.setState({ showEnums: !this.state.showEnums })
 

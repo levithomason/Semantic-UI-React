@@ -8,13 +8,13 @@ const toolTipStyle = {
   width: 100,
 }
 
-const ComponentControlsToolTip = ({ children, content }) => (
+const ComponentControlsToolTip: any = ({ children, content }) => (
   <Popup
     content={content}
     inverted
     mouseEnterDelay={800}
-    position='top center'
-    size='tiny'
+    position="top center"
+    size="tiny"
     style={toolTipStyle}
     trigger={children}
   />

@@ -1,4 +1,4 @@
-const style = {}
+const style: any = {}
 const sidebarWidth = 250
 
 style.container = {}
@@ -18,12 +18,12 @@ style.menu = {
 
 style.sidebarMain = {
   marginLeft: sidebarWidth,
-  minWidth: parseInt(sidebarWidth, 10) + 300,
+  minWidth: sidebarWidth + 300,
 }
 
 style.main = {
   ...style.sidebarMain,
-  maxWidth: parseInt(sidebarWidth, 10) + 900,
+  maxWidth: sidebarWidth + 900,
 }
 
 export default style

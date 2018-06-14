@@ -6,7 +6,6 @@ import { createShorthand, createShorthandFactory } from 'src/lib'
 // ----------------------------------------
 // Utils
 // ----------------------------------------
-
 /**
  * Returns the result of a shorthand factory.
  */
@@ -222,20 +221,22 @@ describe('factories', () => {
       })
 
       describe('on an element', () => {
+        const createWithChildKey = childKey => <div {...{ childKey } as any} />
+
         test('works with a string', () => {
-          expect(getShorthand({ value: <div childKey="foo" /> })).toHaveProperty('key', 'foo')
+          expect(getShorthand({ value: createWithChildKey('foo') })).toHaveProperty('key', 'foo')
         })
 
         test('works with a number', () => {
-          expect(getShorthand({ value: <div childKey={123} /> })).toHaveProperty('key', '123')
+          expect(getShorthand({ value: createWithChildKey(123) })).toHaveProperty('key', '123')
         })
 
         test('works with falsy values', () => {
-          expect(getShorthand({ value: <div childKey={null} /> })).toHaveProperty('key', null)
+          expect(getShorthand({ value: createWithChildKey(null) })).toHaveProperty('key', null)
 
-          expect(getShorthand({ value: <div childKey={0} /> })).toHaveProperty('key', '0')
+          expect(getShorthand({ value: createWithChildKey(0) })).toHaveProperty('key', '0')
 
-          expect(getShorthand({ value: <div childKey="" /> })).toHaveProperty('key', '')
+          expect(getShorthand({ value: createWithChildKey('') })).toHaveProperty('key', '')
         })
       })
 
@@ -330,15 +331,15 @@ describe('factories', () => {
       itAppliesDefaultProps(<div />)
       itDoesNotIncludePropsFromMapValueToProps(<div />)
       itMergesClassNames('element', 'user', { value: <div className="user" /> })
-      itAppliesProps('element', { foo: 'foo' }, { value: <div foo="foo" /> })
+      itAppliesProps('element', { foo: 'foo' }, { value: <div {...{ foo: 'foo' } as any} /> })
       itOverridesDefaultProps(
         'element',
         { some: 'defaults', overridden: false },
         { some: 'defaults', overridden: true },
-        { value: <div overridden /> },
+        { value: <div {...{ overridden: true } as any} /> },
       )
       itOverridesDefaultPropsWithFalseyProps('element', {
-        value: <div undef={undefined} nil={null} zero={0} empty="" />,
+        value: <div {...{ undef: undefined, nil: null, zero: 0, empty: '' } as any} />,
       })
     })
 

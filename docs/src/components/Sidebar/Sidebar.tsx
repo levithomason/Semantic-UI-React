@@ -9,9 +9,10 @@ import { Menu, Icon, Input } from 'semantic-ui-react'
 
 import CarbonAd from 'docs/src/components/CarbonAd/CarbonAd'
 import Logo from 'docs/src/components/Logo/Logo'
-import componentMenu from 'docs/src/componentMenu'
 import { getComponentPathname, typeOrder, repoURL } from 'docs/src/utils'
-import pkg from 'package.json'
+import pkg from '../../../../package.json'
+
+const componentMenu = require('docs/src/componentMenu')
 
 const selectedItemLabelStyle: any = { color: '#35bdb2', float: 'right' }
 const selectedItemLabel = <span style={selectedItemLabelStyle}>Press Enter</span>
@@ -23,8 +24,9 @@ class Sidebar extends Component<any, any> {
     history: PropTypes.object.isRequired,
     style: PropTypes.object,
   }
-  state = { query: '' }
+  state: any = { query: '' }
   _searchInput: any
+  selectedRoute: any
   filteredMenu = componentMenu
 
   componentDidMount() {

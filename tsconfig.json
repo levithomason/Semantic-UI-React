@@ -29,7 +29,7 @@
   },
   "include": [
     "src",
-    "docs",
+    "docs/src",
     "test",
     "gulp",
     "build",

@@ -14,7 +14,7 @@ const linkListStyle = {
   top: '0',
 }
 
-export default class ComponentDocLinks extends PureComponent {
+export default class ComponentDocLinks extends PureComponent<any, any> {
   static propTypes = {
     repoPath: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -29,14 +29,14 @@ export default class ComponentDocLinks extends PureComponent {
             <code>
               <a
                 href={`${repoURL}/blob/master/${repoPath}`}
-                target='_blank'
-                rel='noopener noreferrer'
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {repoPath}
               </a>
             </code>
           }
-          icon='github'
+          icon="github"
         />
       </List>
     )

@@ -1,10 +1,10 @@
 import { doesNodeContainClick } from 'src/lib'
 
-const makeEvent = event => ({ clientX: 0, clientY: 0, ...event })
+const makeEvent = (event?: any) => ({ clientX: 0, clientY: 0, ...event })
 
-const makeRect = rect => ({ top: 0, bottom: 1, left: 0, right: 1, ...rect })
+const makeRect = (rect?: any) => ({ top: 0, bottom: 1, left: 0, right: 1, ...rect })
 
-const makeNode = (rect, node) => ({
+const makeNode = (rect?: any, node?: any) => ({
   contains: jest.fn(),
   offsetWidth: 1,
   offsetHeight: 1,

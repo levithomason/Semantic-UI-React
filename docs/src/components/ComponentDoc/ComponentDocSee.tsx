@@ -8,14 +8,14 @@ import { getComponentPathname, getInfoForSeeTags } from 'docs/src/utils'
 
 const listStyle = { display: 'block' }
 
-const ComponentDocSee = ({ displayName }) => {
+const ComponentDocSee: any = ({ displayName }) => {
   const items = getInfoForSeeTags(displayName)
 
   return (
-    <List horizontal link size='small' style={listStyle}>
+    <List horizontal link size="small" style={listStyle}>
       {/* Heads up! Still render empty lists to reserve the whitespace */}
       <List.Item>
-        <Header color='grey' content={items.length > 0 ? 'See:' : ' '} size='tiny' />
+        <Header color="grey" content={items.length > 0 ? 'See:' : ' '} size="tiny" />
       </List.Item>
       {_.map(items, info => (
         <List.Item

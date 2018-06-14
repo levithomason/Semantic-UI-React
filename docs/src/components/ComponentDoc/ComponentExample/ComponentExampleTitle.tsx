@@ -6,7 +6,7 @@ const titleStyle = {
   margin: 0,
 }
 
-export default class ComponentExampleTitle extends PureComponent {
+export default class ComponentExampleTitle extends PureComponent<any, any> {
   static propTypes = {
     description: PropTypes.node,
     title: PropTypes.node,
@@ -18,14 +18,14 @@ export default class ComponentExampleTitle extends PureComponent {
     return (
       <div>
         {title && (
-          <Header as='h3' className='no-anchor' style={titleStyle}>
+          <Header as="h3" className="no-anchor" style={titleStyle}>
             {title}
             {suiVersion && (
               <Label
-                as='a'
-                color='teal'
+                as="a"
+                color="teal"
                 content={suiVersion}
-                size='tiny'
+                size="tiny"
                 title={`Available from Semantic UI ${suiVersion}`}
               />
             )}

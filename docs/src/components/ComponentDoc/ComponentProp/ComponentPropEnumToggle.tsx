@@ -7,7 +7,7 @@ const toggleStyle = {
   cursor: 'pointer',
 }
 
-const ComponentPropEnumToggle = ({ showAll, toggle, total }) => (
+const ComponentPropEnumToggle: any = ({ showAll, toggle, total }) => (
   <a style={toggleStyle} onClick={toggle}>
     {showAll ? 'Show less' : `Show all ${total}`}
   </a>

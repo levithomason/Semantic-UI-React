@@ -4,8 +4,9 @@ import { Icon, Menu } from 'semantic-ui-react'
 
 import ComponentControlsToolTip from './ComponentControlsToolTip'
 
-export default class ComponentControlsCopyLink extends Component {
-  state = {}
+export default class ComponentControlsCopyLink extends Component<any, any> {
+  state: any = {}
+  mounted: boolean
 
   static propTypes = {
     anchorName: PropTypes.string,
@@ -24,7 +25,7 @@ export default class ComponentControlsCopyLink extends Component {
     this.mounted = false
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     const { onClick } = this.props
 
     e.preventDefault()
@@ -43,7 +44,7 @@ export default class ComponentControlsCopyLink extends Component {
     return (
       <ComponentControlsToolTip content={active ? ' Copied Link!' : 'Direct link'}>
         <Menu.Item href={`#${anchorName}`} onClick={this.handleClick}>
-          <Icon color={active ? 'green' : 'grey'} fitted name='linkify' size='large' />
+          <Icon color={active ? 'green' : 'grey'} fitted name="linkify" size="large" />
         </Menu.Item>
       </ComponentControlsToolTip>
     )

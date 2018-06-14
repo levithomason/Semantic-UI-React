@@ -6,7 +6,7 @@ import ComponentDoc from '../components/ComponentDoc'
 import PageNotFound from '../views/PageNotFound'
 import componentInfoContext from '../utils/componentInfoContext'
 
-class DocsRoot extends Component {
+class DocsRoot extends Component<any, any> {
   static propTypes = {
     children: PropTypes.node,
     match: PropTypes.shape({

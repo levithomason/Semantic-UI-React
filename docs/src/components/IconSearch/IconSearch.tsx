@@ -87,11 +87,11 @@ const similarityScore = (strA, strB) => {
 
   return _.flow(_.map(a => _.map(b => leven(a, b), bWords)), _.map(_.min), _.sum)(aWords)
 }
-export default class IconSearch extends Component {
-  state = { search: '', includeSimilar: true }
+export default class IconSearch extends Component<any, any> {
+  state: any = { search: '', includeSimilar: true }
 
   componentDidMount() {
-    const input = document.querySelector('#docs-icon-set-input')
+    const input = document.querySelector('#docs-icon-set-input') as any
     input.focus()
   }
 
@@ -105,7 +105,7 @@ export default class IconSearch extends Component {
     setTimeout(() => this.setState({ copied: false }), 1000)
   }
 
-  renderIconColumn = (name, section) => (
+  renderIconColumn = (name, section?: string) => (
     <Popup
       key={[name, section].filter(Boolean).join('_')}
       mouseEnterDelay={1000}
@@ -114,13 +114,13 @@ export default class IconSearch extends Component {
       closeOnRootNodeClick={false}
       closeOnDocumentClick={false}
       style={{ width: '8em', textAlign: 'center' }}
-      size='mini'
-      position='top center'
+      size="mini"
+      position="top center"
       content={this.state.copied ? 'Copied!' : 'Click to copy'}
       trigger={
-        <Grid.Column className='docs-icon-set-column' onClick={this.copy(name)}>
-          <Icon name={name} size='big' />
-          <p className='name'>{name}</p>
+        <Grid.Column className="docs-icon-set-column" onClick={this.copy(name)}>
+          <Icon name={name} size="big" />
+          <p className="name">{name}</p>
         </Grid.Column>
       }
     />
@@ -137,11 +137,11 @@ export default class IconSearch extends Component {
         <Grid key={iconKey} columns={5} doubling>
           <Grid.Column width={16}>
             <Header
-              as='h3'
+              as="h3"
               content={iconKeyToHeaderMap[iconKey].title}
               dividing
               subheader={iconKeyToHeaderMap[iconKey].description}
-              textAlign='left'
+              textAlign="left"
             />
           </Grid.Column>
           {SUI[iconKey].map(name => this.renderIconColumn(name, iconKey))}
@@ -149,7 +149,7 @@ export default class IconSearch extends Component {
       ))
     }
 
-    const iconSearchMatches = SUI.ICONS_AND_ALIASES.filter((name) => {
+    const iconSearchMatches = SUI.ICONS_AND_ALIASES.filter(name => {
       // contains
       if (name.indexOf(query) !== -1) return true
 
@@ -161,14 +161,14 @@ export default class IconSearch extends Component {
     if (iconSearchMatches.length === 0) {
       return (
         <Grid>
-          <Grid.Column textAlign='left'>
+          <Grid.Column textAlign="left">
             <Message
               info
-              icon='search'
+              icon="search"
               content={`There is no icon name or alias ${
                 includeSimilar ? 'similar' : 'that contains'
               } to "${query}".`}
-              header='No Results'
+              header="No Results"
             />
           </Grid.Column>
         </Grid>
@@ -188,20 +188,20 @@ export default class IconSearch extends Component {
     return (
       <Grid columns={1} padded style={gridStyle}>
         <Grid.Column>
-          <Header as='h2'>Icon Set</Header>
+          <Header as="h2">Icon Set</Header>
           <p>An icon set contains an arbitrary number of glyphs.</p>
 
           <Form>
             <Form.Group inline>
               <Form.Input
-                id='docs-icon-set-input'
-                placeholder='Search...'
-                icon='search'
+                id="docs-icon-set-input"
+                placeholder="Search..."
+                icon="search"
                 onChange={this.handleChange}
               />
               <Form.Checkbox
                 toggle
-                label='Show similar names'
+                label="Show similar names"
                 checked={includeSimilar}
                 onChange={this.handleIncludeSimilarChange}
               />
@@ -210,17 +210,17 @@ export default class IconSearch extends Component {
 
           <Message>
             Semantic includes a complete port of{' '}
-            <a href='https://fontawesome.com/' rel='noopener noreferrer' target='_blank'>
+            <a href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">
               Font Awesome 5.0.8
             </a>{' '}
             designed by the{' '}
-            <a href='https://twitter.com/fontawesome' rel='noopener noreferrer'>
+            <a href="https://twitter.com/fontawesome" rel="noopener noreferrer">
               FontAwesome
             </a>{' '}
             for its standard icon set.
           </Message>
         </Grid.Column>
-        <Grid.Column textAlign='center'>{this.renderIcons()}</Grid.Column>
+        <Grid.Column textAlign="center">{this.renderIcons()}</Grid.Column>
       </Grid>
     )
   }

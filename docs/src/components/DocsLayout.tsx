@@ -13,7 +13,10 @@ const anchors = new AnchorJS({
   icon: '#',
 })
 
-class DocsLayout extends Component {
+class DocsLayout extends Component<any, any> {
+  scrollStartTimeout: any
+  pathname: any
+
   static propTypes = {
     component: PropTypes.func,
     history: PropTypes.object.isRequired,
@@ -52,7 +55,7 @@ class DocsLayout extends Component {
     this.pathname = location.pathname
   }
 
-  renderChildren = (props) => {
+  renderChildren = props => {
     const { component: Children, render, sidebar } = this.props
     const mainStyle = sidebar ? style.sidebarMain : style.main
 

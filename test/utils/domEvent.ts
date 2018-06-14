@@ -24,7 +24,7 @@ export const fire = (node, eventType, data = {}) => {
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const click = (node, data) => fire(node, 'click', data)
+export const click = (node, data?: any) => fire(node, 'click', data)
 
 /**
  * Dispatch a 'keydown' event on a DOM node.
@@ -32,7 +32,7 @@ export const click = (node, data) => fire(node, 'click', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const keyDown = (node, data) => fire(node, 'keydown', data)
+export const keyDown = (node, data?: any) => fire(node, 'keydown', data)
 
 /**
  * Dispatch a 'mouseenter' event on a DOM node.
@@ -40,7 +40,7 @@ export const keyDown = (node, data) => fire(node, 'keydown', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const mouseEnter = (node, data) => fire(node, 'mouseenter', data)
+export const mouseEnter = (node, data?: any) => fire(node, 'mouseenter', data)
 
 /**
  * Dispatch a 'mouseleave' event on a DOM node.
@@ -48,7 +48,7 @@ export const mouseEnter = (node, data) => fire(node, 'mouseenter', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const mouseLeave = (node, data) => fire(node, 'mouseleave', data)
+export const mouseLeave = (node, data?: any) => fire(node, 'mouseleave', data)
 
 /**
  * Dispatch a 'mouseover' event on a DOM node.
@@ -56,7 +56,7 @@ export const mouseLeave = (node, data) => fire(node, 'mouseleave', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const mouseOver = (node, data) => fire(node, 'mouseover', data)
+export const mouseOver = (node, data?: any) => fire(node, 'mouseover', data)
 
 /**
  * Dispatch a 'mouseup' event on a DOM node.
@@ -64,7 +64,7 @@ export const mouseOver = (node, data) => fire(node, 'mouseover', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const mouseUp = (node, data) => fire(node, 'mouseup', data)
+export const mouseUp = (node, data?: any) => fire(node, 'mouseup', data)
 
 /**
  * Dispatch a 'resize' event on a DOM node.
@@ -72,7 +72,7 @@ export const mouseUp = (node, data) => fire(node, 'mouseup', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const resize = (node, data) => fire(node, 'resize', data)
+export const resize = (node, data?: any) => fire(node, 'resize', data)
 
 /**
  * Dispatch a 'scroll' event on a DOM node.
@@ -80,7 +80,7 @@ export const resize = (node, data) => fire(node, 'resize', data)
  * @param {Object} [data] Additional event data.
  * @returns {Object} The event
  */
-export const scroll = (node, data) => fire(node, 'scroll', data)
+export const scroll = (node, data?: any) => fire(node, 'scroll', data)
 
 export default {
   fire,

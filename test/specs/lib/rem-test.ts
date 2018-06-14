@@ -40,9 +40,10 @@ describe('rem', () => {
 
   it('should throw error when rem value is provided as a string', () => {
     siteVariables.htmlFontSize = '8px'
+    const invalidValue = '10' as any
 
     expect(() => {
-      rem('10')
+      rem(invalidValue)
     }).toThrowError()
   })
 

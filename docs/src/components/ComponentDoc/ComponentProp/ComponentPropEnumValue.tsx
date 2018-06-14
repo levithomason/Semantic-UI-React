@@ -8,7 +8,7 @@ const spanStyle = {
   paddingRight: '0.2em',
 }
 
-const ComponentPropEnumValue = ({ children }) => (
+const ComponentPropEnumValue: any = ({ children }) => (
   <span style={spanStyle}>
     <code>{children}</code>
   </span>
