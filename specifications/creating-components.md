@@ -6,7 +6,8 @@
 
 - [Why?](#why)
 - [Proposals](#proposals)
-  - [[Goal]](#goal)
+  - [createComponent() HOC](#createcomponent-hoc)
+  - [BaseComponent](#basecomponent)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
