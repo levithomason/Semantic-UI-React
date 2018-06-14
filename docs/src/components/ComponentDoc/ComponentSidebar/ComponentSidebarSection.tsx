@@ -5,7 +5,7 @@ import { Accordion, Icon, Menu } from 'semantic-ui-react'
 
 import { examplePathToHash } from 'docs/src/utils'
 
-export default class ComponentSidebarSection extends PureComponent {
+export default class ComponentSidebarSection extends PureComponent<any, any> {
   static propTypes = {
     activePath: PropTypes.string,
     examples: PropTypes.arrayOf(
@@ -37,7 +37,7 @@ export default class ComponentSidebarSection extends PureComponent {
     }))
   }
 
-  handleItemClick = examplePath => (e) => {
+  handleItemClick = examplePath => e => {
     _.invoke(this.props, 'onItemClick', e, { examplePath })
   }
 
@@ -46,7 +46,7 @@ export default class ComponentSidebarSection extends PureComponent {
   }
 
   isActiveAccordion = (props = this.props) =>
-    (props.examples || []).findIndex((item) => {
+    (props.examples || []).findIndex(item => {
       const exampleHash = examplePathToHash(item.examplePath)
       return exampleHash === props.activePath
     }) !== -1
@@ -61,7 +61,7 @@ export default class ComponentSidebarSection extends PureComponent {
       <Menu.Item>
         <Accordion.Title active={active} onClick={this.handleTitleClick}>
           <b>{sectionName}</b>
-          <Icon name='dropdown' />
+          <Icon name="dropdown" />
         </Accordion.Title>
         <Accordion.Content as={Menu.Menu} active={active}>
           {_.map(examples, ({ title, examplePath }) => (

@@ -6,18 +6,4 @@ describe('isBrowser', () => {
       expect(isBrowser()).toBe(true)
     })
   })
-
-  describe('server-side', () => {
-    beforeAll(() => {
-      isBrowser.override = false
-    })
-
-    afterAll(() => {
-      isBrowser.override = null
-    })
-
-    test('should return override value', () => {
-      expect(isBrowser()).toBe(false)
-    })
-  })
 })

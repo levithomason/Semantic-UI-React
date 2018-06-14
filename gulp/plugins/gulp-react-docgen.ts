@@ -22,7 +22,7 @@ export default () =>
       const contents = getComponentInfo(file.path)
 
       const infoFile = new Vinyl({
-        path: `./${file.basename.replace(/js$/, 'info.json')}`,
+        path: `./${file.basename.replace(/tsx$/, 'info.json')}`,
         contents: Buffer.from(JSON.stringify(contents, null, 2)),
       })
 

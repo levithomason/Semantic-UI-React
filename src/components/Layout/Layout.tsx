@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { createComponent } from '../../lib'
 import layoutRules from './layoutRules'
 
-class Layout extends React.Component {
+class Layout extends React.Component<any, any> {
   static propTypes = {
     className: PropTypes.string,
     styles: PropTypes.object,

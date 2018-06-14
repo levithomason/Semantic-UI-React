@@ -8,13 +8,13 @@ import parseExamplePath from './parseExamplePath'
  * shorten to new structure ${section} -          -${exampleName without "component-example"}
  * @param {string} examplePath
  */
-const examplePathToHash = (examplePath) => {
+const examplePathToHash = examplePath => {
   const { displayName, section, exampleName } = parseExamplePath(examplePath)
 
   // ButtonExample => Button
   // ButtonExampleButton => Button
   // ButtonExampleActive => Active
-  const shortExampleName = exampleName.replace(`${displayName}Example`, '').replace('.js', '')
+  const shortExampleName = exampleName.replace(`${displayName}Example`, '').replace('.tsx', '')
 
   return _.kebabCase(`${section}-${shortExampleName || displayName}`)
 }

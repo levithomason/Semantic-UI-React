@@ -5,7 +5,7 @@ import React from 'react'
 /**
  * The Provider's Consumer is for accessing the theme.
  */
-const ProviderConsumer = (props) => {
+const ProviderConsumer: any = props => {
   const { children } = props
 
   return <FelaTheme render={children} />

@@ -15,7 +15,7 @@ export default class ComponentExamples extends Component {
     const { displayName } = this.props
 
     const examplePath = _.find(exampleContext.keys(), path =>
-      new RegExp(`${displayName}/index.js$`).test(path),
+      new RegExp(`${displayName}/index.tsx$`).test(path),
     )
 
     return examplePath && createElement(exampleContext(examplePath).default)

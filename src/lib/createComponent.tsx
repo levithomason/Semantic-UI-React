@@ -6,12 +6,12 @@ import { connect, FelaTheme } from 'react-fela'
 import callable from './callable'
 import { createShorthandFactory } from './factories'
 
-const createComponent = (Component, config = {}) => {
+const createComponent = (Component, config: any = {}): any => {
   const displayName = Component.name || Component.displayName
   const { rules, variables, shorthand } = config
   const StyledComponent = rules ? connect(rules)(Component) : Component
 
-  const UIComponent = props => (
+  const UIComponent: any = props => (
     <FelaTheme
       render={({ siteVariables = {}, componentVariables = {} }) => {
         const variablesFromFile = callable(variables)(siteVariables)

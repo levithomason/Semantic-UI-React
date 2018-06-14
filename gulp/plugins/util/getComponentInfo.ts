@@ -58,7 +58,7 @@ const getComponentInfo = filepath => {
     : info.displayName.replace(info.parentDisplayName, '')
 
   // "ListItem.js" is a subcomponent is the "List" directory
-  const subcomponentRegExp = new RegExp(`^${dirname}\\w+\\.js$`)
+  const subcomponentRegExp = new RegExp(`^${dirname}\\w+\\.tsx$`)
 
   info.subcomponents = info.isParent
     ? fs

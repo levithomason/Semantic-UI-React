@@ -9,7 +9,7 @@ import imageVariables from './imageVariables'
 /**
  * An image is a graphic representation of something.
  */
-const Image = (props) => {
+const Image: any = props => {
   const ElementType = getElementType(Image, props)
   const rest = getUnhandledProps(Image, props)
   const { styles, className } = props

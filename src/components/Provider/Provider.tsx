@@ -9,7 +9,7 @@ import ProviderConsumer from './ProviderConsumer'
 /**
  * The Provider passes the CSS in JS renderer and theme down context.
  */
-class Provider extends Component {
+class Provider extends Component<any, any> {
   static propTypes = {
     fontFaces: PropTypes.arrayOf(
       PropTypes.shape({
@@ -41,7 +41,7 @@ class Provider extends Component {
 
     if (!staticStyles) return
 
-    const renderObject = (object) => {
+    const renderObject = object => {
       _.forEach(object, (style, selector) => {
         felaRenderer.renderStatic(style, selector)
       })
@@ -49,7 +49,7 @@ class Provider extends Component {
 
     const staticStylesArr = [].concat(staticStyles)
 
-    staticStylesArr.forEach((staticStyle) => {
+    staticStylesArr.forEach(staticStyle => {
       if (_.isString(staticStyle)) {
         felaRenderer.renderStatic(staticStyle)
       } else if (_.isPlainObject(staticStyle)) {
@@ -69,7 +69,7 @@ class Provider extends Component {
 
     if (!fontFaces) return
 
-    const renderFontObject = (font) => {
+    const renderFontObject = font => {
       if (!_.isPlainObject(font)) {
         throw new Error(`fontFaces must be objects, got: ${typeof font}`)
       }
@@ -78,7 +78,7 @@ class Provider extends Component {
 
     const fontFaceArr = [].concat(_.isFunction(fontFaces) ? fontFaces(siteVariables) : fontFaces)
 
-    fontFaceArr.forEach((fontObject) => {
+    fontFaceArr.forEach(fontObject => {
       renderFontObject(fontObject)
     })
   }

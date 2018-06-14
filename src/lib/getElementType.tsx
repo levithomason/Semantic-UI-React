@@ -7,7 +7,7 @@
  * @param {function} [getDefault] A function that returns a default element type.
  * @returns {string|function} A ReactElement type
  */
-function getElementType(Component, props, getDefault) {
+function getElementType(Component, props, getDefault?: Function) {
   const { defaultProps = {} } = Component
 
   // ----------------------------------------

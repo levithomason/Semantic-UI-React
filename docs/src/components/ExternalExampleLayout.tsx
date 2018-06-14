@@ -7,9 +7,9 @@ import PageNotFound from '../views/PageNotFound'
 
 const exampleKeys = exampleContext.keys()
 
-const ExternalExampleLayout = (props) => {
+const ExternalExampleLayout: any = props => {
   const { exampleName } = props.match.params
-  const exampleFilename = `/${_.startCase(exampleName).replace(/ /g, '')}.js`
+  const exampleFilename = `/${_.startCase(exampleName).replace(/ /g, '')}.tsx`
 
   const componentKey = _.find(_.endsWith(exampleFilename), exampleKeys)
   if (!componentKey) return <PageNotFound />

@@ -55,14 +55,9 @@ task(
 // Build
 // ----------------------------------------
 
-const componentsSrc = [
-  `${config.paths.src()}/components/*/*.js`,
-  '!**/index.js',
-  '!**/*Rules.js',
-  '!**/*Variables.js',
-]
+const componentsSrc = [`${config.paths.src()}/components/*/*.tsx`]
 
-const examplesSrc = `${paths.docsSrc()}/examples/*/*/*/index.js`
+const examplesSrc = `${paths.docsSrc()}/examples/*/*/*/index.tsx`
 
 task('build:docs:cname', cb => {
   sh(`echo react.semantic-ui.com > ${paths.docsDist('CNAME')}`, cb)

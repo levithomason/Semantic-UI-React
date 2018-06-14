@@ -1,7 +1,7 @@
 import { rem } from '../../lib'
 
-export default (siteVars) => {
-  const vars = {}
+export default siteVars => {
+  const vars: any = {}
 
   // Item
   vars.itemPaddingLeft = rem(2)

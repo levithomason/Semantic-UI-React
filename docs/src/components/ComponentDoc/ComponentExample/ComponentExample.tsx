@@ -162,7 +162,7 @@ class ComponentExample extends PureComponent {
     })
   }
 
-  handleShowCodeClick = (e) => {
+  handleShowCodeClick = e => {
     e.preventDefault()
 
     const { showCode } = this.state
@@ -170,7 +170,7 @@ class ComponentExample extends PureComponent {
     this.setState({ showCode: !showCode }, this.updateHash)
   }
 
-  handleShowHTMLClick = (e) => {
+  handleShowHTMLClick = e => {
     e.preventDefault()
 
     const { showHTML } = this.state
@@ -189,7 +189,7 @@ class ComponentExample extends PureComponent {
     })
   }
 
-  handleShowVariablesClick = (e) => {
+  handleShowVariablesClick = e => {
     e.preventDefault()
 
     const { showVariables } = this.state
@@ -227,7 +227,7 @@ class ComponentExample extends PureComponent {
     return this.sourceCode
   }
 
-  getKnobsFilename = () => `./${this.props.examplePath}.knobs.js`
+  getKnobsFilename = () => `./${this.props.examplePath}.knobs.tsx`
 
   getKebabExamplePath = () => {
     if (!this.kebabExamplePath) this.kebabExamplePath = _.kebabCase(this.props.examplePath)
@@ -237,13 +237,13 @@ class ComponentExample extends PureComponent {
 
   hasKnobs = () => _.includes(knobsContext.keys(), this.getKnobsFilename())
 
-  renderError = _.debounce((error) => {
+  renderError = _.debounce(error => {
     this.setState({ error })
   }, 800)
 
   renderOriginalExample = () => {
     const { examplePath } = this.props
-    const ExampleComponent = exampleContext(`./${examplePath}.js`).default
+    const ExampleComponent = exampleContext(`./${examplePath}.tsx`).default
     return this.renderWithProvider(ExampleComponent)
   }
 
@@ -274,7 +274,7 @@ class ComponentExample extends PureComponent {
       .replace(/ import/g, '\nimport') // one import per line
       .split('\n') // split lines
       .filter(Boolean) // remove empty lines
-      .map((l) => {
+      .map(l => {
         // rewrite imports to const statements
         const [defaultImport, destructuredImports, _module] = _.tail(
           /import\s+([\w]+)?(?:\s*,\s*)?({[\s\w,]+})?\s+from\s+['"](?:.*\/)?([\w\-_]+)['"]/.exec(l),
@@ -340,7 +340,7 @@ class ComponentExample extends PureComponent {
     }
   }, 100)
 
-  handleKnobChange = (knobs) => {
+  handleKnobChange = knobs => {
     this.setState(
       prevState => ({
         knobs: {
@@ -382,7 +382,7 @@ class ComponentExample extends PureComponent {
     </Provider>
   )
 
-  handleChangeCode = (sourceCode) => {
+  handleChangeCode = sourceCode => {
     this.setState({ sourceCode }, this.renderSourceCode)
   }
 
@@ -397,7 +397,7 @@ class ComponentExample extends PureComponent {
     const filename = pathParts[pathParts.length - 1]
 
     this.ghEditHref = [
-      `${repoURL}/edit/master/docs/src/examples/${examplePath}.js`,
+      `${repoURL}/edit/master/docs/src/examples/${examplePath}.tsx`,
       `?message=docs(${filename}): your description`,
     ].join('')
   }
@@ -421,17 +421,17 @@ class ComponentExample extends PureComponent {
           <Menu.Item
             active={!!error} // to show the color
             color={color}
-            icon='refresh'
-            content='Reset'
+            icon="refresh"
+            content="Reset"
             onClick={this.resetJSX}
           />
           <Menu.Item
             active={!!error} // to show the color
             color={color}
-            icon='github'
-            content='Edit'
+            icon="github"
+            content="Edit"
             href={this.ghEditHref}
-            target='_blank'
+            target="_blank"
           />
         </Menu>
       </Divider>
@@ -481,7 +481,7 @@ class ComponentExample extends PureComponent {
         <Divider horizontal>Rendered HTML</Divider>
         <Editor
           id={`${this.getKebabExamplePath()}-html`}
-          mode='html'
+          mode="html"
           value={beautifiedHTML}
           readOnly
         />
@@ -500,12 +500,12 @@ class ComponentExample extends PureComponent {
         <Divider horizontal>{_.startCase(name).replace(/ /g, '')} Variables</Divider>
         <Provider.Consumer>
           {({ siteVariables }) => {
-            const variablesFilename = `./${name}/${_.camelCase(name)}Variables.js`
+            const variablesFilename = `./${name}/${_.camelCase(name)}Variables.ts`
             const hasVariablesFile = _.includes(variablesContext.keys(), variablesFilename)
 
             if (!hasVariablesFile) {
               return (
-                <Segment size='small' secondary basic>
+                <Segment size="small" secondary basic>
                   This component has no variables to edit.
                 </Segment>
               )
@@ -567,14 +567,14 @@ class ComponentExample extends PureComponent {
       transition: 'box-shadow 200ms, background 200ms',
       ...(isActive
         ? {
-          background: '#fff',
-          boxShadow: '0 0 30px #ccc',
-        }
+            background: '#fff',
+            boxShadow: '0 0 30px #ccc',
+          }
         : isHovering && {
-          background: '#fff',
-          boxShadow: '0 0 10px #ccc',
-          zIndex: 1,
-        }),
+            background: '#fff',
+            boxShadow: '0 0 10px #ccc',
+            zIndex: 1,
+          }),
     }
 
     const knobs = this.renderKnobs()
@@ -582,8 +582,8 @@ class ComponentExample extends PureComponent {
     return (
       <Visibility once={false} onTopPassed={this.handlePass} onTopPassedReverse={this.handlePass}>
         <Grid
-          className='docs-example'
-          padded='vertically'
+          className="docs-example"
+          padded="vertically"
           id={this.anchorName}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}
@@ -597,7 +597,7 @@ class ComponentExample extends PureComponent {
                 suiVersion={suiVersion}
               />
             </Grid.Column>
-            <Grid.Column textAlign='right' width={4} style={controlsWrapperStyle}>
+            <Grid.Column textAlign="right" width={4} style={controlsWrapperStyle}>
               <ComponentControls
                 anchorName={this.anchorName}
                 examplePath={examplePath}

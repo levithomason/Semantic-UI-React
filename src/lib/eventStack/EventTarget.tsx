@@ -3,6 +3,7 @@ import _ from 'lodash'
 export default class EventTarget {
   _handlers = {}
   _pools = {}
+  target: any
 
   constructor(target) {
     this.target = target
@@ -12,7 +13,7 @@ export default class EventTarget {
   // Utils
   // ------------------------------------
 
-  _emit = name => (event) => {
+  _emit = name => event => {
     _.forEach(this._pools, (pool, poolName) => {
       const { [name]: handlers } = pool
 
@@ -31,7 +32,7 @@ export default class EventTarget {
   // Listeners handling
   // ------------------------------------
 
-  _listen = (name) => {
+  _listen = name => {
     if (_.has(this._handlers, name)) return
     const handler = this._emit(name)
 
@@ -39,7 +40,7 @@ export default class EventTarget {
     this._handlers[name] = handler
   }
 
-  _unlisten = (name) => {
+  _unlisten = name => {
     if (_.some(this._pools, name)) return
     const { [name]: handler } = this._handlers
 

@@ -7,7 +7,7 @@ import Layout from '../Layout'
 import listVariables from './listVariables'
 import listItemRules from './listItemRules'
 
-class ListItem extends React.Component {
+class ListItem extends React.Component<any, any> {
   static propTypes = {
     contentMedia: PropTypes.any,
 
@@ -62,7 +62,7 @@ class ListItem extends React.Component {
 
       return (
         <div
-          className='list-item__main'
+          className="list-item__main"
           // vertical
           // disappearing
           // rootCSS={{
@@ -90,7 +90,7 @@ class ListItem extends React.Component {
       return !header && !headerMedia ? null : (
         <Layout
           className={classes}
-          alignItems='end'
+          alignItems="end"
           gap={rem(0.8)}
           debug={debug}
           // disappearing={!truncateHeader}
@@ -111,7 +111,7 @@ class ListItem extends React.Component {
       return !content && !contentMedia ? null : (
         <Layout
           className={classes}
-          alignItems='start'
+          alignItems="start"
           gap={rem(0.8)}
           debug={debug}
           // disappearing={!truncateContent}
@@ -124,7 +124,7 @@ class ListItem extends React.Component {
     },
   }
 
-  state = {}
+  state: any = {}
 
   handleMouseEnter = () => {
     this.setState({ isHovering: true })
@@ -145,7 +145,7 @@ class ListItem extends React.Component {
 
     return (
       <Layout
-        alignItems='center'
+        alignItems="center"
         gap={rem(0.8)}
         className={classNames('list-item', styles.root)}
         debug={debug}

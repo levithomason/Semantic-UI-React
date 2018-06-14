@@ -5,7 +5,7 @@ import { createComponent } from '../../lib'
 import ListItem from './ListItem'
 import listRules from './listRules'
 
-class List extends React.Component {
+class List extends React.Component<any, any> {
   static propTypes = {
     /** Toggle debug mode */
     debug: PropTypes.bool,
@@ -55,7 +55,7 @@ class List extends React.Component {
     ),
   }
 
-  renderItems = (props) => {
+  renderItems = props => {
     const { items, renderItem } = props
     return items.map(item => renderItem(props, item))
   }
@@ -64,7 +64,7 @@ class List extends React.Component {
     const { children, items, rest } = this.props
 
     return (
-      <div className='list' {...rest}>
+      <div className="list" {...rest}>
         {items ? this.renderItems(this.props) : children}
       </div>
     )

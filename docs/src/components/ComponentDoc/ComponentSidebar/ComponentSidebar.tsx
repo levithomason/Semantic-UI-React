@@ -13,7 +13,7 @@ const sidebarStyle = {
   paddingTop: '0.1em',
 }
 
-class ComponentSidebar extends Component {
+class ComponentSidebar extends Component<any, any> {
   static propTypes = {
     activePath: PropTypes.string,
     displayName: PropTypes.string,
@@ -21,7 +21,7 @@ class ComponentSidebar extends Component {
     onItemClick: PropTypes.func,
   }
 
-  state = {}
+  state: any = {}
 
   componentDidMount() {
     this.fetchSections()
@@ -32,7 +32,7 @@ class ComponentSidebar extends Component {
   }
 
   fetchSections = ({ displayName } = this.props) => {
-    import(`docs/src/exampleMenus/${displayName}.examples.json`).then((sections) => {
+    import(`docs/src/exampleMenus/${displayName}.examples.json`).then(sections => {
       this.setState({ sections })
     })
   }

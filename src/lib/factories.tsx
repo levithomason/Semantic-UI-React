@@ -17,7 +17,7 @@ import React, { cloneElement, isValidElement } from 'react'
  * @param {object|function} [options.overrideProps={}] Override props object or function (called with regular props)
  * @returns {object|null}
  */
-export function createShorthand(Component, mapValueToProps, val, options = {}) {
+export function createShorthand(Component, mapValueToProps, val, options: any = {}) {
   if (typeof Component !== 'function' && typeof Component !== 'string') {
     throw new Error('createShorthand() Component must be a string or function.')
   }

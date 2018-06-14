@@ -15,7 +15,7 @@ componentInfoContext.byDisplayName = infoObjects.reduce((acc, next) => {
   return acc
 }, {})
 
-componentInfoContext.fromComponent = (Component) => {
+componentInfoContext.fromComponent = Component => {
   const displayName = Component.displayName || Component.name
 
   return componentInfoContext.byDisplayName[displayName]

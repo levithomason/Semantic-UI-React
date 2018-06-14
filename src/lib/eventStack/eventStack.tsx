@@ -3,9 +3,7 @@ import EventTarget from './EventTarget'
 import normalizeTarget from './normalizeTarget'
 
 class EventStack {
-  constructor() {
-    this._targets = new Map()
-  }
+  _targets = new Map()
 
   // ------------------------------------
   // Target utils
@@ -23,7 +21,7 @@ class EventStack {
     return eventTarget
   }
 
-  _remove = (target) => {
+  _remove = target => {
     const normalized = normalizeTarget(target)
 
     this._targets.delete(normalized)
@@ -33,7 +31,7 @@ class EventStack {
   // Pub/sub
   // ------------------------------------
 
-  sub = (name, handlers, options = {}) => {
+  sub = (name, handlers, options: any = {}) => {
     if (!isBrowser()) return
 
     const { target = document, pool = 'default' } = options
@@ -42,7 +40,7 @@ class EventStack {
     eventTarget.sub(name, handlers, pool)
   }
 
-  unsub = (name, handlers, options = {}) => {
+  unsub = (name, handlers, options: any = {}) => {
     if (!isBrowser()) return
 
     const { target = document, pool = 'default' } = options
