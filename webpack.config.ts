@@ -5,7 +5,7 @@ import webpack from 'webpack'
 import config from './config'
 
 const { paths } = config
-const { __DEV__, __TEST__, __PROD__ } = config.compiler_globals
+const { __DEV__, __PROD__ } = config.compiler_globals
 
 const webpackConfig: any = {
   name: 'client',
@@ -14,10 +14,24 @@ const webpackConfig: any = {
     app: paths.docsSrc('index'),
     vendor: config.compiler_vendor,
   },
+  output: {
+    filename: `[name].[${config.compiler_hash_type}].js`,
+    path: config.compiler_output_path,
+    pathinfo: true,
+    publicPath: config.compiler_public_path,
+  },
   devtool: 'sourcemap',
-  externals: {},
+  externals: {
+    'anchor-js': 'AnchorJS',
+    '@babel/standalone': 'Babel',
+    faker: 'faker',
+    'prop-types': 'PropTypes',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    'react-dom/server': 'ReactDOMServer',
+  },
   module: {
-    noParse: [],
+    noParse: [/\.json$/, /anchor-js/, /@babel\/standalone/, /faker/],
     rules: [
       {
         test: /\.(js|ts|tsx)$/,
@@ -29,7 +43,33 @@ const webpackConfig: any = {
       },
     ],
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin(config.compiler_globals),
+    new webpack.DllReferencePlugin({
+      context: paths.base('node_modules'),
+      manifest: require(paths.base('dll/vendor-manifest.json')),
+    }),
+    new HtmlWebpackPlugin({
+      template: paths.docsSrc('index.ejs'),
+      filename: 'index.html',
+      hash: false,
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true,
+      },
+      versions: {
+        babel: require('@babel/standalone/package.json').version,
+        faker: require('faker/package.json').version,
+        jsBeautify: require('js-beautify/package.json').version,
+        lodash: require('lodash/package.json').version,
+        propTypes: require('prop-types/package.json').version,
+        react: require('react/package.json').version,
+        reactDOM: require('react-dom/package.json').version,
+        sui: require('semantic-ui-css/package.json').version,
+        suir: require('./package.json').version,
+      },
+    }),
+  ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
@@ -42,7 +82,7 @@ const webpackConfig: any = {
 }
 
 // ------------------------------------
-// Entry Points
+// Environment Configuration
 // ------------------------------------
 if (__DEV__) {
   const webpackHotPath = `${config.compiler_public_path}__webpack_hmr`
@@ -59,62 +99,6 @@ if (__DEV__) {
   ).join('')}`
 
   webpackConfig.entry.app = [webpackHotMiddlewareEntry].concat(webpackConfig.entry.app)
-}
-
-// ------------------------------------
-// Bundle Output
-// ------------------------------------
-webpackConfig.output = {
-  ...webpackConfig.output,
-  filename: `[name].[${config.compiler_hash_type}].js`,
-  path: config.compiler_output_path,
-  pathinfo: true,
-  publicPath: config.compiler_public_path,
-}
-
-// ------------------------------------
-// Plugins
-// ------------------------------------
-webpackConfig.plugins = [
-  ...webpackConfig.plugins,
-  new webpack.DefinePlugin(config.compiler_globals),
-  new webpack.DllReferencePlugin({
-    context: paths.base('node_modules'),
-    manifest: require(paths.base('dll/vendor-manifest.json')),
-  }),
-  new HtmlWebpackPlugin({
-    template: paths.docsSrc('index.ejs'),
-    filename: 'index.html',
-    hash: false,
-    inject: 'body',
-    minify: {
-      collapseWhitespace: true,
-    },
-    versions: {
-      babel: require('@babel/standalone/package.json').version,
-      faker: require('faker/package.json').version,
-      jsBeautify: require('js-beautify/package.json').version,
-      lodash: require('lodash/package.json').version,
-      propTypes: require('prop-types/package.json').version,
-      react: require('react/package.json').version,
-      reactDOM: require('react-dom/package.json').version,
-      sui: require('semantic-ui-css/package.json').version,
-      suir: require('./package.json').version,
-    },
-  }),
-]
-
-if (!__TEST__) {
-  webpackConfig.plugins.push(
-    // Don't split bundles during testing as karma can only import one bundle
-    // https://github.com/webpack-contrib/karma-webpack/issues/22
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor'],
-    }),
-  )
-}
-
-if (__DEV__) {
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -134,41 +118,6 @@ if (__PROD__) {
       },
     }),
   )
-}
-
-// ------------------------------------
-// Externals
-// ------------------------------------
-if (!__TEST__) {
-  // find modules loaded via CDN on the window
-  webpackConfig.externals = {
-    ...webpackConfig.externals,
-    'anchor-js': 'AnchorJS',
-    '@babel/standalone': 'Babel',
-    faker: 'faker',
-    'prop-types': 'PropTypes',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    'react-dom/server': 'ReactDOMServer',
-  }
-}
-
-// ------------------------------------
-// No Parse
-// ------------------------------------
-webpackConfig.module.noParse = [
-  ...webpackConfig.module.noParse,
-  /\.json$/,
-  /anchor-js/,
-  /@babel\/standalone/,
-]
-
-if (!__TEST__) {
-  webpackConfig.module.noParse = [
-    ...webpackConfig.module.noParse,
-    // Do not parse browser ready modules loaded via CDN (faster builds)
-    /faker/,
-  ]
 }
 
 export default webpackConfig
