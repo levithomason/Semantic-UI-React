@@ -1,31 +1,11 @@
 {
+  "extends": "./tsconfig.common.json",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["es2015", "dom"],
-    "baseUrl": "../",
-    "paths": {
-      "stardust": ["src"],
-      "stardust/*": ["src/*"]
-    },
-    "typeRoots": [
-      "types",
-      "./node_modules/@types"
-    ],
-    "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": false,
-    "noImplicitAny": false,
-    "strictNullChecks": false
+    "module": "esnext"
   },
   "include": [
-    "../types",
     "../src",
-    "../docs/src"
+    "../docs/src",
+    "../types"
   ]
 }
