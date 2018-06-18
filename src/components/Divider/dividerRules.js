@@ -1,7 +1,7 @@
-import { rem, hasChildren } from '../../lib'
+import { rem, childrenExist } from '../../lib'
 
 const dividerBorderRule = size => ({
-  height: rem(size * 0.1),
+  height: rem(0.1 + size * 0.1),
   background: 'lightgray',
 })
 
@@ -12,29 +12,29 @@ const beforeAndAfter = (size, radius) => ({
   ...dividerBorderRule(size),
 })
 
-export default props => ({
+export default ({ children, size, variables }) => ({
   root: {
-    marginTop: rem(props.size * 0.75),
-    marginBottom: rem(props.size * 0.75),
-    ...(hasChildren(props)
+    marginTop: rem(0.1 + size * 0.75),
+    marginBottom: rem(0.1 + size * 0.75),
+    ...(childrenExist(children)
       ? {
         display: 'flex',
         alignItems: 'center',
+        textAlign: 'center',
+        lineHeight: 0,
+        fontSize: rem(1.4 + size * 0.1),
         ':before': {
-          ...beforeAndAfter(props.size, props.variables.borderRadius),
-          marginRight: rem(1 + props.size * 0.2),
+          ...beforeAndAfter(size, variables.borderRadius),
+          marginRight: rem(1 + size * 0.2),
         },
         ':after': {
-          ...beforeAndAfter(props.size, props.variables.borderRadius),
-          marginLeft: rem(1 + props.size * 0.2),
+          ...beforeAndAfter(size, variables.borderRadius),
+          marginLeft: rem(1 + size * 0.2),
         },
       }
       : {
-        textAlign: 'center',
-        lineHeight: 0,
-        fontSize: rem(1.4 + props.size * 0.1),
-        borderRadius: rem(props.variables.borderRadius),
-        ...dividerBorderRule(props.size, props.variables.borderRadius),
+        borderRadius: rem(variables.borderRadius),
+        ...dividerBorderRule(size, variables.borderRadius),
       }),
   },
 })

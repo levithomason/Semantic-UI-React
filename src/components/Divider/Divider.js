@@ -25,7 +25,7 @@ Divider.propTypes = {
 }
 
 Divider.defaultProps = {
-  size: 1,
+  size: 0,
 }
 
 export default createComponent(Divider, {
