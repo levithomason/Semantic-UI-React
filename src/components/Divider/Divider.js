@@ -17,19 +17,15 @@ Divider.propTypes = {
   /** Size multiplier (default 0) * */
   size: PropTypes.number,
 
-  /** Rounding multiplier (0 equals no rounding, default: 1) * */
-  rounding: PropTypes.number,
-
   /** TODO: this is not a prop we want here... */
   styles: PropTypes.object,
 
   /** Child content * */
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array]),
+  children: PropTypes.node,
 }
 
 Divider.defaultProps = {
-  size: 0,
-  rounding: 1,
+  size: 1,
 }
 
 export default createComponent(Divider, {

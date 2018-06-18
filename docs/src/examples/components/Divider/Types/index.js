@@ -10,9 +10,9 @@ const Types = () => (
       examplePath='components/Divider/Types/DividerExample'
     />
     <ComponentExample
-      title='Divider with label'
-      description='A Divider with a label using children.'
-      examplePath='components/Divider/Types/DividerExampleLabel'
+      title='Divider with children'
+      description='A Divider can contain children.'
+      examplePath='components/Divider/Types/DividerExampleChildren'
     />
   </ExampleSection>
 )
