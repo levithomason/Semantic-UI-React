@@ -7,7 +7,7 @@ import dividerVariables from './dividerVariables'
 
 import { createComponent } from '../../lib'
 
-const Divider = (props) => {
+const Divider: React.SFC = (props: any) => {
   const { children, styles } = props
 
   return <div className={cx('ui-divider', styles.root)}>{children}</div>

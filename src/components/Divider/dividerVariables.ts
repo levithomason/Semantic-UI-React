@@ -1,5 +1,5 @@
 export default () => {
-  const vars = {}
+  const vars: any = {}
 
   vars.borderRadius = 1
 

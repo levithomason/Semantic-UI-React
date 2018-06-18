@@ -3,7 +3,7 @@ import React from 'react'
 import { Divider } from 'stardust'
 
 const DividerExampleSize = () =>
-  _.times(10, (i) => {
+  _.times(10, i => {
     const size = i + 1
 
     return (
