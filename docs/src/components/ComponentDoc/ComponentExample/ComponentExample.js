@@ -377,7 +377,7 @@ class ComponentExample extends PureComponent {
   getComponentName = () => this.props.examplePath.split('/')[1]
 
   renderWithProvider = ExampleComponent => (
-    <Provider componentVariables={this.state.componentVariables}>
+    <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
       <ExampleComponent knobs={this.getKnobsValue()} />
     </Provider>
   )
