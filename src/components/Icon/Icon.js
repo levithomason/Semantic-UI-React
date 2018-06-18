@@ -12,6 +12,8 @@ import {
   useValueAndKey,
 } from '../../lib'
 
+import IconGroup from './IconGroup'
+
 class Icon extends React.Component {
   static propTypes = {
     /** An element type to render as (string or function). */
@@ -66,6 +68,8 @@ class Icon extends React.Component {
   static defaultProps = {
     as: 'i',
   }
+
+  static Group = IconGroup
 
   getIconAriaOptions() {
     const ariaOptions = {}
