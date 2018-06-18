@@ -6,7 +6,7 @@ import { connect, FelaTheme } from 'react-fela'
 import callable from './callable'
 import { createShorthandFactory } from './factories'
 
-const createComponent = (Component, config) => {
+const createComponent = (Component, config = {}) => {
   const displayName = Component.name || Component.displayName
   const { rules, variables, shorthand } = config
   const StyledComponent = rules ? connect(rules)(Component) : Component

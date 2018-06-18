@@ -21,7 +21,7 @@
     "lint:fix": "yarn lint --fix",
     "prettier": "prettier --list-different \"**/*.js\"",
     "prettier:fix": "prettier --write \"**/*.js\"",
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && gulp build:docs:toc",
     "postcommit": "git update-index --again",
     "prerelease": "yarn lint && yarn test && cross-env NODE_ENV=production yarn build",
     "postrelease": "yarn deploy:docs",
@@ -39,10 +39,6 @@
     "**/*.js": [
       "prettier --write",
       "eslint --fix",
-      "git add"
-    ],
-    "**/*.md": [
-      "yarn build:docs-toc",
       "git add"
     ]
   },
@@ -72,6 +68,7 @@
     "fela-plugin-fallback-value": "^5.0.17",
     "fela-plugin-placeholder-prefixer": "^5.0.18",
     "fela-plugin-prefixer": "^5.0.18",
+    "fela-plugin-rtl": "^1.0.6",
     "hoist-non-react-statics": "^2.5.0",
     "keyboard-key": "^1.0.1",
     "lodash": "^4.17.10",
