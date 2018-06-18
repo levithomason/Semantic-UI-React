@@ -4,10 +4,11 @@ import hoistNonReactStatics from 'hoist-non-react-statics'
 const { connect, FelaTheme } = require('react-fela')
 
 import callable from './callable'
+import getDisplayName from './getDisplayName'
 import { createShorthandFactory } from './factories'
 
 const createComponent = (Component, config: any = {}): any => {
-  const displayName = Component.name || Component.displayName
+  const displayName = getDisplayName(Component)
   const { rules, variables, shorthand } = config
   const StyledComponent = rules ? connect(rules)(Component) : Component
 
@@ -34,7 +35,7 @@ const createComponent = (Component, config: any = {}): any => {
   }
 
   UIComponent.create = createShorthandFactory(UIComponent, shorthand)
-  UIComponent.wrappedComponent = `${Component.displayName || Component.name || 'Anonymous'}`
+  UIComponent.wrappedComponent = `${displayName}`
   UIComponent.wrappedComponentPropTypes = Component.propTypes
   UIComponent.wrappedComponentDefaultProps = Component.defaultProps
   UIComponent.wrappedComponentAutoControlledProps = Component.autoControlledProps
