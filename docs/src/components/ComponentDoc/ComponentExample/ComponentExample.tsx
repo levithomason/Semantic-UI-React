@@ -261,7 +261,7 @@ class ComponentExample extends PureComponent<any, any> {
     } catch (err) {
       this.renderError(err.message)
     }
-  }, 100)
+  }, 250)
 
   handleKnobChange = knobs => {
     this.setState(
@@ -299,11 +299,13 @@ class ComponentExample extends PureComponent<any, any> {
 
   getComponentName = () => this.props.examplePath.split('/')[1]
 
-  renderWithProvider = ExampleComponent => (
-    <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
-      <ExampleComponent knobs={this.getKnobsValue()} />
-    </Provider>
-  )
+  renderWithProvider(ExampleComponent) {
+    return (
+      <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
+        <ExampleComponent knobs={this.getKnobsValue()} />
+      </Provider>
+    )
+  }
 
   handleChangeCode = sourceCode => {
     this.setState({ sourceCode }, this.renderSourceCode)
@@ -461,9 +463,12 @@ class ComponentExample extends PureComponent<any, any> {
 
   handleVariableChange = (component, variable) => (e, { value }) => {
     this.setState(
-      _.merge(this.state, {
+      state => ({
         componentVariables: {
-          [component]: { [variable]: value },
+          ...state.componentVariables,
+          [component]: {
+            [variable]: value,
+          },
         },
       }),
       this.renderSourceCode,

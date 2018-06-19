@@ -36,7 +36,7 @@ class Provider extends Component<any, any> {
 
   static Consumer = ProviderConsumer
 
-  renderStaticStyles = (felaRenderer) => {
+  renderStaticStyles = felaRenderer => {
     const { siteVariables, staticStyles } = this.props
 
     if (!staticStyles) return
@@ -64,7 +64,7 @@ class Provider extends Component<any, any> {
     })
   }
 
-  renderFontFaces = (felaRenderer) => {
+  renderFontFaces = felaRenderer => {
     const { siteVariables, fontFaces } = this.props
 
     if (!fontFaces) return

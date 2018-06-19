@@ -90,9 +90,7 @@ const config = {
     'classnames',
     'copy-to-clipboard',
     'faker',
-    'react',
     'react-ace',
-    'react-dom',
   ],
 }
 
