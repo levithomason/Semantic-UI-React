@@ -24,9 +24,6 @@ Button.propTypes = {
   /** A button can appear circular. */
   circular: PropTypes.bool,
 
-  /** A button can have different colors. */
-  color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
-
   /** A bunch of styles we might not need. */
   styles: PropTypes.object,
 }
