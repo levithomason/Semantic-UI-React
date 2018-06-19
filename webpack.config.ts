@@ -24,15 +24,18 @@ const webpackConfig: any = {
   devtool: config.compiler_devtool,
   externals: {
     'anchor-js': 'AnchorJS',
-    '@babel/standalone': 'Babel',
     faker: 'faker',
     'prop-types': 'PropTypes',
     react: 'React',
     'react-dom': 'ReactDOM',
     'react-dom/server': 'ReactDOMServer',
   },
+  node: {
+    fs: 'empty',
+    module: 'empty',
+  },
   module: {
-    noParse: [/\.json$/, /anchor-js/, /@babel\/standalone/, /faker/],
+    noParse: [/\.json$/, /anchor-js/, /faker/],
     rules: [
       {
         test: /\.(js|ts|tsx)$/,
@@ -62,7 +65,6 @@ const webpackConfig: any = {
         collapseWhitespace: true,
       },
       versions: {
-        babel: require('@babel/standalone/package.json').version,
         faker: require('faker/package.json').version,
         jsBeautify: require('js-beautify/package.json').version,
         lodash: require('lodash/package.json').version,

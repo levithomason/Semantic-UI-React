@@ -1,4 +1,3 @@
-import * as Babel from '@babel/standalone'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React, { PureComponent, isValidElement } from 'react'
@@ -8,7 +7,7 @@ import { html } from 'js-beautify'
 import copyToClipboard from 'copy-to-clipboard'
 import { Divider, Form, Grid, Menu, Segment, Visibility } from 'semantic-ui-react'
 import { rem } from 'src/lib'
-
+import evalTypeScript from 'docs/src/utils/evalTypeScript'
 import { Provider } from 'stardust'
 
 import {
@@ -23,21 +22,6 @@ import {
 import Editor from 'docs/src/components/Editor/Editor'
 import ComponentControls from '../ComponentControls'
 import ComponentExampleTitle from './ComponentExampleTitle'
-
-const babelConfig = {
-  presets: [
-    [
-      'env',
-      {
-        targets: {
-          browsers: ['last 4 versions', 'not dead'],
-        },
-      },
-    ],
-    'react',
-    ['stage-1', { decoratorsLegacy: true }],
-  ],
-}
 
 const childrenStyle = {
   paddingTop: 0,
@@ -184,7 +168,7 @@ class ComponentExample extends PureComponent<any, any> {
     this.setState({ showHTML: !showHTML }, this.updateHash)
   }
 
-  handleShowRtlClick = (e) => {
+  handleShowRtlClick = e => {
     e.preventDefault()
 
     const { showRtl } = this.state
@@ -254,75 +238,9 @@ class ComponentExample extends PureComponent<any, any> {
 
   renderSourceCode = _.debounce(() => {
     const { examplePath } = this.props
-    const { sourceCode } = this.state
-    // Heads Up!
-    //
-    // These are used in the code editor scope when rewriting imports to const statements
-    // We use require() to preserve variable names
-    // Webpack rewrites import names
-    /* tslint:disable */
-    const FAKER = require('faker')
-    const LODASH = require('lodash')
-    const REACT = require('react')
-    const STARDUST = require('stardust')
-    let WIREFRAME
-    let COMMON
-    /* tslint:enable */
-
-    // Should use an AST transform here... oh well :/
-    // Rewrite the example file into an IIFE that returns a component
-    // which can be rendered in this ComponentExample's render() method
-
-    // rewrite imports to const statements against the UPPERCASE module names
-    const imports = _.get(/(^[\s\S])*import[\s\S]*from[\s\S]*['"]\n/.exec(sourceCode), '[0]', '')
-      .replace(/[\s\n]+/g, ' ') // normalize spaces and make one line
-      .replace(/ import/g, '\nimport') // one import per line
-      .split('\n') // split lines
-      .filter(Boolean) // remove empty lines
-      .map(l => {
-        // rewrite imports to const statements
-        const [defaultImport, destructuredImports, _module] = _.tail(
-          /import\s+([\w]+)?(?:\s*,\s*)?({[\s\w,]+})?\s+from\s+['"](?:.*\/)?([\w\-_]+)['"]/.exec(l),
-        )
-
-        const module = _.snakeCase(_module).toUpperCase()
-
-        if (module === 'COMMON') {
-          const componentPath = examplePath
-            .split(__PATH_SEP__)
-            .splice(0, 2)
-            .join(__PATH_SEP__)
-          COMMON = require(`docs/src/examples/${componentPath}/common`)
-        }
-
-        const constStatements = []
-        if (defaultImport) constStatements.push(`const ${defaultImport} = ${module}`)
-        if (destructuredImports) constStatements.push(`const ${destructuredImports} = ${module}`)
-        constStatements.push('\n')
-
-        return constStatements.join('\n')
-      })
-      .join('\n')
-
-    // capture the default export so we can return it from the IIFE
-    const defaultExport = _.get(
-      /export\s+default\s+(?:class|function)?(?:\s+)?(\w+)/.exec(sourceCode),
-      '[1]',
-    )
-
-    const body = _.get(
-      /(export\sdefault\sclass|const|class\s\S*\sextends)[\s\S]*/.exec(sourceCode),
-      '[0]',
-      '',
-    )
-      .replace(/export\s+default\s+(?!class|function)\w+([\s\n]+)?/, '') // remove `export default Foo` statements
-      .replace(/export\s+default\s+/, '') // remove `export default ...`
-
-    const IIFE = `(function() {\n${imports}${body}return ${defaultExport}\n}())`
 
     try {
-      const { code } = Babel.transform(IIFE, babelConfig)
-      const Example = eval(code) // tslint:disable-line no-eval
+      const Example = evalTypeScript(this.state.sourceCode)
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {

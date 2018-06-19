@@ -82,7 +82,6 @@ const config = {
     assetsSort: '', // (string) sort the assets by that field
   },
   compiler_vendor: [
-    '@babel/standalone',
     'brace',
     'brace/ext/language_tools',
     'brace/mode/jsx',
