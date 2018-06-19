@@ -4,7 +4,7 @@ export default () => {
   const vars = {}
 
   vars.buttonRadius = rem(999)
-  vars.buttonSize = rem(3.2)
+  vars.buttonWidth = rem(4.2)
 
   return vars
 }

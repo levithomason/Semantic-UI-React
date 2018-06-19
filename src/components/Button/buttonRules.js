@@ -1,10 +1,9 @@
-const buttonRules = ({ active, circular, color, variables }) => ({
+const buttonRules = ({ circular, color, variables }) => ({
   root: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    ...(circular && { borderRadius: variables.borderRadius }),
+    ...(circular && { borderRadius: variables.buttonRadius, width: variables.buttonWidth }),
     color,
-    active,
   },
 })
 
