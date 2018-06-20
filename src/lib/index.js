@@ -29,4 +29,4 @@ export * as SUI from './SUI'
 export rem from './rem'
 
 export { asThemeConsumer, getTheme } from './LegacyContextComponent_functionalApproach'
-export withStyling from './LegacyContextComponent_hocApproach'
+export withThemeStyling from './LegacyContextComponent_hocApproach'

@@ -2,13 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cx from 'classnames'
 
-import {
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-  withStyling,
-  getClasses,
-} from '../../lib'
+import { customPropTypes, getElementType, getUnhandledProps, withThemeStyling } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 
@@ -38,16 +32,13 @@ class Image extends React.Component {
     const ElementType = getElementType(Image, this.props)
     const rest = getUnhandledProps(Image, this.props)
 
-    // here is the place where we could access provided styles/themes/getClasses, etc
-    const theme = this.props.theme
+    return withThemeStyling((getThemeClasses) => {
+      const classes = getThemeClasses(this.props, imageRules, imageVariables)
+      const classNames = cx('ui-image', classes.root)
 
-    // actually, we could encapsulate 'getClasses' as well
-    const classes = getClasses(this.props, imageRules, imageVariables, theme)
-
-    const classNames = cx('ui-image', classes.root)
-
-    return <ElementType {...rest} className={classNames} />
+      return <ElementType {...rest} className={classNames} />
+    })
   }
 }
 
-export default withStyling(Image)
+export default Image
