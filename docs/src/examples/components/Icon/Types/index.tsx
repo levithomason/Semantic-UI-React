@@ -2,14 +2,14 @@ import React from 'react'
 import ComponentExample from 'docs/src/components/ComponentDoc/ComponentExample'
 import ExampleSection from 'docs/src/components/ComponentDoc/ExampleSection'
 
-const Groups = () => (
-  <ExampleSection title='Groups'>
+const Types = () => (
+  <ExampleSection title="Types">
     <ComponentExample
-      title='Icons'
-      description='Several icons can be used together as a group.'
-      examplePath='components/Icon/Groups/IconExampleIconGroup'
+      title="Default"
+      description="A default Icon."
+      examplePath="components/Icon/Types/IconExample"
     />
   </ExampleSection>
 )
 
-export default Groups
+export default Types

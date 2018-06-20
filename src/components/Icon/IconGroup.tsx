@@ -8,7 +8,7 @@ import rules from './iconGroupRules'
 /**
  * Several icons can be used together as a group.
  */
-const IconGroup = (props) => {
+const IconGroup: any = props => {
   const { children, className, styles } = props
 
   // TODO: Ensure that side effects from 'icons' are removed

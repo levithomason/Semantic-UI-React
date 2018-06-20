@@ -19,7 +19,7 @@ const examples = [
 ]
 
 const IconExample = () => (
-  <div>{examples.map(type => <Icon key={type} size='big' name={type} />)}</div>
+  <div>{examples.map(type => <Icon key={type} size="big" name={type} />)}</div>
 )
 
 export default IconExample

@@ -7,7 +7,7 @@ import { createComponent, getElementType, SUI, customPropTypes } from '../../lib
 import IconGroup from './IconGroup'
 import rules from './iconRules'
 
-class Icon extends React.Component {
+class Icon extends React.Component<any, any> {
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,

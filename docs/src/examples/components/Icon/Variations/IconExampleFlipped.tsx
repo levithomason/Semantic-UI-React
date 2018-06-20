@@ -3,8 +3,8 @@ import { Icon } from 'stardust'
 
 const IconExampleFlipped = () => (
   <div>
-    <Icon flipped='horizontally' name='cloud' />
-    <Icon flipped='vertically' name='cloud' />
+    <Icon flipped="horizontally" name="cloud" />
+    <Icon flipped="vertically" name="cloud" />
   </div>
 )
 

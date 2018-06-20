@@ -25,7 +25,7 @@ const fontAwesomeIcons = new Map([
   ['thin circle', 'f111'],
 ])
 
-export default (name) => {
+export default name => {
   if (!fontAwesomeIcons.has(name)) {
     throw new Error(`Could not find ${name} in FontAwesome`)
   }

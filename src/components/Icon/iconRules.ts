@@ -17,19 +17,19 @@ export default ({
 
   const computed = {
     root: {
+      fontFamily,
+      color,
       display: 'inline-block',
       opacity: 1,
       margin: '0 0.25em 0 0',
       width: '1.18em',
       height: '1em',
-      fontFamily,
       fontSize: getSize(size),
       fontStyle: 'normal',
       fontWeight: 400,
       textDecoration: 'inherit',
       textAlign: 'center',
       speak: 'none',
-      color,
       fontSmoothing: 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
       backfaceVisibility: 'hidden',
@@ -37,9 +37,9 @@ export default ({
       lineHeight: 1,
 
       '::before': {
+        content,
         boxSizing: 'inherit',
         background: '0 0!important',
-        content,
       },
 
       ...(disabled && { opacity: '.45!important' }),

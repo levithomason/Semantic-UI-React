@@ -3,8 +3,8 @@ import { Icon } from 'stardust'
 
 const IconExampleLink = () => (
   <div>
-    <Icon link name='close' />
-    <Icon link name='help' />
+    <Icon link name="close" />
+    <Icon link name="help" />
   </div>
 )
 
