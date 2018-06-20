@@ -42,6 +42,19 @@ class List extends React.Component<any, any> {
     children: PropTypes.node,
   }
 
+  static handledProps = [
+    'as',
+    'children',
+    'className',
+    'debug',
+    'items',
+    'renderItem',
+    'selection',
+    'truncateContent',
+    'truncateHeader',
+    'variables',
+  ]
+
   static Item = ListItem
 
   static defaultProps = {

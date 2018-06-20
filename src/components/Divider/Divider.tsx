@@ -7,7 +7,7 @@ import dividerVariables from './dividerVariables'
 
 import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
 
-const Divider: React.SFC = (props: any) => {
+const Divider: any = (props: any) => {
   const ElementType = getElementType(Divider, props)
   const { children, className, styles } = props
   const rest = getUnhandledProps(Divider, props)
@@ -34,6 +34,8 @@ Divider.propTypes = {
   /** Additional classes. */
   className: PropTypes.string,
 }
+
+Divider.handledProps = ['as', 'children', 'className', 'size', 'styles']
 
 Divider.defaultProps = {
   size: 0,

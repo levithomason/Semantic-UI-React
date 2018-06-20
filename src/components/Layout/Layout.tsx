@@ -54,6 +54,36 @@ class Layout extends React.Component<any, any> {
     vertical: PropTypes.bool,
   }
 
+  static handledProps = [
+    'alignItems',
+    'as',
+    'className',
+    'debug',
+    'disappearing',
+    'end',
+    'endCSS',
+    'endSize',
+    'gap',
+    'justifyItems',
+    'main',
+    'mainCSS',
+    'mainSize',
+    'reducing',
+    'renderEndArea',
+    'renderGap',
+    'renderMainArea',
+    'renderStartArea',
+    'rootCSS',
+    'start',
+    'startCSS',
+    'startSize',
+    'styles',
+    'truncateEnd',
+    'truncateMain',
+    'truncateStart',
+    'vertical',
+  ]
+
   static defaultProps = {
     as: 'div',
     startSize: 'auto',

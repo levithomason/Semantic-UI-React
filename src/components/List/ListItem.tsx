@@ -57,6 +57,27 @@ class ListItem extends React.Component<any, any> {
     styles: PropTypes.object,
   }
 
+  static handledProps = [
+    'as',
+    'className',
+    'content',
+    'contentMedia',
+    'debug',
+    'hasMarkers',
+    'header',
+    'headerMedia',
+    'important',
+    'media',
+    'renderContentArea',
+    'renderHeaderArea',
+    'renderMainArea',
+    'selection',
+    'styles',
+    'truncateContent',
+    'truncateHeader',
+    'variables',
+  ]
+
   static defaultProps = {
     renderMainArea: (props, state) => {
       const { renderHeaderArea, renderContentArea } = props
