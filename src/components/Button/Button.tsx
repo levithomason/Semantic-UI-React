@@ -9,7 +9,7 @@ import buttonVariables from './buttonVariables'
 /**
  * A button.
  */
-const Button = (props) => {
+const Button: React.SFC = (props: any) => {
   const ElementType = getElementType(Button, props)
   const rest = getUnhandledProps(Button, props)
   const { styles } = props

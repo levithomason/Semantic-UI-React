@@ -2,14 +2,14 @@ import React from 'react'
 import ComponentExample from 'docs/src/components/ComponentDoc/ComponentExample'
 import ExampleSection from 'docs/src/components/ComponentDoc/ExampleSection'
 
-const Variations = () => (
-  <ExampleSection title='Variations'>
+const Types = () => (
+  <ExampleSection title="Types">
     <ComponentExample
-      title='Circular'
-      description='An button may appear circular.'
-      examplePath='components/Button/Variations/ButtonExampleCircular'
+      title="Default"
+      description="A default Button."
+      examplePath="components/Button/Types/ButtonExample"
     />
   </ExampleSection>
 )
 
-export default Variations
+export default Types
