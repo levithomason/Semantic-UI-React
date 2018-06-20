@@ -5,11 +5,6 @@ import ExampleSection from 'docs/src/components/ComponentDoc/ExampleSection'
 const Variations = () => (
   <ExampleSection title='Variations'>
     <ComponentExample
-      title='Fitted'
-      description='An icon can be fitted, without any space to the left or right of it.'
-      examplePath='components/Icon/Variations/IconExampleFitted'
-    />
-    <ComponentExample
       title='Size'
       description='An icon can vary in size.'
       examplePath='components/Icon/Variations/IconExampleSize'
