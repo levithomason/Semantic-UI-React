@@ -5,15 +5,23 @@ import PropTypes from 'prop-types'
 import dividerRules from './dividerRules'
 import dividerVariables from './dividerVariables'
 
-import { createComponent } from '../../lib'
+import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
 
 const Divider: React.SFC = (props: any) => {
-  const { children, styles } = props
+  const ElementType = getElementType(Divider, props)
+  const { children, className, styles } = props
+  const rest = getUnhandledProps(Divider, props)
 
-  return <div className={cx('ui-divider', styles.root)}>{children}</div>
+  return (
+    <ElementType {...rest} className={cx('ui-divider', styles.root, className)}>
+      {children}
+    </ElementType>
+  )
 }
 
 Divider.propTypes = {
+  as: customPropTypes.as,
+
   /** Size multiplier (default 0) * */
   size: PropTypes.number,
 
@@ -22,6 +30,9 @@ Divider.propTypes = {
 
   /** Child content * */
   children: PropTypes.node,
+
+  /** Additional classes. */
+  className: PropTypes.string,
 }
 
 Divider.defaultProps = {

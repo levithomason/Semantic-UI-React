@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
-import { createComponent } from '../../lib'
+import { createComponent, customPropTypes, getUnhandledProps, getElementType } from '../../lib'
 import ListItem from './ListItem'
 import listRules from './listRules'
 
 class List extends React.Component<any, any> {
   static propTypes = {
+    as: customPropTypes.as,
+
+    /** Additional classes. */
+    className: PropTypes.string,
+
     /** Toggle debug mode */
     debug: PropTypes.bool,
 
@@ -34,8 +40,6 @@ class List extends React.Component<any, any> {
     renderItem: PropTypes.func,
 
     children: PropTypes.node,
-
-    rest: PropTypes.object,
   }
 
   static Item = ListItem
@@ -61,12 +65,14 @@ class List extends React.Component<any, any> {
   }
 
   render() {
-    const { children, items, rest } = this.props
+    const ElementType = getElementType(List, this.props)
+    const { children, items, className } = this.props
+    const rest = getUnhandledProps(List, this.props)
 
     return (
-      <div className="list" {...rest}>
+      <ElementType className={cx('ui-list', className)} {...rest}>
         {items ? this.renderItems(this.props) : children}
-      </div>
+      </ElementType>
     )
   }
 }
