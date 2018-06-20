@@ -2,23 +2,19 @@ import cx from 'classnames'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
-
-import { childrenUtils, customPropTypes, getElementType, getUnhandledProps, SUI } from '../../lib'
+import { createComponent, customPropTypes, getElementType, SUI } from '../../lib'
+import rules from './iconGroupRules'
 
 /**
  * Several icons can be used together as a group.
  */
-function IconGroup(props) {
-  const { children, className, content, size } = props
-  const classes = cx(size, 'icons', className)
-  const rest = getUnhandledProps(IconGroup, props)
-  const ElementType = getElementType(IconGroup, props)
+const IconGroup = (props) => {
+  const { children, className, styles } = props
 
-  return (
-    <ElementType {...rest} className={classes}>
-      {childrenUtils.isNil(children) ? content : children}
-    </ElementType>
-  )
+  // TODO: Ensure that side effects from 'icons' are removed
+  const classes = cx('icons', className, styles.root)
+  const ElementType = getElementType(IconGroup, props)
+  return <ElementType className={classes}>{children}</ElementType>
 }
 
 IconGroup.propTypes = {
@@ -31,15 +27,17 @@ IconGroup.propTypes = {
   /** Additional classes. */
   className: PropTypes.string,
 
-  /** Shorthand for primary content. */
-  content: customPropTypes.contentShorthand,
-
   /** Size of the icon group. */
   size: PropTypes.oneOf(_.without(SUI.SIZES, 'medium')),
+
+  /** FELA styles */
+  styles: PropTypes.object,
 }
 
 IconGroup.defaultProps = {
   as: 'i',
 }
 
-export default IconGroup
+export default createComponent(IconGroup, {
+  rules,
+})
