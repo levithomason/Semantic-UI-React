@@ -10,11 +10,12 @@ import {
 } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
+import createComponent from '../../lib/createComponent'
 
 /**
  * An image is a graphic representation of something.
  */
-class Image extends Component {
+class ImageCreateComponent extends Component {
   static propTypes = {
     /**  */
     as: customPropTypes.as,
@@ -24,27 +25,24 @@ class Image extends Component {
 
     /** An image can appear circular. */
     circular: PropTypes.bool,
-
-    /** Additional classes. */
-    className: PropTypes.string,
   }
 
   static defaultProps = {
     as: 'img',
   }
 
-  static handledProps = ['as', 'avatar', 'circular', 'className', 'styles']
-
   render() {
-    const ElementType = getElementType(Image, this.props)
-    const rest = getUnhandledProps(Image, this.props)
-    const classes: any = this.getClasses(this.props, imageRules, imageVariables)
-    const { className } = this.props
+    const { classes } = this.props
+    const ElementType = getElementType(ImageCreateComponent, this.props)
+    const rest = getUnhandledProps(ImageCreateComponent, this.props)
 
-    const classNames = cx('ui-image', classes.root, className)
+    const classNames = cx('ui-image', classes.root)
 
     return <ElementType {...rest} className={classNames} />
   }
 }
 
-export default Image
+export default createComponent(ImageCreateComponent, {
+  rules: imageRules,
+  variables: imageVariables,
+})

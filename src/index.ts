@@ -1,4 +1,7 @@
 export { default as Image } from './components/Image'
+export { default as ImageCreateComponent } from './components/ImageCreateComponent'
+export { default as ImageFunctionalContext } from './components/ImageFunctionalContext'
+export { default as ImageHOCContext } from './components/ImageHOCContext'
 export { default as Button } from './components/Button'
 export { default as Divider } from './components/Divider'
 export { default as Layout } from './components/Layout'

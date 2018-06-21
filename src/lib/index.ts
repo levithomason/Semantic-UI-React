@@ -2,14 +2,17 @@ import * as customPropTypes from './customPropTypes'
 import * as SUI from './SUI'
 
 export { default as AutoControlledComponent } from './AutoControlledComponent'
+export { default as BaseComponent } from './BaseComponent'
 export { default as childrenExist } from './childrenExist'
 export { debug, makeDebugger } from './debug'
 export { default as eventStack } from './eventStack'
 export { felaRenderer, felaRtlRenderer } from './felaRenderer'
+export { asThemeConsumer, getTheme } from './functionalContext'
 
 export * from './factories'
-export { default as getUnhandledProps } from './getUnhandledProps'
+export { default as getClasses } from './getClasses'
 export { default as getElementType } from './getElementType'
+export { default as getUnhandledProps } from './getUnhandledProps'
 export { default as createComponent } from './createComponent'
 export {
   htmlImageProps,

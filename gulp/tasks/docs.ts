@@ -55,7 +55,15 @@ task(
 // Build
 // ----------------------------------------
 
-const componentsSrc = [`${config.paths.src()}/components/*/*.tsx`]
+const componentsSrc = [
+  `${config.paths.src()}/components/*/*.tsx`,
+  '!**/index.tsx',
+  '!**/index.ts',
+  '!**/*Rules.tsx',
+  '!**/*Rules.ts',
+  '!**/*Variables.tsx',
+  '!**/*Variables.ts',
+]
 
 const examplesSrc = `${paths.docsSrc()}/examples/*/*/*/index.tsx`
 

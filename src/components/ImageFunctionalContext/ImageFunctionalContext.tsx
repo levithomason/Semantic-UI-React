@@ -18,7 +18,7 @@ import imageVariables from './imageVariables'
  * An image is a graphic representation of something.
  */
 // eslint-disable-next-line react/prefer-stateless-function
-class Image extends React.Component {
+class ImageFunctionalContext extends React.Component {
   static propTypes = {
     /**  */
     as: customPropTypes.as,
@@ -35,13 +35,13 @@ class Image extends React.Component {
   }
 
   render() {
-    const ElementType = getElementType(Image, this.props)
-    const rest = getUnhandledProps(Image, this.props)
+    const ElementType = getElementType(ImageFunctionalContext, this.props)
+    const rest = getUnhandledProps(ImageFunctionalContext, this.props)
 
     // this is the method that will provide theme in case if component is declared as themeConsumer
     const theme = getTheme(this)
 
-    const classes = getClasses(this.props, imageRules, imageVariables, theme)
+    const classes: any = getClasses(this.props, imageRules, imageVariables, theme)
 
     const classNames = cx('ui-image', classes.root)
 
@@ -50,4 +50,4 @@ class Image extends React.Component {
 }
 
 // here we are augmenting component's functionality
-export default asThemeConsumer(Image)
+export default asThemeConsumer(ImageFunctionalContext)

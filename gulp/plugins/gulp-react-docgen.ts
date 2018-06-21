@@ -1,5 +1,6 @@
 import Vinyl from 'vinyl'
 import gutil from 'gulp-util'
+import path from 'path'
 import through from 'through2'
 
 import { getComponentInfo } from './util'
@@ -28,9 +29,13 @@ export default () =>
 
       cb(null, infoFile)
     } catch (err) {
-      console.log(err)
       const pluginError = new gutil.PluginError(pluginName, err)
-      pluginError.message = err.stack
+      const relativePath = path.relative(process.cwd(), file.path)
+      pluginError.message = [
+        gutil.colors.magenta(`Error in file: ${relativePath}`),
+        gutil.colors.red(err.message),
+        gutil.colors.gray(err.stack),
+      ].join('\n\n')
       this.emit('error', pluginError)
     }
   })

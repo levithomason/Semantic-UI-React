@@ -7,7 +7,7 @@ import renderer from './felaRenderer'
  * @param theme
  * @returns {{}}
  */
-const getClasses = (props, rules, variables = () => {}, theme = {}) => {
+const getClasses = (props, rules, variables: any = () => {}, theme: any = {}) => {
   const { renderRule } = renderer
   const ruleProps = {
     props,

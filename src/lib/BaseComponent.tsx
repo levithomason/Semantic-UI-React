@@ -4,7 +4,7 @@ import { THEME_CHANNEL } from 'fela-bindings/lib/themeChannel'
 
 import getClasses from './getClasses'
 
-class LegacyContextComponent extends Component {
+class BaseComponent extends Component<any, any> {
   static contextTypes = {
     [THEME_CHANNEL]: PropTypes.object,
   }
@@ -16,4 +16,4 @@ class LegacyContextComponent extends Component {
   }
 }
 
-export default LegacyContextComponent
+export default BaseComponent
