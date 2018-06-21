@@ -1,8 +1,14 @@
 import _ from 'lodash'
 import isBrowser from './isBrowser'
 
+const defaultFontSize = '16px'
+
+const getComputedFontSize = () => {
+  return getComputedStyle(document.documentElement).fontSize || defaultFontSize
+}
+
 // TODO - This doesn't support theme switching, other themes, and doesn't support user changes to html base font size.
-const htmlFontSize = isBrowser() ? getComputedStyle(document.documentElement).fontSize : '16px'
+const htmlFontSize = isBrowser() ? getComputedFontSize() : defaultFontSize
 
 /**
  * Converts the provided rem size to a rem value based on the htmlFontSize provided in the theme's siteVariables.
