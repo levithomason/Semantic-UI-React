@@ -1,39 +1,25 @@
 import React from 'react'
 import { Menu } from 'stardust'
 
-class MenuExample extends React.Component<{}, { activeItem: string }> {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activeItem: undefined,
-    }
-  }
-  private handleItemClick = (e, { name }) => {
-    this.setState({
-      activeItem: name,
-    })
+class MenuExample extends React.Component {
+  state = { activeItem: 'a' }
+
+  handleItemClick = activeItem => () => {
+    this.setState({ activeItem })
   }
 
-  public render() {
+  render() {
     const { activeItem } = this.state
 
     return (
       <Menu>
-        <Menu.Item
-          name="editorials"
-          active={activeItem === 'editorials'}
-          onClick={this.handleItemClick}
-        >
+        <Menu.Item active={activeItem === 'a'} onClick={this.handleItemClick('a')}>
           Editorials
         </Menu.Item>
-        <Menu.Item name="reviews" active={activeItem === 'reviews'} onClick={this.handleItemClick}>
+        <Menu.Item active={activeItem === 'b'} onClick={this.handleItemClick('b')}>
           Reviews
         </Menu.Item>
-        <Menu.Item
-          name="upcomingEvents"
-          active={activeItem === 'upcomingEvents'}
-          onClick={this.handleItemClick}
-        >
+        <Menu.Item active={activeItem === 'c'} onClick={this.handleItemClick('c')}>
           Upcoming Events
         </Menu.Item>
       </Menu>
