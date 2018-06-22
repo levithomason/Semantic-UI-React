@@ -9,6 +9,10 @@ import {
   getUnhandledProps,
   createComponent,
 } from '../../lib'
+
+/**
+ * Header content wraps the main content when there is an adjacent Icon or Image.
+ */
 const HeaderContent: any = props => {
   const { children, className, content } = props
   const classes = cx('ui-header__content', className)
