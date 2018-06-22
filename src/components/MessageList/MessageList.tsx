@@ -5,6 +5,12 @@ import cx from 'classnames'
 import { createComponent, customPropTypes } from '../../lib'
 
 const messageRules = ({ isMine, variables }) => ({
+  list: {
+    listStyle: 'none',
+    display: 'block',
+    padding: 0,
+    margin: 0,
+  },
   container: {
     display: 'flex',
     margin: '1rem', // TODO is temporary hardcoded value
@@ -44,12 +50,14 @@ const Message = createComponent(
 )
 
 const MessageList: any = props => (
-  <div>
+  <ul className={cx('ui-message__list', props.styles.list, props.className)}>
     {props.items &&
       props.items.map(message => (
-        <Message key={message.key} content={message.content} isMine={message.isMine} />
+        <li>
+          <Message key={message.key} content={message.content} isMine={message.isMine} />
+        </li>
       ))}
-  </div>
+  </ul>
 )
 
 MessageList.propTypes = {
@@ -65,4 +73,4 @@ MessageList.propTypes = {
 
 MessageList.defaultProps = { items: [] }
 
-export default createComponent(MessageList)
+export default createComponent(MessageList, { rules: messageRules, variables: messageVariables })
