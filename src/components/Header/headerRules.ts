@@ -1,7 +1,6 @@
-import { rem } from '../../lib'
-
 export default ({ textAlign }) => ({
   root: {
+    display: 'block',
     ...(textAlign && { textAlign }),
   },
 })

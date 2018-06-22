@@ -5,9 +5,18 @@ import ExampleSection from 'docs/src/components/ComponentDoc/ExampleSection'
 const Types = () => (
   <ExampleSection title="Types">
     <ComponentExample
-      title="Content Headers"
-      description="Headers may be oriented to give the importance of a section."
-      examplePath="components/Header/Types/HeaderExampleContent"
+      title="Page Headers"
+      description="Headers may be oriented to give the hierarchy of a section in the context of the page."
+      examplePath="components/Header/Types/PageHeadersExample"
+    />
+    <ComponentExample
+      title="Subheader"
+      description="Headers may contain subheaders."
+      examplePath="components/Header/Types/SubheaderExample"
+    />
+    <ComponentExample
+      description="You can pass any Subheader content to the Header subheader prop."
+      examplePath="components/Header/Types/SubheaderExample"
     />
   </ExampleSection>
 )
