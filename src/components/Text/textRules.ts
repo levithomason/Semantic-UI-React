@@ -7,7 +7,7 @@ import {
 } from '../../themes/teams/siteVariables'
 
 const textTypesRules = {
-  textTypes: { fontSize: '24pt', lineHeight: '32pt' },
+  title: { fontSize: '24pt', lineHeight: '32pt' },
   title2: { fontSize: '18pt', lineHeight: '24pt' },
   base: { fontSize: '14pt', lineHeight: '20pt' },
   caption: { fontSize: '12pt', lineHeight: '16pt' },
