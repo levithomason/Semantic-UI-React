@@ -6,13 +6,14 @@ export default ({ active }) => ({
     lineHeight: 1,
     position: 'relative',
     verticalAlign: 'middle',
-    padding: `${rem(0.92857143)} ${rem(1.14285714)}`,
-
+    padding: `${rem(1.4)} ${rem(1.8)}`,
     cursor: 'pointer',
+
     ':hover': {
       background: 'rgba(0, 0, 0, .03)',
       color: 'rgba(0, 0, 0, .95)',
     },
+
     ...(active && {
       background: 'rgba(0, 0, 0, .05)',
       color: 'rgba(0, 0, 0, .95)',
@@ -25,8 +26,8 @@ export default ({ active }) => ({
     ':before': {
       position: 'absolute',
       content: '""',
-      top: '0%',
-      right: '0px',
+      top: 0,
+      right: 0,
       height: '100%',
       width: '1px',
       background: 'rgba(34, 36, 38, .1)',
