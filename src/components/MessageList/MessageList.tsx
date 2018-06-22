@@ -22,9 +22,7 @@ const MessageList: any = props => {
     <ElementType className={cx('ui-message__list', props.styles.root, props.className)}>
       {props.items &&
         props.items.map(message => (
-          <li>
-            <Message key={message.key} content={message.content} isMine={message.isMine} />
-          </li>
+          <Message key={message.key} as="li" content={message.content} isMine={message.isMine} />
         ))}
     </ElementType>
   )

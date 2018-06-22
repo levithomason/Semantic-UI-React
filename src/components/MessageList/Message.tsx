@@ -2,7 +2,7 @@ import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import cx from 'classnames'
-import { createComponent, customPropTypes } from '../../lib'
+import { createComponent, customPropTypes, getElementType } from '../../lib'
 
 const messageRules = ({ isMine, variables }) => ({
   container: {
@@ -15,7 +15,7 @@ const messageRules = ({ isMine, variables }) => ({
     backgroundColor: (isMine && variables.messageColor.mine) || variables.messageColor.incoming,
     maxWidth: variables.messageWidth,
 
-    // TODO - the following ones are tempory
+    // TODO - the following ones are temporary
     margin: 0,
     padding: '1rem',
     borderRadius: '0.3rem',
@@ -32,13 +32,20 @@ const messageVariables = {
   },
 }
 
-const Message: any = ({ content, styles, className }) => (
-  <div className={cx('ui-message__container', styles.container, className)}>
-    <p className={cx('ui-message__text', styles.text)}>{content}</p>
-  </div>
-)
+const Message: any = props => {
+  const { content, styles, className } = props
+  const ElementType = getElementType(Message, props)
+
+  return (
+    <ElementType className={cx('ui-message__container', styles.container, className)}>
+      <p className={cx('ui-message__text', styles.text)}>{content}</p>
+    </ElementType>
+  )
+}
 
 Message.propTypes = {
+  as: customPropTypes.as,
+
   /** Additional classes. */
   className: PropTypes.string,
 
@@ -49,6 +56,10 @@ Message.propTypes = {
   variables: PropTypes.object,
 
   children: PropTypes.node,
+}
+
+Message.defaultProps = {
+  as: 'div',
 }
 
 export default createComponent(Message, {
