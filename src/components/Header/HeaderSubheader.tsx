@@ -47,13 +47,7 @@ HeaderSubheader.propTypes = {
 
 HeaderSubheader.handledProps = ['as', 'children', 'className', 'content', 'styles']
 
-HeaderSubheader.create = createShorthandFactory(
-  createComponent(HeaderSubheader, {
-    rules: headerSubheaderRules,
-  }),
-  content => ({ content }),
-)
-
 export default createComponent(HeaderSubheader, {
   rules: headerSubheaderRules,
+  shorthand: content => ({ content }),
 })
