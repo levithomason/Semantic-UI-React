@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { createComponent, customPropTypes } from '../../lib'
 
-const messageRules = ({ isMine, variables }) => ({
-  list: {
+const messageListRules = () => ({
+  root: {
     listStyle: 'none',
     display: 'block',
     padding: 0,
     margin: 0,
   },
+})
+
+const messageRules = ({ isMine, variables }) => ({
   container: {
     display: 'flex',
     margin: '1rem', // TODO is temporary hardcoded value
@@ -50,7 +53,7 @@ const Message = createComponent(
 )
 
 const MessageList: any = props => (
-  <ul className={cx('ui-message__list', props.styles.list, props.className)}>
+  <ul className={cx('ui-message__list', props.styles.root, props.className)}>
     {props.items &&
       props.items.map(message => (
         <li>
@@ -73,4 +76,4 @@ MessageList.propTypes = {
 
 MessageList.defaultProps = { items: [] }
 
-export default createComponent(MessageList, { rules: messageRules, variables: messageVariables })
+export default createComponent(MessageList, { rules: messageListRules })
