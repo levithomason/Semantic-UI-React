@@ -1,21 +1,23 @@
 import React from 'react'
-import { Image, ImageCreateComponent, ImageFunctionalContext, ImageHOCContext } from 'stardust'
+import {
+  Image,
+  ImageCreateComponent,
+  ImageFunctionalContext,
+  ImageHOCContext,
+  ImageRenderComponent,
+  ImageRenderFunction,
+} from 'stardust'
 
-const props = {
-  circular: true,
-  avatar: true,
-  src: '//placehold.it/100',
-}
+const props = { circular: true, src: '//placehold.it/50' }
 
 const ImageExample = () => (
   <div>
     <Image {...props} />
-    &emsp;
     <ImageCreateComponent {...props} />
-    &emsp;
     <ImageFunctionalContext {...props} />
-    &emsp;
     <ImageHOCContext {...props} />
+    <ImageRenderComponent {...props} />
+    <ImageRenderFunction {...props} />
   </div>
 )
 

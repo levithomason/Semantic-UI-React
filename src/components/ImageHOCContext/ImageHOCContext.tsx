@@ -2,7 +2,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cx from 'classnames'
 
-import { customPropTypes, getClasses, getElementType, getUnhandledProps } from '../../lib'
+import {
+  customPropTypes,
+  getClasses,
+  getComponentClassName,
+  getElementType,
+  getUnhandledProps,
+} from '../../lib'
 import Provider from '../Provider'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
@@ -37,7 +43,7 @@ class ImageHOCContext extends React.Component {
       <Provider.Consumer
         render={theme => {
           const classes: any = getClasses(this.props, imageRules, imageVariables, theme)
-          const classNames = cx('ui-image', classes.root)
+          const classNames = cx(getComponentClassName(ImageHOCContext), classes.root)
 
           return <ElementType {...rest} className={classNames} />
         }}

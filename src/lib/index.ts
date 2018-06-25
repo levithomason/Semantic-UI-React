@@ -11,9 +11,12 @@ export { asThemeConsumer, getTheme } from './functionalContext'
 
 export * from './factories'
 export { default as getClasses } from './getClasses'
+export { default as getComponentClassName } from './getComponentClassName'
 export { default as getElementType } from './getElementType'
 export { default as getUnhandledProps } from './getUnhandledProps'
 export { default as createComponent } from './createComponent'
+export { default as Render } from './Render'
+export { default as renderComponent } from './renderComponent'
 export {
   htmlImageProps,
   htmlInputAttrs,

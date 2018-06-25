@@ -2,7 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cx from 'classnames'
 
-import { customPropTypes, getElementType, getUnhandledProps } from '../../lib'
+import {
+  customPropTypes,
+  getComponentClassName,
+  getElementType,
+  getUnhandledProps,
+} from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 import createComponent from '../../lib/createComponent'
@@ -10,7 +15,7 @@ import createComponent from '../../lib/createComponent'
 /**
  * An image is a graphic representation of something.
  */
-class ImageCreateComponent extends React.Component {
+class ImageCreateComponent extends React.Component<any> {
   static propTypes = {
     /**  */
     as: customPropTypes.as,
@@ -31,7 +36,7 @@ class ImageCreateComponent extends React.Component {
     const ElementType = getElementType(ImageCreateComponent, this.props)
     const rest = getUnhandledProps(ImageCreateComponent, this.props)
 
-    const classNames = cx('ui-image', classes.root)
+    const classNames = cx(getComponentClassName(ImageCreateComponent), classes.root)
 
     return <ElementType {...rest} className={classNames} />
   }

@@ -4,6 +4,7 @@ import cx from 'classnames'
 
 import {
   customPropTypes,
+  getComponentClassName,
   getElementType,
   getUnhandledProps,
   asThemeConsumer,
@@ -43,7 +44,7 @@ class ImageFunctionalContext extends React.Component {
 
     const classes: any = getClasses(this.props, imageRules, imageVariables, theme)
 
-    const classNames = cx('ui-image', classes.root)
+    const classNames = cx(getComponentClassName(ImageFunctionalContext), classes.root)
 
     return <ElementType {...rest} className={classNames} />
   }
