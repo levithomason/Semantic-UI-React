@@ -347,6 +347,14 @@ template {
 
 [hidden] {
   display: none;
+}
+
+.ui-accordion .ui-accordionContent {
+  display: none;
+}
+
+.ui-accordion .active.ui-accordionContent {
+  display: block
 }`
 
 export default normalizeCSS
