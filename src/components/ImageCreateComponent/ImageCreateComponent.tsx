@@ -2,12 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import cx from 'classnames'
 
-import {
-  BaseComponent as Component,
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-} from '../../lib'
+import { customPropTypes, getElementType, getUnhandledProps } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 import createComponent from '../../lib/createComponent'
@@ -15,7 +10,7 @@ import createComponent from '../../lib/createComponent'
 /**
  * An image is a graphic representation of something.
  */
-class ImageCreateComponent extends Component {
+class ImageCreateComponent extends React.Component {
   static propTypes = {
     /**  */
     as: customPropTypes.as,
