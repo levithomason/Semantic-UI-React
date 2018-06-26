@@ -19,7 +19,7 @@ class Portal extends AutoControlledComponent {
   handleTriggerClick = () => {
     debug('handleTriggerClick()')
     this.props.trigger.props.onClick()
-    this.setState({ open: !this.state.open })
+    this.trySetState({ open: !this.state.open })
   }
 
   handlePortalMouseEnter = () => {
@@ -28,27 +28,24 @@ class Portal extends AutoControlledComponent {
 
   componentDidMount() {
     debug('componentDidMount()', this.state)
-    if (this.state.open) {
-      this.createPortal()
-    }
+    this.state.open ? this.createPortal() : this.destroyPortal()
   }
 
   componentDidUpdate() {
     debug('componentDidUpdate()', this.state)
-    if (this.state.open) {
-      this.createPortal()
-    }
+    this.state.open ? this.createPortal() : this.destroyPortal()
   }
 
   componentWillUnmount() {
     debug('componentWillUnmount()')
+    this.destroyPortal()
   }
 
   createPortal() {
     if (this.state.portalEl) {
       return
     }
-    console.log('creating portalEl')
+    debug('creating portalEl')
     const portalEl = document.createElement('div')
     document.body.appendChild(portalEl)
     eventStack.sub('mouseenter', this.handlePortalMouseEnter, {
@@ -59,7 +56,16 @@ class Portal extends AutoControlledComponent {
     })
   }
 
-  destroyPortal() {}
+  destroyPortal() {
+    if (!this.state.portalEl) {
+      return
+    }
+    debug('destroying portalEl')
+    // TODO: unsubscribe from all events
+    const { portalEl } = this.state
+    portalEl.parentNode.removeChild(portalEl)
+    this.setState({ portalEl: undefined })
+  }
 
   // To discuss:
   // when to create rootNode? (it is required in render, componentWillMount is deprecated)
