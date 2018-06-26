@@ -1,20 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import cx from 'classnames'
 
-import {
-  BaseComponent as Component,
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-} from '../../lib'
+import { customPropTypes, renderComponent } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 
 /**
  * An image is a graphic representation of something.
  */
-class Image extends Component {
+class Image extends React.Component<any, any> {
   static propTypes = {
     /**  */
     as: customPropTypes.as,
@@ -25,7 +19,6 @@ class Image extends Component {
     /** An image can appear circular. */
     circular: PropTypes.bool,
 
-    /** Additional classes. */
     className: PropTypes.string,
   }
 
@@ -33,17 +26,20 @@ class Image extends Component {
     as: 'img',
   }
 
-  static handledProps = ['as', 'avatar', 'circular', 'className', 'styles']
+  static handledProps = ['as', 'avatar', 'circular', 'className']
 
   render() {
-    const ElementType = getElementType(Image, this.props)
-    const rest = getUnhandledProps(Image, this.props)
-    const classes: any = this.getClasses(this.props, imageRules, imageVariables)
-    const { className } = this.props
-
-    const classNames = cx('ui-image', classes.root, className)
-
-    return <ElementType {...rest} className={classNames} />
+    return renderComponent(
+      {
+        component: Image,
+        displayName: 'Image',
+        stardustClassName: 'ui-image',
+        props: this.props,
+        rules: imageRules,
+        variables: imageVariables,
+      },
+      ({ ElementType, classes, rest }) => <ElementType {...rest} className={classes.root} />,
+    )
   }
 }
 

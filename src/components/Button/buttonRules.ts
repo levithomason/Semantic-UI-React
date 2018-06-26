@@ -1,9 +1,10 @@
-const buttonRules = ({ circular, variables }) => ({
-  root: {
+export default {
+  root: ({ props, variables }) => ({
     display: 'inline-block',
     verticalAlign: 'middle',
-    ...(circular && { borderRadius: variables.circularRadius, width: variables.circularWidth }),
-  },
-})
-
-export default buttonRules
+    ...(props.circular && {
+      borderRadius: variables.circularRadius,
+      width: variables.circularWidth,
+    }),
+  }),
+}

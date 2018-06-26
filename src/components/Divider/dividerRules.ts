@@ -12,29 +12,29 @@ const beforeAndAfter = (size, radius) => ({
   ...dividerBorderRule(size),
 })
 
-export default ({ children, size, variables }) => ({
-  root: {
-    marginTop: rem(0.1 + size * 0.75),
-    marginBottom: rem(0.1 + size * 0.75),
-    ...(childrenExist(children)
+export default {
+  root: ({ props, variables }) => ({
+    marginTop: rem(0.1 + props.size * 0.75),
+    marginBottom: rem(0.1 + props.size * 0.75),
+    ...(childrenExist(props.children)
       ? {
           display: 'flex',
           alignItems: 'center',
           textAlign: 'center',
           lineHeight: 0,
-          fontSize: rem(1.4 + size * 0.1),
+          fontSize: rem(1.4 + props.size * 0.1),
           ':before': {
-            ...beforeAndAfter(size, variables.borderRadius),
-            marginRight: rem(1 + size * 0.2),
+            ...beforeAndAfter(props.size, variables.borderRadius),
+            marginRight: rem(1 + props.size * 0.2),
           },
           ':after': {
-            ...beforeAndAfter(size, variables.borderRadius),
-            marginLeft: rem(1 + size * 0.2),
+            ...beforeAndAfter(props.size, variables.borderRadius),
+            marginLeft: rem(1 + props.size * 0.2),
           },
         }
       : {
           borderRadius: rem(variables.borderRadius),
-          ...dividerBorderRule(size),
+          ...dividerBorderRule(props.size),
         }),
-  },
-})
+  }),
+}

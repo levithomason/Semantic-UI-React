@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { createComponent, customPropTypes, getUnhandledProps, getElementType } from '../../lib'
+import { customPropTypes, renderComponent } from '../../lib'
 import ListItem from './ListItem'
 import listRules from './listRules'
+import listVariables from './listVariables'
 
 class List extends React.Component<any, any> {
   static propTypes = {
@@ -57,22 +57,28 @@ class List extends React.Component<any, any> {
   static itemProps = ['debug', 'selection', 'truncateContent', 'truncateHeader', 'variables']
 
   render() {
-    const { className, items, styles } = this.props
+    return renderComponent(
+      {
+        component: List,
+        displayName: 'List',
+        stardustClassName: 'ui-list',
+        props: this.props,
+        state: this.state,
+        rules: listRules,
+        variables: listVariables,
+      },
+      ({ ElementType, classes, rest }) => {
+        const { items } = this.props
+        const itemProps = _.pick(this.props, List.itemProps)
 
-    const ElementType = getElementType(List, this.props)
-    const rest = getUnhandledProps(List, this.props)
-
-    const classes = cx('ui-list', styles.root, className)
-    const itemProps = _.pick(this.props, List.itemProps)
-
-    return (
-      <ElementType className={classes} {...rest}>
-        {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
-      </ElementType>
+        return (
+          <ElementType {...rest} className={classes.root}>
+            {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
+          </ElementType>
+        )
+      },
     )
   }
 }
 
-export default createComponent(List, {
-  rules: listRules,
-})
+export default List

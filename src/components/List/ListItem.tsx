@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { createComponent, customPropTypes, getUnhandledProps, rem } from '../../lib'
+import { customPropTypes, rem, renderComponent, createShorthandFactory } from '../../lib'
 import Layout from '../Layout'
 import listVariables from './listVariables'
 import listItemRules from './listItemRules'
@@ -66,15 +66,15 @@ class ListItem extends React.Component<any, any> {
   static defaultProps = {
     as: 'li',
 
-    renderMainArea: (props, state) => {
+    renderMainArea: (props, state, classes) => {
       const { renderHeaderArea, renderContentArea } = props
 
-      const headerArea = renderHeaderArea(props, state)
-      const contentArea = renderContentArea(props, state)
+      const headerArea = renderHeaderArea(props, state, classes)
+      const contentArea = renderContentArea(props, state, classes)
 
       return (
         <div
-          className="list-item__main"
+          className="ui-list__item__main"
           // vertical
           // disappearing
           // rootCSS={{
@@ -92,16 +92,16 @@ class ListItem extends React.Component<any, any> {
       )
     },
 
-    renderHeaderArea: (props, state) => {
-      const { debug, header, headerMedia, truncateHeader, styles } = props
+    renderHeaderArea: (props, state, classes) => {
+      const { debug, header, headerMedia, truncateHeader } = props
       const { isHovering } = state
 
-      const classes = cx('ui-list__item__header', styles.header)
-      const mediaClasses = cx('ui-list__item__headerMedia', styles.headerMedia)
+      const mergedClasses = cx('ui-list__item__header', classes.header)
+      const mediaClasses = cx('ui-list__item__headerMedia', classes.headerMedia)
 
       return !header && !headerMedia ? null : (
         <Layout
-          className={classes}
+          className={mergedClasses}
           alignItems="end"
           gap={rem(0.8)}
           debug={debug}
@@ -114,15 +114,15 @@ class ListItem extends React.Component<any, any> {
       )
     },
 
-    renderContentArea: (props, state) => {
-      const { debug, content, contentMedia, styles, truncateContent } = props
+    renderContentArea: (props, state, classes) => {
+      const { debug, content, contentMedia, truncateContent } = props
       const { isHovering } = state
 
-      const classes = cx('ui-list__item__content', styles.content)
+      const mergedClasses = cx('ui-list__item__content', classes.content)
 
       return !content && !contentMedia ? null : (
         <Layout
-          className={classes}
+          className={mergedClasses}
           alignItems="start"
           gap={rem(0.8)}
           debug={debug}
@@ -146,37 +146,46 @@ class ListItem extends React.Component<any, any> {
     this.setState({ isHovering: false })
   }
 
+  // TODO check if this should be here or in the renderComponent...
+  static create = createShorthandFactory(ListItem, main => ({ main }))
+
   render() {
-    const { as, className, debug, endMedia, media, renderMainArea, styles } = this.props
-    const { isHovering } = this.state
+    return renderComponent(
+      {
+        component: ListItem,
+        displayName: 'ListItem',
+        stardustClassName: 'ui-list__item',
+        props: this.props,
+        rules: listItemRules,
+        variables: listVariables,
+      },
+      ({ ElementType, classes, rest }) => {
+        const { as, debug, endMedia, media, renderMainArea } = this.props
+        const { isHovering } = this.state
 
-    const rest = getUnhandledProps(ListItem, this.props)
+        const startArea = media
+        const mainArea = renderMainArea(this.props, this.state, classes)
+        const endArea = isHovering && endMedia
 
-    const startArea = media
-    const mainArea = renderMainArea(this.props, this.state)
-    const endArea = isHovering && endMedia
-
-    return (
-      <Layout
-        as={as}
-        alignItems="center"
-        gap={rem(0.8)}
-        className={cx('ui-list__item', styles.root, className)}
-        debug={debug}
-        reducing
-        start={startArea}
-        main={mainArea}
-        end={endArea}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        {...rest}
-      />
+        return (
+          <Layout
+            as={as}
+            alignItems="center"
+            gap={rem(0.8)}
+            className={classes.root}
+            debug={debug}
+            reducing
+            start={startArea}
+            main={mainArea}
+            end={endArea}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+            {...rest}
+          />
+        )
+      },
     )
   }
 }
 
-export default createComponent(ListItem, {
-  rules: listItemRules,
-  variables: listVariables,
-  shorthand: main => ({ main }),
-})
+export default ListItem

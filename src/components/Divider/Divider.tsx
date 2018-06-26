@@ -1,47 +1,52 @@
-import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import dividerRules from './dividerRules'
 import dividerVariables from './dividerVariables'
 
-import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
+import { customPropTypes, renderComponent } from '../../lib'
 
-const Divider: any = (props: any) => {
-  const ElementType = getElementType(Divider, props)
-  const { children, className, styles } = props
-  const rest = getUnhandledProps(Divider, props)
+class Divider extends React.Component<any> {
+  static propTypes = {
+    as: customPropTypes.as,
 
-  return (
-    <ElementType {...rest} className={cx('ui-divider', styles.root, className)}>
-      {children}
-    </ElementType>
-  )
+    /** Size multiplier (default 0) * */
+    size: PropTypes.number,
+
+    /** TODO: this is not a prop we want here... */
+    styles: PropTypes.object,
+
+    /** Child content * */
+    children: PropTypes.node,
+
+    /** Additional classes. */
+    className: PropTypes.string,
+  }
+
+  static handledProps = ['as', 'children', 'className', 'size', 'styles']
+
+  static defaultProps = {
+    size: 0,
+  }
+
+  render() {
+    const { children } = this.props
+    return renderComponent(
+      {
+        props: this.props,
+        component: Divider,
+        stardustClassName: 'ui-divider',
+        displayName: 'Divider',
+        rules: dividerRules,
+        variables: dividerVariables,
+      },
+      ({ ElementType, classes, rest }) => (
+        <ElementType {...rest} className={classes.root}>
+          {children}
+        </ElementType>
+      ),
+    )
+  }
 }
 
-Divider.propTypes = {
-  as: customPropTypes.as,
-
-  /** Size multiplier (default 0) * */
-  size: PropTypes.number,
-
-  /** TODO: this is not a prop we want here... */
-  styles: PropTypes.object,
-
-  /** Child content * */
-  children: PropTypes.node,
-
-  /** Additional classes. */
-  className: PropTypes.string,
-}
-
-Divider.handledProps = ['as', 'children', 'className', 'size', 'styles']
-
-Divider.defaultProps = {
-  size: 0,
-}
-
-export default createComponent(Divider, {
-  rules: dividerRules,
-  variables: dividerVariables,
-})
+export default Divider
