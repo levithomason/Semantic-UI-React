@@ -1,14 +1,14 @@
-import Vinyl from 'vinyl'
 import gutil from 'gulp-util'
 import path from 'path'
-import through from 'through2'
+import through2 from 'through2'
+import Vinyl from 'vinyl'
 
 import { getComponentInfo } from './util'
 
 const pluginName = 'gulp-react-docgen'
 
 export default () =>
-  through.obj(function bufferContents(file, enc, cb) {
+  through2.obj(function bufferContents(file, enc, cb) {
     if (file.isNull()) {
       cb(null, file)
       return
