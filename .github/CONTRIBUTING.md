@@ -5,20 +5,21 @@ CONTRIBUTING
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Getting Started](#getting-started)
-  - [Fork, Clone & Install](#fork-clone--install)
-  - [Commit Messages](#commit-messages)
+- [Setup](#setup)
   - [Commands](#commands)
-- [Workflow](#workflow)
-  - [Create a Component](#create-a-component)
-  - [Define _meta](#define-_meta)
-  - [Using propTypes](#using-proptypes)
+  - [Commit Messages](#commit-messages)
+- [Create a Component](#create-a-component)
+  - [Stateless or Stateful?](#stateless-or-stateful)
+  - [Base functionality](#base-functionality)
   - [Conformance Test](#conformance-test)
   - [Open A PR](#open-a-pr)
   - [Spec out the API](#spec-out-the-api)
-- [API](#api)
-  - [SUI HTML Classes](#sui-html-classes)
-    - [API Patterns](#api-patterns)
+  - [Philosophy](#philosophy)
+- [Design Patterns](#design-patterns)
+  - [Shorthand](#shorthand)
+    - [Shorthand Props](#shorthand-props)
+  - [Shorthand Factory](#shorthand-factory)
+    - [More about Factories](#more-about-factories)
     - [Building className](#building-classname)
     - [Testing className](#testing-classname)
   - [SUI HTML Markup](#sui-html-markup)
@@ -42,23 +43,21 @@ CONTRIBUTING
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Getting Started
+## Setup
 
-Make sure you have at least [Node.js v6][11]:
+Make sure you have at least [Node.js v8][11]:
 
 ```sh
 node -v
 
-v6.2.1
+v8.11.3
 ```
 
-### Fork, Clone & Install
-
-Start by [forking Semantic UI React][12] to your GitHub account.  Then clone your fork and install dependencies:
+[Fork the repo][12] to your GitHub account.  Then clone your fork and install dependencies:
 
 ```sh
-git clone git@github.com:<your-user>/Semantic-UI-React.git
-cd Semantic-UI-React
+git clone git@github.com:<your-user>/stardust.git
+cd stardust
 yarn
 ```
 
@@ -67,12 +66,8 @@ yarn
 Add our repo as a git remote so you can pull/rebase your fork with our latest updates:
 
 ```
-git remote add upstream git@github.com:Semantic-Org/Semantic-UI-React.git
+git remote add upstream git@github.com:stardust-ui/stardust.git
 ```
-
-### Commit Messages
-
-Please follow the [Angular Git Commit Guidelines][8] format.
 
 ### Commands
 
@@ -85,33 +80,30 @@ yarn test                  // test once
 yarn test:watch            // test on file change
 
 yarn build                 // build everything
-yarn build:dist            // build dist
-yarn build:docs            // build docs
+yarn build:dist            // build the library to dist
+yarn build:docs            // build the doc site
 yarn build:docs-toc        // build toc for markdown files
 
 yarn deploy:docs           // deploy gh-pages doc site
 
 yarn lint                  // lint once
 yarn lint:fix              // lint and attempt to fix
-yarn lint:watch            // lint on file change
 ```
 
-## Workflow
+### Commit Messages
 
-- [Create a Component](#create-a-component)
-- [Define _meta](#define-_meta)
-- [Conformance Test](#conformance-test)
-- [Open A PR](#open-a-pr)
-- [Spec out the API](#spec-out-the-api)
+Please follow the [Angular Git Commit Guidelines][8] format.
 
-### Create a Component
+## Create a Component
 
-Create components in `src`.  The directory structure follows SUI naming conventions.  If you're updating a component, push a small change so you can open a PR early.
+Create components in `src` following the existing directory structure.  If you're updating a component, push a small change so you can open a PR early.
 
-Stateless components should be written as a `function`:
+### Stateless or Stateful?
+
+Stateless components should be written as a function:
 
 ```js
-function Button(props) {
+const Button = props => {
   // ...
 }
 ```
@@ -128,57 +120,31 @@ class Dropdown extends Component {
 
 >You probably need to extend our [`AutoControlledComponent`](#autocontrolledcomponent) to support both [controlled][2] and [uncontrolled][3] component patterns.
 
-### Define _meta
+### Base functionality
 
-Every component has a static property called `_meta`. This object defines the component. The values here are used for generated documentation, generated test cases and some utilities.
+Base functionality is provided by the `renderComponent()` function.  This function calculates:
+- the type of element your component should render as
+- any additional props you should spread
+- HTML classes generated from CSS-in-JS styles
 
-Here's an example `_meta` object:
+The function takes a config and provides a callback with the computed values you need to render your component:
 
-```js
-import { META } from '../../lib'
-
-const _meta = {
-  name: 'MyComponent',
-  type: META.TYPES.MODULE,
-}
+```jsx
+renderComponent(config, ({ ElementType, rest, classes })) => (
+  <ElementType {...rest} className={classes.root} />
+)) 
 ```
 
-Assuming the above `_meta` is in scope, here's how you should expose it:
+```jsx
+import { renderComponent } from '../../lib'
 
-```js
-function MyComponent() {
-  return <div>Hello World</div>
-}
-
-MyComponent._meta = _meta
-```
-
-```js
-class MyComponent {
-  static _meta = _meta
-
-  render() {
-    return <div>Hello World</div>
-  }
+const MyComponent = props => {
+  return renderComponent(config, ({ ElementType, rest, classes })) => (
+    <ElementType {...rest} className={classes.root} />
+  ))
 }
 ```
-
-### Using propTypes
-
-Every component must have fully described `propTypes`.
-
- ```js
- import React, { PropTypes } from 'react'
-
- function MyComponent(props) {
-   return <div className={props.position}>{props.children}</div>
- }
-
- MyComponent.propTypes = {
-   children: PropTypes.node,
-   position: PropTypes.oneOf(['left', 'right']),
- }
- ```
+  
 
 ### Conformance Test
 
@@ -196,27 +162,90 @@ Review the SUI documentation for the component. Spec out the component's propose
 
 Once we have solidified the component spec, it's time to write some code. The following sections cover everything you'll need to spec and build your awesome component.
 
-## API
 
-The primary areas of focus when designing a component API are:
+### Philosophy
 
-1. [SUI HTML Classes](#sui-html-classes)
-1. [SUI HTML Markup](#sui-html-markup)
+The developer should be concerned with:
 
-Our goal is to map these to a declarative component API.  We map HTML classes to component props.  We map markup to sub components (and sometimes props).
+- Describing the component with props
 
-### SUI HTML Classes
+A component should be concerned with:
 
-SUI component definitions (style and behavior) are defined by HTML classes.  These classes can be split into 4 groups:
+- constructing markup
+- browser compatibility
+- accessibility
+- styling
 
-1. Standalone &mdash; `basic` `compact` `fluid`
-1. Pairs &mdash; `left floated` `right floated`
-1. Mixed &mdash; `corner` `top corner`, `padded` `very padded`
-1. Groups &mdash; sizes: `tiny` `small` `big`, colors: `red` `green` `blue`
+## Design Patterns
 
-Each group has an API pattern and prop util for building up the `className` and a [Common test](#commont-tests).
+Each UI concern should be handled by a single component exported at the top-level.  Provide a props API that handles all common use cases.  The component should encapsulate all logic for layout, styling, browser compatibility, and accessibility:
 
-#### API Patterns
+```jsx
+import { Menu } from 'stardust'
+
+<Menu items={[ ... ]} />
+```
+
+In edge cases not covered by the props API the user can use subcomponents to construct the markup themselves.  Provide static subcomponents for every shorthand prop: 
+
+```jsx
+<Menu>
+  <Menu.Item>Home</Menu.Item>
+</Menu>
+```
+
+
+
+### Shorthand
+
+#### Shorthand Props
+
+Shorthand factories enable us to 
+
+### Shorthand Factory
+
+Every component should know how to create itself from shorthand values:
+  
+```jsx
+Icon.create('OK')                   // <Icon>OK</Icon>
+Icon.create(100)                    // <Icon>100</Icon>
+Icon.create({ color: 'blue' })      // <Icon color='blue' />
+```
+
+This is done by assigning a static `create()` method to your component using the `createShorthandFactory()` function:
+
+```jsx
+// Icon.tsx
+import { createShorthandFactory } form '../../lib'
+
+// ...Icon definition
+
+Icon.create = createShorthandFactory(Icon, value => ({ name: value }))
+
+export default Icon
+```
+
+The `createShorthandFactory()` takes two arguments:
+  1. `Component` - A React component
+  1. `mapValueToProps` - A function that maps primitive values provided by the user to the appropriate `props`.
+
+#### More about Factories
+
+Shorthand factories can create elements from other elements:
+
+```jsx
+Icon.create(<OtherIcon />)          // <OtherIcon /> (with Icon features)
+```
+
+Shorthand factories can create elements from a function with the `React.createElement()` signature:
+
+```jsx
+Icon.create((Component, props, children) => (
+  <p>
+    
+  </p>
+))
+```
 
 ```js
 <Segment basic />                     // standalone
@@ -233,6 +262,15 @@ Each group has an API pattern and prop util for building up the `className` and 
 <div class="ui very padded segment"></div>
 <div class="ui small red segment"></div>
 ```
+
+##### Dos and Don'ts
+
+:-1: Don't parse children in your component
+:+1: Do accept data in props and generate children
+
+:-1: Don't parse children in your component
+:+1: Do accept data in props and generate children
+
 
 #### Building className
 
@@ -587,7 +625,7 @@ Adding documentation for new components is a bit tedious.  The best way to do th
 [9]: https://semantic-ui.com/introduction/glossary.html
 [10]: https://semantic-ui.com/elements/label.html
 [11]: https://nodejs.org/
-[12]: https://github.com/Semantic-Org/Semantic-UI-React#fork-destination-box
+[12]: https://github.com/stardust-ui/stardust#fork-destination-box
 [13]: https://github.com/Semantic-Org/Semantic-UI-React/blob/master/src/factories
 [14]: https://github.com/Semantic-Org/Semantic-UI-React/pull/335#issuecomment-238960895
 [15]: https://github.com/Semantic-Org/Semantic-UI-React/issues/607
