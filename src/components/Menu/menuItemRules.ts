@@ -8,6 +8,7 @@ export default ({ active }) => ({
     verticalAlign: 'middle',
     padding: `${rem(1.4)} ${rem(1.8)}`,
     cursor: 'pointer',
+    display: 'block',
 
     ':hover': {
       background: 'rgba(0, 0, 0, .03)',

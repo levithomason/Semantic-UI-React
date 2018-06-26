@@ -29,7 +29,7 @@ class Menu extends React.Component<any, any> {
     const { children, className, styles } = this.props
 
     const classes = cx('ui-menu', styles.root, className)
-    const ElementType = getElementType(Menu, this.props)
+    const ElementType = getElementType(Menu, this.props, () => 'ul')
     const rest = getUnhandledProps(Menu, this.props)
 
     return (

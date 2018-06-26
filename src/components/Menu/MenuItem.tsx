@@ -43,17 +43,15 @@ class MenuItem extends React.Component<any, {}> {
     const { children, className, onClick, styles } = this.props
 
     const classes = cx('ui-menu__item', styles.root, className)
-    const ElementType = getElementType(MenuItem, this.props, () => {
-      if (onClick) {
-        return 'a'
-      }
-    })
+    const ElementType = getElementType(MenuItem, this.props, () => 'a')
     const rest = getUnhandledProps(MenuItem, this.props)
 
     return (
-      <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        {children}
-      </ElementType>
+      <li>
+        <ElementType {...rest} className={classes} onClick={this.handleClick}>
+          {children}
+        </ElementType>
+      </li>
     )
   }
 }
