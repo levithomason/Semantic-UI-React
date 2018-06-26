@@ -1,46 +1,46 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import cx from 'classnames'
 
-import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
+import { customPropTypes, renderComponent } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 
 /**
  * An image is a graphic representation of something.
  */
-const Image: any = props => {
-  const ElementType = getElementType(Image, props)
-  const rest = getUnhandledProps(Image, props)
-  const { styles, className } = props
+class Image extends React.Component<any, any> {
+  static propTypes = {
+    /**  */
+    as: customPropTypes.as,
 
-  return <ElementType {...rest} className={cx('ui-image', styles.root, className)} />
+    /** An image may be formatted to appear inline with text as an avatar. */
+    avatar: PropTypes.bool,
+
+    /** An image can appear circular. */
+    circular: PropTypes.bool,
+
+    className: PropTypes.string,
+  }
+
+  static defaultProps = {
+    as: 'img',
+  }
+
+  static handledProps = ['as', 'avatar', 'circular', 'className']
+
+  render() {
+    return renderComponent(
+      {
+        component: Image,
+        displayName: 'Image',
+        stardustClassName: 'ui-image',
+        props: this.props,
+        rules: imageRules,
+        variables: imageVariables,
+      },
+      ({ ElementType, classes, rest }) => <ElementType {...rest} className={classes.root} />,
+    )
+  }
 }
 
-Image.propTypes = {
-  /**  */
-  as: customPropTypes.as,
-
-  /** An image may be formatted to appear inline with text as an avatar. */
-  avatar: PropTypes.bool,
-
-  /** An image can appear circular. */
-  circular: PropTypes.bool,
-
-  /** Additional classes. */
-  className: PropTypes.string,
-
-  /** TODO: this is not a prop we want here... */
-  styles: PropTypes.object,
-}
-
-Image.defaultProps = {
-  as: 'img',
-}
-
-Image.handledProps = ['as', 'avatar', 'circular', 'className', 'styles']
-
-export default createComponent(Image, {
-  rules: imageRules,
-  variables: imageVariables,
-})
+export default Image

@@ -8,9 +8,11 @@ export { default as eventStack } from './eventStack'
 export { felaRenderer, felaRtlRenderer } from './felaRenderer'
 
 export * from './factories'
-export { default as getUnhandledProps } from './getUnhandledProps'
+export { default as getClasses } from './getClasses'
+export { default as getComponentClassName } from './getComponentClassName'
 export { default as getElementType } from './getElementType'
-export { default as createComponent } from './createComponent'
+export { default as getUnhandledProps } from './getUnhandledProps'
+export { default as renderComponent } from './renderComponent'
 export {
   htmlImageProps,
   htmlInputAttrs,

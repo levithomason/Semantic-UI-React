@@ -1,6 +1,12 @@
 import React from 'react'
 import { Image } from 'stardust'
 
-const ImageExample = () => <Image src='//placehold.it/100' />
+const props = { circular: true, src: '//placehold.it/50' }
+
+const ImageExample = () => (
+  <div>
+    <Image {...props} />
+  </div>
+)
 
 export default ImageExample
