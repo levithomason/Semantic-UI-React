@@ -16,7 +16,7 @@ const Types = () => (
     />
     <ComponentExample
       description="You can pass any Subheader content to the Header subheader prop."
-      examplePath="components/Header/Types/SubheaderExample"
+      examplePath="components/Header/Types/HeaderExampleSubheaderProp"
     />
   </ExampleSection>
 )

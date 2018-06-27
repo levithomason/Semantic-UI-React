@@ -4,7 +4,6 @@ import React from 'react'
 
 import {
   childrenExist,
-  createShorthandFactory,
   customPropTypes,
   getElementType,
   getUnhandledProps,
