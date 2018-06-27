@@ -37,8 +37,8 @@ class Divider extends React.Component<any> {
     const { children } = this.props
     return renderComponent(
       {
-        props: this.props,
         component: Divider,
+        props: this.props,
         rules: dividerRules,
         variables: dividerVariables,
       },

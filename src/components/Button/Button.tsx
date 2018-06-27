@@ -36,8 +36,8 @@ class Button extends React.Component<any> {
   render() {
     return renderComponent(
       {
-        props: this.props,
         component: Button,
+        props: this.props,
         rules: buttonRules,
         variables: buttonVariables,
       },
