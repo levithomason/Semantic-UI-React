@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { customPropTypes, renderComponent } from '../../lib'
+import { BaseComponent, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
 
 /**
  * A button.
  */
-class Button extends React.Component<any> {
+class Button extends BaseComponent<any, any> {
   static displayName = 'Button'
 
   static className = 'ui-button'
+
+  static rules = buttonRules
+
+  static variables = buttonVariables
 
   static propTypes = {
     /** An element type to render as (string or function). */
@@ -30,16 +34,8 @@ class Button extends React.Component<any> {
     as: 'button',
   }
 
-  render() {
-    return renderComponent(
-      {
-        component: Button,
-        props: this.props,
-        rules: buttonRules,
-        variables: buttonVariables,
-      },
-      ({ ElementType, classes, rest }) => <ElementType {...rest} className={classes.root} />,
-    )
+  render({ ElementType, classes, rest }) {
+    return <ElementType {...rest} className={classes.root} />
   }
 }
 

@@ -3,6 +3,7 @@ import * as SUI from './SUI'
 
 export { default as AutoControlledComponent } from './AutoControlledComponent'
 export { default as childrenExist } from './childrenExist'
+export { default as BaseComponent } from './BaseComponent'
 export { debug, makeDebugger } from './debug'
 export { default as eventStack } from './eventStack'
 export { felaRenderer, felaRtlRenderer } from './felaRenderer'
