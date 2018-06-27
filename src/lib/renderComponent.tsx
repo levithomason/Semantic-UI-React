@@ -16,21 +16,15 @@ export interface IRenderResultConfig {
 export type RenderFunctionType = (config: IRenderResultConfig) => any
 
 export interface IRenderConfig {
-  displayName: string
   component: any
-  stardustClassName: string
   props: { [key: string]: any }
   state?: { [key: string]: any }
   rules?: { [key: string]: Function }
   variables?: (siteVariables: object) => object
-  isChild?: boolean
-  parentName?: string
-  parentDisplayName?: string
-  subcomponentName?: string
 }
 
 const renderComponent = (config: IRenderConfig, render: RenderFunctionType) => {
-  const { component, displayName, props, rules, variables, stardustClassName } = config
+  const { component, props, rules, variables } = config
 
   return (
     <FelaTheme
@@ -39,7 +33,9 @@ const renderComponent = (config: IRenderConfig, render: RenderFunctionType) => {
         const rest = getUnhandledProps(component, props)
         const { siteVariables = {}, componentVariables = {} } = theme
         const variablesFromFile = callable(variables)(siteVariables)
-        const variablesFromTheme = callable(componentVariables[displayName])(siteVariables)
+        const variablesFromTheme = callable(componentVariables[component.displayName])(
+          siteVariables,
+        )
         const variablesFromProp = callable(props.variables)(siteVariables)
 
         const mergedVariables = () =>
@@ -47,8 +43,7 @@ const renderComponent = (config: IRenderConfig, render: RenderFunctionType) => {
 
         const classes = getClasses(props, rules, mergedVariables, theme)
 
-        // TODO replace the stardustClassName with getComponentClassName after it is fixed
-        classes.root = cx(stardustClassName, classes.root, props.className)
+        classes.root = cx(component.className, classes.root, props.className)
 
         const config: IRenderResultConfig = {
           ElementType,
