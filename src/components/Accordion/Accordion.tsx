@@ -67,7 +67,17 @@ class Accordion extends Component {
     ]),
   }
 
-  static handledProps = ['as', 'className', 'styles', 'panels']
+  static handledProps = [
+    'activeIndex',
+    'as',
+    'children',
+    'className',
+    'defaultActiveIndex',
+    'exclusive',
+    'onTitleClick',
+    'panels',
+    'styles',
+  ]
 
   static defaultProps = {
     as: 'accordion',
