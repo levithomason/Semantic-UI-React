@@ -2,15 +2,19 @@ import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { customPropTypes, renderComponent } from '../../lib'
+import { customPropTypes, UIComponent } from '../../lib'
 import ListItem from './ListItem'
 import listRules from './listRules'
 import listVariables from './listVariables'
 
-class List extends React.Component<any, any> {
+class List extends UIComponent<any, any> {
   static displayName = 'List'
 
   static className = 'ui-list'
+
+  static rules = listRules
+
+  static variables = listVariables
 
   static propTypes = {
     as: customPropTypes.as,
@@ -59,25 +63,19 @@ class List extends React.Component<any, any> {
   // List props that are passed to each individual Item props
   static itemProps = ['debug', 'selection', 'truncateContent', 'truncateHeader', 'variables']
 
+  // TODO: exists only for doc detection, remove once react-docgen is replaced
   render() {
-    return renderComponent(
-      {
-        component: List,
-        props: this.props,
-        state: this.state,
-        rules: listRules,
-        variables: listVariables,
-      },
-      ({ ElementType, classes, rest }) => {
-        const { items } = this.props
-        const itemProps = _.pick(this.props, List.itemProps)
+    return null
+  }
 
-        return (
-          <ElementType {...rest} className={classes.root}>
-            {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
-          </ElementType>
-        )
-      },
+  renderComponent({ ElementType, classes, rest }) {
+    const { items } = this.props
+    const itemProps = _.pick(this.props, List.itemProps)
+
+    return (
+      <ElementType {...rest} className={classes.root}>
+        {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
+      </ElementType>
     )
   }
 }

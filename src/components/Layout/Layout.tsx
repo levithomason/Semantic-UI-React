@@ -2,13 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { customPropTypes, renderComponent } from '../../lib'
+import { customPropTypes, UIComponent } from '../../lib'
 import layoutRules from './layoutRules'
 
-class Layout extends React.Component<any, any> {
+class Layout extends UIComponent<any, any> {
+  props: any
+
   static className = 'ui-layout'
 
   static displayName = 'Layout'
+
+  static rules = layoutRules
 
   static propTypes = {
     as: customPropTypes.as,
@@ -113,66 +117,62 @@ class Layout extends React.Component<any, any> {
     },
   }
 
+  // TODO: exists only for doc detection, remove once react-docgen is replaced
   render() {
-    return renderComponent(
-      {
-        component: Layout,
-        props: this.props,
-        rules: layoutRules,
-      },
-      ({ ElementType, classes, rest }) => {
-        const {
-          reducing,
-          disappearing,
-          start,
-          main,
-          end,
-          renderStartArea,
-          renderMainArea,
-          renderEndArea,
-          renderGap,
-        } = this.props
+    return null
+  }
 
-        const startArea = renderStartArea({ ...this.props, classes })
-        const mainArea = renderMainArea({ ...this.props, classes })
-        const endArea = renderEndArea({ ...this.props, classes })
+  renderComponent({ ElementType, classes, rest }) {
+    const {
+      reducing,
+      disappearing,
+      start,
+      main,
+      end,
+      renderStartArea,
+      renderMainArea,
+      renderEndArea,
+      renderGap,
+    } = this.props
 
-        if (!startArea && !mainArea && !endArea) {
-          return <ElementType {...rest} className={classes.root} />
-        }
+    const startArea = renderStartArea({ ...this.props, classes })
+    const mainArea = renderMainArea({ ...this.props, classes })
+    const endArea = renderEndArea({ ...this.props, classes })
 
-        const activeAreas = [startArea, mainArea, endArea].filter(Boolean)
-        const isSingleArea = activeAreas.length === 1
+    if (!startArea && !mainArea && !endArea) {
+      return <ElementType {...rest} className={classes.root} />
+    }
 
-        // disappear: render the content directly without wrapping layout or area elements
-        if (disappearing && isSingleArea) {
-          return start || main || end
-        }
+    const activeAreas = [startArea, mainArea, endArea].filter(Boolean)
+    const isSingleArea = activeAreas.length === 1
 
-        if (reducing && isSingleArea) {
-          const composedClasses = cx(
-            classes.root,
-            startArea && 'ui-layout--reduced__start',
-            mainArea && 'ui-layout--reduced__main',
-            endArea && 'ui-layout--reduced__end',
-          )
-          return (
-            <ElementType {...rest} className={composedClasses}>
-              {start || main || end}
-            </ElementType>
-          )
-        }
+    // disappear: render the content directly without wrapping layout or area elements
+    if (disappearing && isSingleArea) {
+      return start || main || end
+    }
 
-        return (
-          <ElementType {...rest} className={classes.root}>
-            {startArea}
-            {startArea && mainArea && renderGap({ ...this.props, classes })}
-            {mainArea}
-            {(startArea || mainArea) && endArea && renderGap({ ...this.props, classes })}
-            {endArea}
-          </ElementType>
-        )
-      },
+    if (reducing && isSingleArea) {
+      const composedClasses = cx(
+        classes.root,
+        startArea && 'ui-layout--reduced__start',
+        mainArea && 'ui-layout--reduced__main',
+        endArea && 'ui-layout--reduced__end',
+      )
+      return (
+        <ElementType {...rest} className={composedClasses}>
+          {start || main || end}
+        </ElementType>
+      )
+    }
+
+    return (
+      <ElementType {...rest} className={classes.root}>
+        {startArea}
+        {startArea && mainArea && renderGap({ ...this.props, classes })}
+        {mainArea}
+        {(startArea || mainArea) && endArea && renderGap({ ...this.props, classes })}
+        {endArea}
+      </ElementType>
     )
   }
 }

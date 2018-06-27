@@ -18,7 +18,6 @@ export type RenderFunctionType = (config: IRenderResultConfig) => any
 export interface IRenderConfig {
   component: any
   props: { [key: string]: any }
-  state?: { [key: string]: any }
   rules?: { [key: string]: Function }
   variables?: (siteVariables: object) => object
 }

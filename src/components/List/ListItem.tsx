@@ -2,15 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { customPropTypes, rem, renderComponent, createShorthandFactory } from '../../lib'
+import { customPropTypes, rem, UIComponent, createShorthandFactory } from '../../lib'
 import Layout from '../Layout'
 import listVariables from './listVariables'
 import listItemRules from './listItemRules'
 
-class ListItem extends React.Component<any, any> {
+class ListItem extends UIComponent<any, any> {
   static displayName = 'ListItem'
 
   static className = 'ui-list__item'
+
+  static rules = listItemRules
+
+  static variables = listVariables
 
   static propTypes = {
     as: customPropTypes.as,
@@ -148,39 +152,34 @@ class ListItem extends React.Component<any, any> {
   // TODO check if this should be here or in the renderComponent...
   static create = createShorthandFactory(ListItem, main => ({ main }))
 
+  // TODO: exists only for doc detection, remove once react-docgen is replaced
   render() {
-    return renderComponent(
-      {
-        component: ListItem,
-        props: this.props,
-        rules: listItemRules,
-        variables: listVariables,
-      },
-      ({ ElementType, classes, rest }) => {
-        const { as, debug, endMedia, media, renderMainArea } = this.props
-        const { isHovering } = this.state
+    return null
+  }
 
-        const startArea = media
-        const mainArea = renderMainArea(this.props, this.state, classes)
-        const endArea = isHovering && endMedia
+  renderComponent({ ElementType, classes, rest }) {
+    const { as, debug, endMedia, media, renderMainArea } = this.props
+    const { isHovering } = this.state
 
-        return (
-          <Layout
-            as={as}
-            alignItems="center"
-            gap={rem(0.8)}
-            className={classes.root}
-            debug={debug}
-            reducing
-            start={startArea}
-            main={mainArea}
-            end={endArea}
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-            {...rest}
-          />
-        )
-      },
+    const startArea = media
+    const mainArea = renderMainArea(this.props, this.state, classes)
+    const endArea = isHovering && endMedia
+
+    return (
+      <Layout
+        as={as}
+        alignItems="center"
+        gap={rem(0.8)}
+        className={classes.root}
+        debug={debug}
+        reducing
+        start={startArea}
+        main={mainArea}
+        end={endArea}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        {...rest}
+      />
     )
   }
 }

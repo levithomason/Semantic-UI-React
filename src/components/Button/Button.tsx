@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import { UIComponent, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
@@ -34,7 +34,12 @@ class Button extends UIComponent<any, any> {
     as: 'button',
   }
 
-  render({ ElementType, classes, rest }) {
+  // TODO: exists only for doc detection, remove once react-docgen is replaced
+  render() {
+    return null
+  }
+
+  renderComponent({ ElementType, classes, rest }) {
     return <ElementType {...rest} className={classes.root} />
   }
 }

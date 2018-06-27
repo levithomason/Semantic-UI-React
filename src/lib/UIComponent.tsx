@@ -13,49 +13,48 @@ export interface IRenderResultConfig {
   classes: { [key: string]: string }
 }
 
-export interface IRules {
-  root: object
-  [key: string]: object
-}
-
 class UIComponent<P, S> extends React.Component<P, S> {
-  private readonly _childRender: any
+  private readonly childClass = this.constructor as typeof UIComponent
+  static displayName: string
+  static className: string
   static variables?: any
-  static rules?: IRules
+  static rules?: any
   static handledProps: any
+
+  props: any
 
   constructor(props, context) {
     super(props, context)
 
     // save the child's render function, then call it from our own render function
-    this._childRender = this.render
     this.render = UIComponent.prototype.render
   }
 
+  renderComponent(config: IRenderResultConfig): React.ReactNode {
+    throw new Error(`renderComponent is not implemented in \`${this.childClass.displayName}\`.`)
+  }
+
   render() {
-    const component: any = this.constructor
-    const props = this.props as any
-    const rules = component.rules
-    const variables = component.variables
+    const { rules, variables } = this.childClass
 
     return (
       <FelaTheme
         render={theme => {
-          const ElementType = getElementType(component, props)
-          const rest = getUnhandledProps(component, props)
+          const ElementType = getElementType(this.childClass, this.props)
+          const rest = getUnhandledProps(this.childClass, this.props)
           const { siteVariables = {}, componentVariables = {} } = theme
           const variablesFromFile = callable(variables)(siteVariables)
-          const variablesFromTheme = callable(componentVariables[component.displayName])(
+          const variablesFromTheme = callable(componentVariables[this.childClass.displayName])(
             siteVariables,
           )
-          const variablesFromProp = callable(props.variables)(siteVariables)
+          const variablesFromProp = callable(this.props.variables)(siteVariables)
 
           const mergedVariables = () =>
             Object.assign({}, variablesFromFile, variablesFromTheme, variablesFromProp)
 
-          const classes = getClasses(props, rules, mergedVariables, theme)
+          const classes = getClasses(this.props, rules, mergedVariables, theme)
 
-          classes.root = cx(component.className, classes.root, props.className)
+          classes.root = cx(this.childClass.className, classes.root, this.props.className)
 
           const config: IRenderResultConfig = {
             ElementType,
@@ -63,11 +62,11 @@ class UIComponent<P, S> extends React.Component<P, S> {
             classes,
           }
 
-          return this._childRender(config)
+          return this.renderComponent(config)
         }}
       />
     )
   }
 }
 
-export default UIComponent as any
+export default UIComponent

@@ -1,19 +1,23 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { customPropTypes, renderComponent } from '../../lib'
+import { customPropTypes, UIComponent } from '../../lib'
 import imageRules from './imageRules'
 import imageVariables from './imageVariables'
 
 /**
  * An image is a graphic representation of something.
  */
-class Image extends React.Component<any, any> {
+class Image extends UIComponent<any, any> {
   static className = 'ui-image'
 
   static displayName = 'Image'
 
   static handledProps = ['as', 'avatar', 'circular', 'className']
+
+  static rules = imageRules
+
+  static variables = imageVariables
 
   static propTypes = {
     /**  */
@@ -32,16 +36,13 @@ class Image extends React.Component<any, any> {
     as: 'img',
   }
 
+  // TODO: exists only for doc detection, remove once react-docgen is replaced
   render() {
-    return renderComponent(
-      {
-        component: Image,
-        props: this.props,
-        rules: imageRules,
-        variables: imageVariables,
-      },
-      ({ ElementType, classes, rest }) => <ElementType {...rest} className={classes.root} />,
-    )
+    return null
+  }
+
+  renderComponent({ ElementType, classes, rest }) {
+    return <ElementType {...rest} className={classes.root} />
   }
 }
 
