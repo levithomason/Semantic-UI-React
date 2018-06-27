@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { shallow } from 'enzyme'
 import React, { isValidElement } from 'react'
 import { createShorthand, createShorthandFactory } from 'src/lib'
+import { consoleUtil } from 'test/utils'
 
 // ----------------------------------------
 // Utils
@@ -164,6 +165,11 @@ describe('factories', () => {
     })
 
     describe('key', () => {
+      beforeEach(() => {
+        // silence React's warning about accessing the `key` prop
+        consoleUtil.disableOnce()
+      })
+
       test('is not consumed', () => {
         expect(getShorthand({ value: { key: 123 } }).props).toHaveProperty('key')
       })
