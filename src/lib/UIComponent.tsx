@@ -23,13 +23,6 @@ class UIComponent<P, S> extends React.Component<P, S> {
 
   props: any
 
-  constructor(props, context) {
-    super(props, context)
-
-    // save the child's render function, then call it from our own render function
-    this.render = UIComponent.prototype.render
-  }
-
   renderComponent(config: IRenderResultConfig): React.ReactNode {
     throw new Error(`renderComponent is not implemented in \`${this.childClass.displayName}\`.`)
   }
