@@ -8,6 +8,10 @@ import listRules from './listRules'
 import listVariables from './listVariables'
 
 class List extends React.Component<any, any> {
+  static displayName = 'List'
+
+  static className = 'ui-list'
+
   static propTypes = {
     as: customPropTypes.as,
 
@@ -60,8 +64,6 @@ class List extends React.Component<any, any> {
     return renderComponent(
       {
         component: List,
-        displayName: 'List',
-        stardustClassName: 'ui-list',
         props: this.props,
         state: this.state,
         rules: listRules,

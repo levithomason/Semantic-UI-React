@@ -7,6 +7,10 @@ import dividerVariables from './dividerVariables'
 import { customPropTypes, renderComponent } from '../../lib'
 
 class Divider extends React.Component<any> {
+  static displayName = 'Divider'
+
+  static className = 'ui-divider'
+
   static propTypes = {
     as: customPropTypes.as,
 
@@ -35,8 +39,6 @@ class Divider extends React.Component<any> {
       {
         props: this.props,
         component: Divider,
-        stardustClassName: 'ui-divider',
-        displayName: 'Divider',
         rules: dividerRules,
         variables: dividerVariables,
       },

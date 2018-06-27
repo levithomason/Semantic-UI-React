@@ -9,6 +9,10 @@ import buttonVariables from './buttonVariables'
  * A button.
  */
 class Button extends React.Component<any> {
+  static displayName = 'Button'
+
+  static className = 'ui-button'
+
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
@@ -34,8 +38,6 @@ class Button extends React.Component<any> {
       {
         props: this.props,
         component: Button,
-        stardustClassName: 'ui-button',
-        displayName: 'Button',
         rules: buttonRules,
         variables: buttonVariables,
       },

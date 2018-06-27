@@ -9,6 +9,12 @@ import imageVariables from './imageVariables'
  * An image is a graphic representation of something.
  */
 class Image extends React.Component<any, any> {
+  static className = 'ui-image'
+
+  static displayName = 'Image'
+
+  static handledProps = ['as', 'avatar', 'circular', 'className']
+
   static propTypes = {
     /**  */
     as: customPropTypes.as,
@@ -26,14 +32,10 @@ class Image extends React.Component<any, any> {
     as: 'img',
   }
 
-  static handledProps = ['as', 'avatar', 'circular', 'className']
-
   render() {
     return renderComponent(
       {
         component: Image,
-        displayName: 'Image',
-        stardustClassName: 'ui-image',
         props: this.props,
         rules: imageRules,
         variables: imageVariables,

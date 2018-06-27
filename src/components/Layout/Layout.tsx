@@ -6,6 +6,10 @@ import { customPropTypes, renderComponent } from '../../lib'
 import layoutRules from './layoutRules'
 
 class Layout extends React.Component<any, any> {
+  static className = 'ui-layout'
+
+  static displayName = 'Layout'
+
   static propTypes = {
     as: customPropTypes.as,
     className: PropTypes.string,
@@ -115,8 +119,6 @@ class Layout extends React.Component<any, any> {
     return renderComponent(
       {
         component: Layout,
-        displayName: 'Layout',
-        stardustClassName: 'ui-layout',
         props: this.props,
         rules: layoutRules,
       },
