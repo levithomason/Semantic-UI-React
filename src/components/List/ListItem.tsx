@@ -41,9 +41,6 @@ class ListItem extends React.Component<any, any> {
     selection: PropTypes.bool,
     truncateContent: PropTypes.bool,
     truncateHeader: PropTypes.bool,
-
-    variables: PropTypes.any,
-    styles: PropTypes.object,
   }
 
   static handledProps = [
@@ -61,10 +58,8 @@ class ListItem extends React.Component<any, any> {
     'renderHeaderArea',
     'renderMainArea',
     'selection',
-    'styles',
     'truncateContent',
     'truncateHeader',
-    'variables',
   ]
 
   static defaultProps = {

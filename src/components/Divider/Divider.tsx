@@ -17,9 +17,6 @@ class Divider extends React.Component<any> {
     /** Size multiplier (default 0) * */
     size: PropTypes.number,
 
-    /** TODO: this is not a prop we want here... */
-    styles: PropTypes.object,
-
     /** Child content * */
     children: PropTypes.node,
 
@@ -27,7 +24,7 @@ class Divider extends React.Component<any> {
     className: PropTypes.string,
   }
 
-  static handledProps = ['as', 'children', 'className', 'size', 'styles']
+  static handledProps = ['as', 'children', 'className', 'size']
 
   static defaultProps = {
     size: 0,

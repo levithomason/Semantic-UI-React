@@ -52,7 +52,6 @@ class List extends React.Component<any, any> {
     'selection',
     'truncateContent',
     'truncateHeader',
-    'variables',
   ]
 
   static Item = ListItem

@@ -22,12 +22,9 @@ class Button extends React.Component<any> {
 
     /** A button can appear circular. */
     circular: PropTypes.bool,
-
-    /** A bunch of styles we might not need. */
-    styles: PropTypes.object,
   }
 
-  static handledProps = ['as', 'circular', 'className', 'styles']
+  static handledProps = ['as', 'circular', 'className']
 
   static defaultProps = {
     as: 'button',

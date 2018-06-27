@@ -13,7 +13,6 @@ class Layout extends React.Component<any, any> {
   static propTypes = {
     as: customPropTypes.as,
     className: PropTypes.string,
-    styles: PropTypes.object,
     debug: PropTypes.bool,
 
     renderStartArea: PropTypes.func,
@@ -81,7 +80,6 @@ class Layout extends React.Component<any, any> {
     'start',
     'startCSS',
     'startSize',
-    'styles',
     'truncateEnd',
     'truncateMain',
     'truncateStart',
