@@ -10,16 +10,6 @@ const Variations = () => (
       examplePath="components/Text/Variations/TextExampleAtMention"
     />
     <ComponentExample
-      title="Disabled"
-      description="A Text component for disabled text."
-      examplePath="components/Text/Variations/TextExampleDisabled"
-    />
-    <ComponentExample
-      title="Success"
-      description="A Text component for success text."
-      examplePath="components/Text/Variations/TextExampleSuccess"
-    />
-    <ComponentExample
       title="Timestamp"
       description="A Text component for timestamps."
       examplePath="components/Text/Variations/TextExampleTimestamp"

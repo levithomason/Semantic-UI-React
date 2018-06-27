@@ -7,7 +7,7 @@ import textRules from './textRules'
 import { createComponent, customPropTypes, getElementType, getUnhandledProps } from '../../lib'
 
 /**
- * An component containing text
+ * A component containing text
  */
 const Text: any = (props: any) => {
   const ElementType = getElementType(Text, props)
@@ -40,14 +40,14 @@ Text.propTypes = {
   /** Set as error Text component */
   error: PropTypes.bool,
 
+  /** The size for the Text component */
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', '2x', '3x', '4x']),
+
   /** Set as success Text component */
   success: PropTypes.bool,
 
   /** Set as timestamp Text component */
   timestamp: PropTypes.bool,
-
-  /** Type of Text component */
-  type: PropTypes.oneOf(['title', 'title2', 'base', 'caption', 'x-small']),
 }
 
 export default createComponent(Text, {

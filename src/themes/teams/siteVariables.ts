@@ -71,3 +71,23 @@ export const fontSizeExtraSmall = rem(1)
 export const lineHeightBase = rem(2.0)
 export const lineHeightSmall = rem(1.6)
 export const lineHeightExtraSmall = rem(1.2)
+
+//
+// Text Component
+//
+export const textExtraSmallFontSize = '10pt'
+export const textExtraSmallLineHeight = '12pt'
+export const textSmallFontSize = '12pt'
+export const textSmallLineHeight = '16pt'
+export const textMediumFontSize = '14pt'
+export const textMediumLineHeight = '20pt'
+export const textLargeFontSize = '18pt'
+export const textLargeLineHeight = '24pt'
+export const textExtraLargeFontSize = '24pt'
+export const textExtraLargeLineHeight = '32pt'
+export const textX2FontSize = ''
+export const textX2LineHeight = ''
+export const textX3FontSize = ''
+export const textX3LineHeight = ''
+export const textX4FontSize = ''
+export const textX4LineHeight = ''

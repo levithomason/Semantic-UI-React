@@ -6,28 +6,48 @@ const Types = () => (
   <ExampleSection title="Types">
     <ComponentExample
       title="Default"
-      description="A Default Text component."
-      examplePath="components/Text/Types/TextExample"
+      description="A default Text component."
+      examplePath="components/Text/Types/TextDefaultExample"
     />
     <ComponentExample
-      title="Caption"
-      description="A Caption type Text component."
-      examplePath="components/Text/Types/TextCaptionTypeExample"
+      title="Extra Small"
+      description="An extra small Text component."
+      examplePath="components/Text/Types/TextExtraSmallExample"
     />
     <ComponentExample
-      title="Title"
-      description="A Title type Text component."
-      examplePath="components/Text/Types/TextTitleTypeExample"
+      title="Small"
+      description="An small Text component."
+      examplePath="components/Text/Types/TextSmallExample"
     />
     <ComponentExample
-      title="Title2"
-      description="A Title2 type Text component."
-      examplePath="components/Text/Types/TextTitle2TypeExample"
+      title="Medium"
+      description="A medium Text component."
+      examplePath="components/Text/Types/TextMediumExample"
     />
     <ComponentExample
-      title="X-Small"
-      description="A X-Small type Text component."
-      examplePath="components/Text/Types/TextXSmallTypeExample"
+      title="Large"
+      description="A large Text component."
+      examplePath="components/Text/Types/TextLargeExample"
+    />
+    <ComponentExample
+      title="Extra Large"
+      description="An extra large Text component."
+      examplePath="components/Text/Types/TextExtraLargeExample"
+    />
+    <ComponentExample
+      title="2x"
+      description="A 2x Text component."
+      examplePath="components/Text/Types/Text2xExample"
+    />
+    <ComponentExample
+      title="3x"
+      description="A 3x Text component."
+      examplePath="components/Text/Types/Text3xExample"
+    />
+    <ComponentExample
+      title="4x"
+      description="A 4x Text component."
+      examplePath="components/Text/Types/Text4xExample"
     />
   </ExampleSection>
 )
