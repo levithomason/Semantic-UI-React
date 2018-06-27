@@ -45,7 +45,6 @@ class MenuItem extends React.Component<any, {}> {
   static handledProps = ['active', 'as', 'children', 'className', 'content', 'onClick', 'styles']
 
   handleClick = e => {
-    e.stopPropagation() // onClick is added to both li and a
     _.invoke(this.props, 'onClick', e, this.props)
   }
 
@@ -67,9 +66,7 @@ class MenuItem extends React.Component<any, {}> {
 
     return (
       <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        <a className={anchorClasses} onClick={this.handleClick}>
-          {content}
-        </a>
+        <a className={anchorClasses}>{content}</a>
       </ElementType>
     )
   }
