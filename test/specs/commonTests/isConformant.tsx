@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server'
 import { assertBodyContains, consoleUtil, syntheticEvent } from 'test/utils'
 import helpers from './commonHelpers'
 
-import * as stardust from '../../../src/'
+import * as stardust from '../../../src'
 
 /**
  * Assert Component conforms to guidelines that are applicable to all components.
@@ -339,19 +339,10 @@ export default (Component, options: any = {}) => {
   })
 
   // ----------------------------------------
-  // Has no deprecated _meta
-  // ----------------------------------------
-  describe('_meta', () => {
-    test('does not exist', () => {
-      expect(Component._meta).toBeUndefined()
-    })
-  })
-
-  // ----------------------------------------
   // Handles className
   // ----------------------------------------
-  describe('className (common)', () => {
-    test(`has the Stardust className "${info.componentClassName}"`, () => {
+  describe('static className (common)', () => {
+    test(`matches "${info.componentClassName}"`, () => {
       const component = mount(<Component {...requiredProps} />)
 
       // only test components that implement className
@@ -437,6 +428,15 @@ export default (Component, options: any = {}) => {
           result: true,
         })
       })
+    })
+  })
+
+  // ----------------------------------------
+  // displayName
+  // ----------------------------------------
+  describe('static displayName (common)', () => {
+    test('matches constructor name', () => {
+      expect(Component.displayName).toEqual(info.constructorName)
     })
   })
 }
