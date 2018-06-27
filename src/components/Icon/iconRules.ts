@@ -1,18 +1,35 @@
-import { getBorderedStyles, getFlip, getIcon, getRotation, getSize } from './iconCommonRules'
+import fontAwesomeIcons from './fontAwesomeIconRules'
 
-export default ({
-  bordered,
-  circular,
-  color,
-  disabled,
-  flipped,
-  link,
-  kind,
-  loading,
-  name,
-  rotated,
-  size,
-}) => {
+const sizes = new Map([
+  ['mini', 0.4],
+  ['tiny', 0.5],
+  ['small', 0.75],
+  ['large', 1.5],
+  ['large', 1.5],
+  ['big', 2],
+  ['huge', 4],
+  ['massive', 8],
+])
+
+const getIcon = (kind, name) => {
+  let content = ''
+  let fontFamily = 'Icons'
+
+  switch (kind) {
+    case 'FontAwesome':
+    default: {
+      fontFamily = name.includes('outline') ? 'outline-icons' : 'Icons'
+      content = `'\\${fontAwesomeIcons(name)}'`
+      break
+    }
+  }
+
+  return { content, fontFamily }
+}
+
+const getSize = size => `${sizes.get(size)}em` || '1em'
+
+export default ({ color, kind, name, size }) => {
   const { fontFamily, content } = getIcon(kind, name)
 
   const computed = {
@@ -41,26 +58,6 @@ export default ({
         boxSizing: 'inherit',
         background: '0 0!important',
       },
-
-      ...(disabled && { opacity: '.45!important' }),
-
-      ...(loading && {
-        lineHeight: 1,
-        height: '1em',
-        animation: 'icon-loading 2s linear infinite',
-      }),
-
-      ...(link && {
-        cursor: 'pointer',
-        opacity: 0.8,
-        transition: 'opacity .1s ease',
-      }),
-
-      ...getFlip(flipped),
-
-      ...getRotation(rotated),
-
-      ...((bordered || circular) && getBorderedStyles(circular)),
     },
   }
 
