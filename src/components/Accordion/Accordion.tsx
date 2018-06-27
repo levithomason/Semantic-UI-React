@@ -13,7 +13,6 @@ import {
 import accordionRules from './accordionRules'
 import AccordionTitle from './AccordionTitle'
 import AccordionContent from './AccordionContent'
-// import AccordionVariables from './AccordionVariables'
 
 /**
  * A standard Accordion.

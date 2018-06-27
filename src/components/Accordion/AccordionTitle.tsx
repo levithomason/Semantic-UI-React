@@ -62,7 +62,6 @@ class AccordionTitle extends React.Component<any, any> {
     const ElementType = getElementType(AccordionTitle, this.props)
     const rest = getUnhandledProps(AccordionTitle, this.props)
     const classes = cx(useKeyOnly(active, 'active'), 'ui-accordionTitle', styles.root, className)
-    const arrow = active ? '-' : '+'
 
     if (_.isNil(content)) {
       return (
@@ -71,10 +70,14 @@ class AccordionTitle extends React.Component<any, any> {
         </ElementType>
       )
     }
-    // <Icon name='dropdown' />
-    return (
+
+    return active ? (
       <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        {arrow} {content}
+        <span>&#9660;</span> {content}
+      </ElementType>
+    ) : (
+      <ElementType {...rest} className={classes} onClick={this.handleClick}>
+        <span>&#9654;</span> {content}
       </ElementType>
     )
   }
