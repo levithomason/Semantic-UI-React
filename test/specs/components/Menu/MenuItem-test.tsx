@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { isConformant } from '../../commonTests'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import MenuItem from 'src/components/Menu/MenuItem'
 import Provider from 'src/components/Provider'
 
@@ -20,21 +20,43 @@ describe('MenuItem', () => {
     return getTestingRenderedComponent(mount(<Provider siteVariables={{}}>{el}</Provider>))
   }
 
-  it('content renders as `li > a`', () => {
-    const menuItem = renderWithProvider(<MenuItem content="Home" />)
-    expect(menuItem.childAt(0).is('li')).toBe(true)
-    expect(
-      menuItem
-        .childAt(0)
-        .childAt(0)
-        .is('a'),
-    ).toBe(true)
-    expect(
-      menuItem
-        .childAt(0)
-        .childAt(0)
-        .text(),
-    ).toBe('Home')
+  describe('Shorthand', () => {
+    it('content renders as `li > a`', () => {
+      const menuItem = renderWithProvider(<MenuItem content="Home" />)
+      expect(menuItem.childAt(0).is('li')).toBe(true)
+      expect(
+        menuItem
+          .childAt(0)
+          .childAt(0)
+          .is('a'),
+      ).toBe(true)
+      expect(
+        menuItem
+          .childAt(0)
+          .childAt(0)
+          .text(),
+      ).toBe('Home')
+    })
+
+    it('uses capitalized `name` as `content` if `content` is not set', () => {
+      const menuItem = renderWithProvider(<MenuItem name="home" />)
+      expect(
+        menuItem
+          .childAt(0)
+          .childAt(0)
+          .text(),
+      ).toBe('Home')
+    })
+
+    it('`content` takes precedence over `name` if both are defined', () => {
+      const menuItem = renderWithProvider(<MenuItem name="homeName" content="homeContent" />)
+      expect(
+        menuItem
+          .childAt(0)
+          .childAt(0)
+          .text(),
+      ).toBe('homeContent')
+    })
   })
 
   it('children render directly inside `li`', () => {
