@@ -34,4 +34,10 @@ export default ({ active }) => ({
       background: 'rgba(34, 36, 38, .1)',
     },
   },
+  anchor: {
+    color: 'inherit',
+    ':hover': {
+      color: 'inherit',
+    },
+  },
 })
