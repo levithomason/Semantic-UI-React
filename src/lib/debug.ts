@@ -11,7 +11,7 @@ if (isBrowser() && process.env.NODE_ENV !== 'production' && process.env.NODE_ENV
   try {
     DEBUG = window.localStorage.debug
   } catch (e) {
-    console.error('Semantic-UI-React could not enable debug.')
+    console.error('Stardust could not enable debug.')
     console.error(e)
   }
 
@@ -29,7 +29,7 @@ if (isBrowser() && process.env.NODE_ENV !== 'production' && process.env.NODE_ENV
  * debug('Some message')
  * @returns {Function}
  */
-export const makeDebugger = namespace => _debug(`semanticUIReact:${namespace}`)
+export const makeDebugger = namespace => _debug(`stardust:${namespace}`)
 
 /**
  * Default debugger, simple log.
