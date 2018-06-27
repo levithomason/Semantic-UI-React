@@ -342,7 +342,11 @@ export default (Component, options: any = {}) => {
   // Handles className
   // ----------------------------------------
   describe('static className (common)', () => {
-    test(`matches "${info.componentClassName}"`, () => {
+    test(`is a static equal to "${info.componentClassName}"`, () => {
+      expect(Component.className).toEqual(info.componentClassName)
+    })
+
+    test(`is applied to the root element`, () => {
       const component = mount(<Component {...requiredProps} />)
 
       // only test components that implement className
