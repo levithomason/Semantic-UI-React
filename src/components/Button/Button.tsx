@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { BaseComponent, customPropTypes } from '../../lib'
+import { UIComponent, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
 
 /**
  * A button.
  */
-class Button extends BaseComponent<any, any> {
+class Button extends UIComponent<any, any> {
   static displayName = 'Button'
 
   static className = 'ui-button'

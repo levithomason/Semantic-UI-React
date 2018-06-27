@@ -18,7 +18,7 @@ export interface IRules {
   [key: string]: object
 }
 
-class BaseComponent<P, S> extends React.Component<P, S> {
+class UIComponent<P, S> extends React.Component<P, S> {
   private readonly _childRender: any
   static variables?: any
   static rules?: IRules
@@ -29,7 +29,7 @@ class BaseComponent<P, S> extends React.Component<P, S> {
 
     // save the child's render function, then call it from our own render function
     this._childRender = this.render
-    this.render = BaseComponent.prototype.render
+    this.render = UIComponent.prototype.render
   }
 
   render() {
@@ -70,4 +70,4 @@ class BaseComponent<P, S> extends React.Component<P, S> {
   }
 }
 
-export default BaseComponent as any
+export default UIComponent as any
