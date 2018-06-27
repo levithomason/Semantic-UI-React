@@ -4,16 +4,9 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { createComponent, customPropTypes, getElementType } from '../../lib'
 
-import Message from './Message'
+import messageListRules from './messageListRules'
 
-const messageListRules = () => ({
-  root: {
-    listStyle: 'none',
-    display: 'block',
-    padding: 0,
-    margin: 0,
-  },
-})
+import Message from './Message'
 
 const MessageList: any = props => {
   const ElementType = getElementType(MessageList, props)
