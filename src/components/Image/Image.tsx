@@ -8,9 +8,7 @@ import imageVariables from './imageVariables'
 /**
  * An image is a graphic representation of something.
  */
-class Image extends UIComponent {
-  props: { [key: string]: any }
-
+class Image extends UIComponent<any, any> {
   static className = 'ui-image'
 
   static displayName = 'Image'
