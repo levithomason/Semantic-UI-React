@@ -10,6 +10,11 @@ const States = () => (
       examplePath="components/Text/States/TextExampleDisabled"
     />
     <ComponentExample
+      title="Error"
+      description="The error state for a Text component"
+      examplePath="components/Text/States/TextExampleError"
+    />
+    <ComponentExample
       title="Success"
       description="The success state for a Text component"
       examplePath="components/Text/States/TextExampleSuccess"
