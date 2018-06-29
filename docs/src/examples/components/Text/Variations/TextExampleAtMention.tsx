@@ -1,11 +1,6 @@
-import faker from 'faker'
 import React from 'react'
 import { Text } from 'stardust'
 
-const TextExampleAtMention = () => (
-  <Text atMention>
-    @{faker.name.firstName()} {faker.name.lastName()}
-  </Text>
-)
+const TextExampleAtMention = () => <Text atMention>@Russell Wilson</Text>
 
 export default TextExampleAtMention
