@@ -1,8 +1,8 @@
 const accordionContentRules = ({ active, variables }) => ({
   root: {
-    display: 'inline-block',
+    display: 'none',
     verticalAlign: 'middle',
-    ...(active && variables.active),
+    ...(active && { display: 'block' }),
   },
 })
 

@@ -9,6 +9,7 @@ import {
   createComponent,
   getElementType,
   getUnhandledProps,
+  childrenExist,
 } from '../../lib'
 import accordionRules from './accordionRules'
 import AccordionTitle from './AccordionTitle'
@@ -86,6 +87,9 @@ class Accordion extends Component {
 
   static autoControlledProps = ['activeIndex']
 
+  static Title = AccordionTitle
+  static Content = AccordionContent
+
   state: any = { activeIndex: [0] }
 
   getInitialAutoControlledState({ exclusive }) {
@@ -147,7 +151,7 @@ class Accordion extends Component {
 
     return (
       <ElementType {...rest} className={cx('ui-accordion', styles.root, className)}>
-        {_.isNil(children) ? this.renderPanels() : children}
+        {childrenExist(children) ? children : this.renderPanels()}
       </ElementType>
     )
   }
