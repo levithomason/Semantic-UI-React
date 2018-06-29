@@ -6,35 +6,11 @@ class AccordionExampleList extends React.Component {
   getAvatar = () => <Image src="//placehold.it/100" style={this.imgStyle} />
 
   firstGroupList = [
-    {
-      key: 'g11',
-      media: this.getAvatar(),
-      header: 'cat',
-    },
-    {
-      key: 'g12',
-      media: this.getAvatar(),
-      header: 'dog',
-    },
-    {
-      key: 'g13',
-      media: this.getAvatar(),
-      header: 'mouse',
-    },
+    { key: 'g11', media: this.getAvatar(), header: 'cat' },
+    { key: 'g12', media: this.getAvatar(), header: 'dog' },
+    { key: 'g13', media: this.getAvatar(), header: 'mouse' },
   ]
 
-  secondGroupList = [
-    {
-      key: 'g21',
-      media: this.getAvatar(),
-      header: 'frog',
-    },
-    {
-      key: 'g22',
-      media: this.getAvatar(),
-      header: 'snake',
-    },
-  ]
   state = { activeIndex: 0 }
 
   activeIcon = <span>&#9660;</span>
@@ -50,7 +26,6 @@ class AccordionExampleList extends React.Component {
 
   isIndexActive = index => {
     const { activeIndex } = this.state
-
     return activeIndex === index
   }
 
