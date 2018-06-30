@@ -23,6 +23,5 @@ export { default as isBrowser } from './isBrowser'
 export { default as doesNodeContainClick } from './doesNodeContainClick'
 export { default as leven } from './leven'
 
-export { default as rem } from './rem'
-export { default as fontSizeUtility } from './fontSizeUtility'
+export { default as fontSizeUtility, pxToRem, setHTMLFontSize } from './fontSizeUtility'
 export { customPropTypes, SUI }
