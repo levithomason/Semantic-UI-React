@@ -12,6 +12,7 @@ import ComponentDocSee from './ComponentDocSee'
 import ComponentExamples from './ComponentExamples'
 import ComponentProps from './ComponentProps'
 import ComponentSidebar from './ComponentSidebar'
+import ComponentDocTag from './ComponentDocTag'
 
 const topRowStyle = { margin: '1em' }
 const exampleEndStyle = {
@@ -83,6 +84,7 @@ class ComponentDoc extends Component<any, any> {
                 content={info.displayName}
                 subheader={_.join(info.docblock.description, ' ')}
               />
+              <ComponentDocTag title="Accessibility" tag="accessibility" info={info} />
               <ComponentDocSee displayName={info.displayName} />
               <ComponentDocLinks
                 displayName={info.displayName}
