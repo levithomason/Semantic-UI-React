@@ -3,7 +3,7 @@ import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { createComponent, customPropTypes, getUnhandledProps, getElementType } from '../../lib'
+import { createComponentAlt, customPropTypes, getUnhandledProps, getElementType } from '../../lib'
 import ListItem from './ListItem'
 import listRules from './listRules'
 
@@ -57,22 +57,26 @@ class List extends React.Component<any, any> {
   static itemProps = ['debug', 'selection', 'truncateContent', 'truncateHeader', 'variables']
 
   render() {
-    const { className, items, styles } = this.props
-
     const ElementType = getElementType(List, this.props)
-    const rest = getUnhandledProps(List, this.props)
+    const { className, items } = this.props
 
-    const classes = cx('ui-list', styles.root, className)
-    const itemProps = _.pick(this.props, List.itemProps)
+    return applyStyles(this.props, ({ styles, variables }) => {
+      const classes = cx('ui-list', styles.root, className)
+      const rest = getUnhandledProps(List, this.props)
 
-    return (
-      <ElementType className={classes} {...rest}>
-        {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
-      </ElementType>
-    )
+      const itemProps = _.pick(this.props, List.itemProps)
+
+      return (
+        <ElementType className={classes} {...rest}>
+          {_.map(items, item => ListItem.create(item, { defaultProps: itemProps }))}
+        </ElementType>
+      )
+    })
   }
 }
 
-export default createComponent(List, {
+const applyStyles = createComponentAlt(List, {
   rules: listRules,
 })
+
+export default List

@@ -11,6 +11,8 @@ export * from './factories'
 export { default as getUnhandledProps } from './getUnhandledProps'
 export { default as getElementType } from './getElementType'
 export { default as createComponent } from './createComponent'
+export { default as createComponentAlt } from './createComponent_alt'
+
 export {
   htmlImageProps,
   htmlInputAttrs,
