@@ -15,8 +15,10 @@ class AccordionExampleList extends React.Component {
   render() {
     const buttonStyle = { marginLeft: '1.3rem' }
     const accContent = [
-      <List items={this.firstGroupList} />,
-      <Button style={buttonStyle}>Add pet</Button>,
+      <List key="firstGroupList" items={this.firstGroupList} />,
+      <Button key="firstButton" style={buttonStyle}>
+        Add pet
+      </Button>,
     ]
 
     const panels = [{ title: 'Pets', content: accContent }]
