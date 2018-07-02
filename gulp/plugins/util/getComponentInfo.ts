@@ -29,7 +29,7 @@ const getComponentInfo = filepath => {
   })
 
   // start with react-docgen info
-  const components = parse(text, resolver.findAllComponentDefinitions, [
+  const components = parse(text, resolver.findAllExportedComponentDefinitions, [
     ...defaultHandlers,
     parserCustomHandler,
   ])
@@ -37,13 +37,12 @@ const getComponentInfo = filepath => {
     throw new Error(`Could not find a component definition in "${filepath}".`)
   }
   if (components.length > 1) {
-    // TODO check why some of the files produced multiple components (ListItem, Layout)
-    // throw new Error(
-    //   [
-    //     `Found more than one component definition in "${filepath}".`,
-    //     'This is currently not supported, please ensure your module only defines a single React component.',
-    //   ].join(' '),
-    // )
+    throw new Error(
+      [
+        `Found more than one component definition in "${filepath}".`,
+        'This is currently not supported, please ensure your module only defines a single React component.',
+      ].join(' '),
+    )
   }
   const info = components[0]
 
