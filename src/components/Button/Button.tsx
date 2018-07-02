@@ -43,4 +43,5 @@ Button.defaultProps = {
 export default createComponent(Button, {
   rules: buttonRules,
   variables: buttonVariables,
+  shorthand: content => ({ content }),
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Accordion, List, Image, Button } from 'stardust'
+import { render } from 'react-dom'
 
 class AccordionExampleList extends React.Component {
   imgStyle = { display: 'block', width: '2rem' }
@@ -11,39 +12,16 @@ class AccordionExampleList extends React.Component {
     { key: 'g13', media: this.getAvatar(), header: 'mouse' },
   ]
 
-  state = { activeIndex: 0 }
-
-  activeIcon = <span>&#9660;</span>
-  inactiveIcon = <span>&#9654;</span>
-
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
-
-    this.setState({ activeIndex: newIndex })
-  }
-
-  isIndexActive = index => {
-    const { activeIndex } = this.state
-    return activeIndex === index
-  }
-
   render() {
-    const { activeIndex } = this.state
     const buttonStyle = { marginLeft: '1.3rem' }
+    const accContent = [
+      <List items={this.firstGroupList} />,
+      <Button style={buttonStyle}>Add pet</Button>,
+    ]
 
-    return (
-      <Accordion>
-        <Accordion.Title active={this.isIndexActive(0)} index={0} onClick={this.handleClick}>
-          {this.isIndexActive(0) ? this.activeIcon : this.inactiveIcon} Pets
-        </Accordion.Title>
-        <Accordion.Content active={this.isIndexActive(0)}>
-          <List items={this.firstGroupList} />
-          <Button style={buttonStyle}>Add pet</Button>
-        </Accordion.Content>
-      </Accordion>
-    )
+    const panels = [{ title: 'Pets', content: accContent }]
+
+    return <Accordion panels={panels} />
   }
 }
 
