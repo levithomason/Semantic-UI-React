@@ -74,6 +74,9 @@ class ComponentDoc extends Component<any, any> {
     const { info } = this.props
     const { activePath, examplesRef } = this.state
 
+    const accessibilityErrorMessage = `No accessibility description found for this component. Please explain the
+        accessibility concerns of the component by adding the @accessibility tag to the component's docblock.`
+
     return (
       <DocumentTitle title={`${info.displayName} | Stardust`}>
         <Grid>
@@ -84,7 +87,12 @@ class ComponentDoc extends Component<any, any> {
                 content={info.displayName}
                 subheader={_.join(info.docblock.description, ' ')}
               />
-              <ComponentDocTag title="Accessibility" tag="accessibility" info={info} />
+              <ComponentDocTag
+                title="Accessibility"
+                tag="accessibility"
+                errorMessage={accessibilityErrorMessage}
+                info={info}
+              />
               <ComponentDocSee displayName={info.displayName} />
               <ComponentDocLinks
                 displayName={info.displayName}

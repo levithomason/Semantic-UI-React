@@ -13,14 +13,9 @@ class ComponentDocTag extends Component<any, any> {
   }
 
   render() {
-    const { info, tag, title } = this.props
+    const { info, tag, title, errorMessage } = this.props
     const description = this.getTagDescription(tag, info) || (
-      <Message
-        error
-        content="No accessibility description found for this component. Please explain the
-        accessibility concerns of the component by adding the @accessibility tag to the component's docblock."
-        compact={true}
-      />
+      <Message error content={errorMessage} compact={true} />
     )
 
     return (
