@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import _ from 'lodash'
-import { createComponent, getElementType, SUI, customPropTypes } from '../../lib'
+import { createComponent, getElementType, SUI, customPropTypes, getUnhandledProps } from '../../lib'
 
 import rules from './iconRules'
 
@@ -30,6 +30,8 @@ class Icon extends React.Component<any, any> {
     styles: PropTypes.object,
   }
 
+  static handledProps = ['as', 'className', 'color', 'kind', 'name', 'size', 'styles']
+
   static defaultProps = {
     as: 'i',
     kind: 'FontAwesome',
@@ -37,9 +39,11 @@ class Icon extends React.Component<any, any> {
 
   render() {
     const { className, styles } = this.props
-    const classes = cx(className, styles.root)
+    const classes = cx('ui-icon', styles.root, className)
+    const rest = getUnhandledProps(Icon, this.props)
+
     const ElementType = getElementType(Icon, this.props)
-    return <ElementType className={classes} />
+    return <ElementType className={classes} {...rest} />
   }
 }
 

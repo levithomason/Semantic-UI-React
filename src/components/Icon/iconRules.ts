@@ -17,8 +17,8 @@ const getIcon = (kind, name) => {
   switch (kind) {
     case 'FontAwesome':
     default: {
-      fontFamily = name.includes('outline') ? 'outline-icons' : 'Icons'
-      content = `'\\${fontAwesomeIcons(name)}'`
+      fontFamily = name && name.includes('outline') ? 'outline-icons' : 'Icons'
+      content = (name && `'\\${fontAwesomeIcons(name)}'`) || '?'
       break
     }
   }
