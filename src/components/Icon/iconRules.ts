@@ -5,7 +5,6 @@ const sizes = new Map([
   ['tiny', 0.5],
   ['small', 0.75],
   ['large', 1.5],
-  ['large', 1.5],
   ['big', 2],
   ['huge', 4],
   ['massive', 8],
