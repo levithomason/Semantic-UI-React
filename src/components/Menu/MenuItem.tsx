@@ -43,6 +43,12 @@ class MenuItem extends React.Component<any, {}> {
 
     /** FELA styles */
     styles: PropTypes.object,
+
+    /** The menu can have primary or secondary type */
+    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+
+    /** A menu can point to show its relationship to nearby content. */
+    pointing: PropTypes.bool,
   }
 
   static handledProps = [

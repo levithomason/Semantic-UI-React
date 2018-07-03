@@ -36,6 +36,14 @@ class Menu extends AutoControlledComponent {
 
     /** FELA styles */
     styles: PropTypes.object,
+
+    /** The menu can have primary or secondary type */
+    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+
+    /** A menu can point to show its relationship to nearby content. */
+    pointing: PropTypes.bool,
+
+    automaticStyleChildren: PropTypes.bool,
   }
 
   static Item = MenuItem
@@ -63,12 +71,14 @@ class Menu extends AutoControlledComponent {
   })
 
   renderItems = () => {
-    const { items } = this.props
+    const { items, type, pointing } = this.props
     const { activeIndex } = this.state
 
     return _.map(items, (item, index) =>
       MenuItem.create(item, {
         defaultProps: {
+          type,
+          pointing,
           index,
           active: parseInt(activeIndex, 10) === index,
         },
@@ -77,16 +87,28 @@ class Menu extends AutoControlledComponent {
     )
   }
 
+  static defaultProps = {
+    type: 'default',
+  }
+
   render() {
-    const { children, className, styles } = this.props
+    const { children, className, styles, automaticStyleChildren, type, pointing } = this.props
 
     const classes = cx('ui-menu', styles.root, className)
     const ElementType = getElementType(Menu, this.props, () => 'ul')
     const rest = getUnhandledProps(Menu, this.props)
 
+    const childrenWithProps = automaticStyleChildren
+      ? React.Children.map(children, child => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child as React.ReactElement<any>, { type, pointing })
+          }
+        })
+      : children
+
     return (
       <ElementType {...rest} className={classes}>
-        {childrenExist(children) ? children : this.renderItems()}
+        {childrenExist(children) ? childrenWithProps : this.renderItems()}
       </ElementType>
     )
   }
