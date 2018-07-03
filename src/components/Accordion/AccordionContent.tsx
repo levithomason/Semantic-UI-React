@@ -9,6 +9,7 @@ import {
   getElementType,
   getUnhandledProps,
   useKeyOnly,
+  childrenExist,
 } from '../../lib'
 import accordionContentRules from './accordionContentRules'
 import accordionContentVariables from './accordionContentVariables'
@@ -24,7 +25,7 @@ const AccordionContent: any = (props: any) => {
 
   return (
     <ElementType {...rest} className={classes}>
-      {_.isNil(content) ? children : content}
+      {childrenExist(children) ? children : content}
     </ElementType>
   )
 }

@@ -134,11 +134,17 @@ class Accordion extends Component {
 
       children.push(
         AccordionTitle.create(title, {
-          defaultProps: { active, index },
+          autoGenerateKey: false,
+          defaultProps: { active, index, key: 'title' + index.toString() },
           overrideProps: this.handleTitleOverrides,
         }),
       )
-      children.push(AccordionContent.create(content, { defaultProps: { active } }))
+      children.push(
+        AccordionContent.create(content, {
+          autoGenerateKey: false,
+          defaultProps: { active, key: 'content' + index.toString() },
+        }),
+      )
     })
 
     return children
