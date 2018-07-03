@@ -117,12 +117,7 @@ class Layout extends UIComponent<any, any> {
     },
   }
 
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
-  }
-
-  renderComponent({ ElementType, classes, rest }) {
+  render({ ElementType, classes, rest }) {
     const {
       reducing,
       disappearing,
@@ -177,4 +172,5 @@ class Layout extends UIComponent<any, any> {
   }
 }
 
-export default Layout
+// TODO: remove once UIComponent is properly typed
+export default Layout as any

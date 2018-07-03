@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react'
 import { UIComponent, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
+import getElementType from 'stardust/lib/getElementType'
 
 /**
  * A button.
@@ -32,11 +33,6 @@ class Button extends UIComponent<any, any> {
 
   static defaultProps = {
     as: 'button',
-  }
-
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
   }
 
   renderComponent({ ElementType, classes, rest }) {

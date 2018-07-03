@@ -63,12 +63,7 @@ class List extends UIComponent<any, any> {
   // List props that are passed to each individual Item props
   static itemProps = ['debug', 'selection', 'truncateContent', 'truncateHeader', 'variables']
 
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
-  }
-
-  renderComponent({ ElementType, classes, rest }) {
+  render({ ElementType, classes, rest }) {
     const { items } = this.props
     const itemProps = _.pick(this.props, List.itemProps)
 

@@ -6,6 +6,10 @@ import dividerVariables from './dividerVariables'
 
 import { customPropTypes, UIComponent } from '../../lib'
 
+/**
+ * @accessibility
+ * This is shown at the top.
+ */
 class Divider extends UIComponent<any, any> {
   static displayName = 'Divider'
 
@@ -34,12 +38,7 @@ class Divider extends UIComponent<any, any> {
     size: 0,
   }
 
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
-  }
-
-  renderComponent({ ElementType, classes, rest }) {
+  render({ ElementType, classes, rest }) {
     const { children } = this.props
 
     return (

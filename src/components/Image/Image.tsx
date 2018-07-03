@@ -8,7 +8,9 @@ import imageVariables from './imageVariables'
 /**
  * An image is a graphic representation of something.
  */
-class Image extends UIComponent<any, any> {
+class Image extends UIComponent {
+  props: { [key: string]: any }
+
   static className = 'ui-image'
 
   static displayName = 'Image'
@@ -36,12 +38,7 @@ class Image extends UIComponent<any, any> {
     as: 'img',
   }
 
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
-  }
-
-  renderComponent({ ElementType, classes, rest }) {
+  render({ ElementType, classes, rest }) {
     return <ElementType {...rest} className={classes.root} />
   }
 }

@@ -13,42 +13,42 @@ export interface IRenderResultConfig {
   classes: { [key: string]: string }
 }
 
-export type RenderFunctionType = (config: IRenderResultConfig) => any
+export type RenderComponentCallback = (config: IRenderResultConfig) => any
 
 export interface IRenderConfig {
-  component: any
+  className?: string
+  defaultProps?: { [key: string]: any }
+  displayName?: string
+  handledProps: string[]
   props: { [key: string]: any }
   rules?: { [key: string]: Function }
   variables?: (siteVariables: object) => object
 }
 
-const renderComponent = (config: IRenderConfig, render: RenderFunctionType) => {
-  const { component, props, rules, variables } = config
+const renderComponent = (
+  config: IRenderConfig,
+  render: RenderComponentCallback,
+): React.ReactNode => {
+  const { className, defaultProps, displayName, handledProps, props, rules, variables } = config
 
   return (
     <FelaTheme
       render={theme => {
-        const ElementType = getElementType(component, props)
-        const rest = getUnhandledProps(component, props)
         const { siteVariables = {}, componentVariables = {} } = theme
+
+        const ElementType = getElementType({ defaultProps }, props)
+        const rest = getUnhandledProps({ handledProps }, props)
         const variablesFromFile = callable(variables)(siteVariables)
-        const variablesFromTheme = callable(componentVariables[component.displayName])(
-          siteVariables,
-        )
+        const variablesFromTheme = callable(componentVariables[displayName])(siteVariables)
         const variablesFromProp = callable(props.variables)(siteVariables)
 
         const mergedVariables = () =>
           Object.assign({}, variablesFromFile, variablesFromTheme, variablesFromProp)
 
         const classes = getClasses(props, rules, mergedVariables, theme)
+        classes.root = cx(className, classes.root, props.className)
 
-        classes.root = cx(component.className, classes.root, props.className)
-
-        const config: IRenderResultConfig = {
-          ElementType,
-          rest,
-          classes,
-        }
+        const config: IRenderResultConfig = { ElementType, rest, classes }
 
         return render(config)
       }}

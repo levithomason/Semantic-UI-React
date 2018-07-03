@@ -149,15 +149,7 @@ class ListItem extends UIComponent<any, any> {
     this.setState({ isHovering: false })
   }
 
-  // TODO check if this should be here or in the renderComponent...
-  static create = createShorthandFactory(ListItem, main => ({ main }))
-
-  // TODO: exists only for doc detection, remove once react-docgen is replaced
-  render() {
-    return null
-  }
-
-  renderComponent({ ElementType, classes, rest }) {
+  render({ ElementType, classes, rest }) {
     const { as, debug, endMedia, media, renderMainArea } = this.props
     const { isHovering } = this.state
 
@@ -183,5 +175,7 @@ class ListItem extends UIComponent<any, any> {
     )
   }
 }
+
+ListItem.create = createShorthandFactory(ListItem, main => ({ main }))
 
 export default ListItem
