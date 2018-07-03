@@ -17,8 +17,6 @@ const Button: any = (props: any) => {
   return <ElementType {...rest} className={cx('ui-button', styles.root, className)} />
 }
 
-const buttonTypes: ButtonType[] = ['primary', 'secondary']
-
 Button.propTypes = {
   /** An element type to render as (string or function). */
   as: customPropTypes.as,
@@ -33,10 +31,10 @@ Button.propTypes = {
   styles: PropTypes.object,
 
   /** A button can be formatted to show different levels of emphasis. */
-  type: PropTypes.oneOf(buttonTypes),
+  type: PropTypes.oneOf(['primary', 'secondary']),
 }
 
-Button.handledProps = Object.keys(Button.propTypes)
+Button.handledProps = ['as', 'circular', 'className', 'styles', 'type']
 
 Button.defaultProps = {
   as: 'button',

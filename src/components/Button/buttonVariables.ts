@@ -1,27 +1,33 @@
 import { rem } from '../../lib'
 
 export interface IButtonVariables {
+  backgroundColor: string
+  backgroundColorHover: string
   circularRadius: string
   circularWidth: string
   typePrimaryColor: string
   typePrimaryBackgroundColor: string
+  typePrimaryBackgroundColorHover: string
   typePrimaryBorderColor: string
   typeSecondaryColor: string
   typeSecondaryBackgroundColor: string
+  typeSecondaryBackgroundColorHover: string
   typeSecondaryBorderColor: string
 }
 
 export default (siteVars: any): IButtonVariables => {
-  const { white, black, btnPrimaryColor, btnSecondaryColor, btnSecondaryBorderColor } = siteVars
-
   return {
-    circularRadius: rem(10),
-    circularWidth: '32px', // TODO-Bugaa92: convert to using rem when it allows input as px
-    typePrimaryColor: white,
-    typePrimaryBackgroundColor: btnPrimaryColor,
+    backgroundColor: siteVars.gray08,
+    backgroundColorHover: siteVars.gray06,
+    circularRadius: rem(99),
+    circularWidth: '32px',
+    typePrimaryColor: siteVars.white,
+    typePrimaryBackgroundColor: siteVars.brand,
+    typePrimaryBackgroundColorHover: siteVars.brand04,
     typePrimaryBorderColor: 'transparent',
-    typeSecondaryColor: black,
-    typeSecondaryBackgroundColor: btnSecondaryColor,
-    typeSecondaryBorderColor: btnSecondaryBorderColor,
+    typeSecondaryColor: siteVars.black,
+    typeSecondaryBackgroundColor: siteVars.white,
+    typeSecondaryBackgroundColorHover: siteVars.gray06,
+    typeSecondaryBorderColor: siteVars.gray06,
   }
 }

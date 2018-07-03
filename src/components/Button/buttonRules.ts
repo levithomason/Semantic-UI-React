@@ -2,69 +2,61 @@ import { IButtonVariables } from './buttonVariables'
 
 export type ButtonType = 'primary' | 'secondary'
 
-interface IButtonTypeProps {
-  color: string
-  backgroundColor: string
-  borderColor: string
-}
-
-interface IButtonRules {
+interface IButtonProps {
   variables: IButtonVariables
   circular?: boolean
   type?: ButtonType
 }
 
-const buttonTypeRules = ({
-  type,
-  variables,
-}: {
-  type: ButtonType
-  variables: IButtonVariables,
-}): IButtonTypeProps => {
-  if (!type) {
-    return undefined
-  }
+export default (props: IButtonProps) => {
+  const { circular, type, variables } = props
 
   const {
+    backgroundColor,
+    backgroundColorHover,
+    circularRadius,
+    circularWidth,
     typePrimaryColor,
     typePrimaryBackgroundColor,
+    typePrimaryBackgroundColorHover,
     typePrimaryBorderColor,
     typeSecondaryColor,
     typeSecondaryBackgroundColor,
+    typeSecondaryBackgroundColorHover,
     typeSecondaryBorderColor,
   } = variables
 
-  switch (type) {
-    case 'primary':
-      return {
-        color: typePrimaryColor,
-        backgroundColor: typePrimaryBackgroundColor,
-        borderColor: typePrimaryBorderColor,
-      }
-    case 'secondary':
-      return {
-        color: typeSecondaryColor,
-        backgroundColor: typeSecondaryBackgroundColor,
-        borderColor: typeSecondaryBorderColor,
-      }
-  }
-}
-
-export default (btnRules: IButtonRules) => {
-  const { circular, type, variables } = btnRules
-  const { circularRadius, circularWidth } = variables
-
-  const defaultRules = {
+  const root = {
+    backgroundColor,
     display: 'inline-block',
     verticalAlign: 'middle',
-    textShadow: 'none',
-    backgroundImage: 'none',
-  }
+    cursor: 'pointer',
+    borderWidth: 0,
+    ':hover': {
+      backgroundColor: backgroundColorHover,
+    },
 
-  const root = {
-    ...defaultRules,
     ...(circular && { borderRadius: circularRadius, width: circularWidth }),
-    ...buttonTypeRules({ type, variables }),
+
+    ...(type === 'primary' && {
+      color: typePrimaryColor,
+      backgroundColor: typePrimaryBackgroundColor,
+      borderColor: typePrimaryBorderColor,
+      ':hover': {
+        backgroundColor: typePrimaryBackgroundColorHover,
+      },
+    }),
+
+    ...(type === 'secondary' && {
+      color: typeSecondaryColor,
+      backgroundColor: typeSecondaryBackgroundColor,
+      borderColor: typeSecondaryBorderColor,
+      borderWidth: '2px',
+      ':hover': {
+        borderColor: 'transparent',
+        backgroundColor: typeSecondaryBackgroundColorHover,
+      },
+    }),
   }
 
   return { root }
