@@ -165,5 +165,4 @@ class Accordion extends Component {
 
 export default createComponent(Accordion, {
   rules: accordionRules,
-  shorthand: content => ({ content }),
 })
