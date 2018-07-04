@@ -75,4 +75,4 @@ class List extends UIComponent<any, any> {
   }
 }
 
-export default List
+export default List as any

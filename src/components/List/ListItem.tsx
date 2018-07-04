@@ -139,6 +139,8 @@ class ListItem extends UIComponent<any, any> {
     },
   }
 
+  static create = createShorthandFactory(ListItem, main => ({ main }))
+
   state: any = {}
 
   handleMouseEnter = () => {
@@ -176,6 +178,4 @@ class ListItem extends UIComponent<any, any> {
   }
 }
 
-ListItem.create = createShorthandFactory(ListItem, main => ({ main }))
-
-export default ListItem
+export default ListItem as any

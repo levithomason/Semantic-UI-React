@@ -7,6 +7,7 @@ import parseDefaultValue from './parseDefaultValue'
 import parseDocblock from './parseDocblock'
 import parserCustomHandler from './parserCustomHandler'
 import parseType from './parseType'
+import findExportedComponentDefinitions from './findExportedComponentDefinitions'
 
 const getComponentInfo = filepath => {
   const absPath = path.resolve(process.cwd(), filepath)
@@ -29,7 +30,7 @@ const getComponentInfo = filepath => {
   })
 
   // start with react-docgen info
-  const components = parse(text, resolver.findAllExportedComponentDefinitions, [
+  const components = parse(text, findExportedComponentDefinitions, [
     ...defaultHandlers,
     parserCustomHandler,
   ])

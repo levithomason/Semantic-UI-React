@@ -41,4 +41,4 @@ class Image extends UIComponent<any, any> {
   }
 }
 
-export default Image
+export default Image as any

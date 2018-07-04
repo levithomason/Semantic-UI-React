@@ -4,7 +4,6 @@ import React from 'react'
 import { UIComponent, childrenExist, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
-import getElementType from 'stardust/lib/getElementType'
 
 /**
  * A button.
@@ -53,5 +52,4 @@ class Button extends UIComponent<any, any> {
     )
   }
 }
-
-export default Button
+export default Button as any

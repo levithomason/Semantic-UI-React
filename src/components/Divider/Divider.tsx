@@ -11,6 +11,9 @@ import { customPropTypes, UIComponent } from '../../lib'
  * This is shown at the top.
  */
 class Divider extends UIComponent<any, any> {
+  constructor(props) {
+    super(props)
+  }
   static displayName = 'Divider'
 
   static className = 'ui-divider'
@@ -49,4 +52,4 @@ class Divider extends UIComponent<any, any> {
   }
 }
 
-export default Divider
+export default Divider as any
