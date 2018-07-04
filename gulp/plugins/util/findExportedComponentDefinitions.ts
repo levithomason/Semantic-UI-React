@@ -12,6 +12,19 @@ const {
   resolveHOC,
 } = utils
 
+const interopRequireDefault = obj => {
+  return obj && obj.__esModule ? obj : { default: obj }
+}
+
+const isExportsOrModuleAssignment2 = interopRequireDefault(isExportsOrModuleAssignment)
+const isReactComponentClass2 = interopRequireDefault(isReactComponentClass)
+const isReactCreateClassCall2 = interopRequireDefault(isReactCreateClassCall)
+const isStatelessComponent2 = interopRequireDefault(isStatelessComponent)
+const normalizeClassDefinition2 = interopRequireDefault(normalizeClassDefinition)
+const resolveExportDeclaration2 = interopRequireDefault(resolveExportDeclaration)
+const resolveToValue2 = interopRequireDefault(resolveToValue)
+const resolveHOC2 = interopRequireDefault(resolveHOC)
+
 /*
  * Copyright (c) 2015, Facebook, Inc.
  * All rights reserved.
@@ -28,17 +41,17 @@ function ignore() {
 }
 
 function resolveDefinition(definition, types) {
-  if (isUIComponentClass(definition) || isReactComponentClass(definition)) {
-    normalizeClassDefinition(definition)
+  if (isUIComponentClass(definition) || isReactComponentClass2.default(definition)) {
+    normalizeClassDefinition2.default(definition)
     return definition
   }
-  if (isReactCreateClassCall(definition)) {
+  if (isReactCreateClassCall2.default(definition)) {
     // return argument
-    const resolvedPath = resolveToValue(definition.get('arguments', 0))
+    const resolvedPath = resolveToValue2.default(definition.get('arguments', 0))
     if (types.ObjectExpression.check(resolvedPath.node)) {
       return resolvedPath
     }
-  } else if (isStatelessComponent(definition)) {
+  } else if (isStatelessComponent2.default(definition)) {
     return definition
   }
   return null
@@ -47,9 +60,9 @@ function resolveDefinition(definition, types) {
 function isComponentDefinition(path) {
   return (
     isUIComponentClass(path) ||
-    isReactCreateClassCall(path) ||
-    isReactComponentClass(path) ||
-    isStatelessComponent(path)
+    isReactCreateClassCall2.default(path) ||
+    isReactComponentClass2.default(path) ||
+    isStatelessComponent2.default(path)
   )
 }
 
@@ -73,12 +86,13 @@ function findExportedComponentDefinitions(ast, recast) {
   const components = []
 
   function exportDeclaration(path) {
-    const definitions = resolveExportDeclaration(path, types)
+    const definitions = resolveExportDeclaration2
+      .default(path, types)
       .reduce((acc, definition) => {
         if (isComponentDefinition(definition)) {
           acc.push(definition)
         } else {
-          const resolved = resolveToValue(resolveHOC(definition))
+          const resolved = resolveToValue2.default(resolveHOC2.default(definition))
           if (isComponentDefinition(resolved)) {
             acc.push(resolved)
           }
@@ -122,14 +136,14 @@ function findExportedComponentDefinitions(ast, recast) {
       let path = pathParam
       // Ignore anything that is not `exports.X = ...;` or
       // `module.exports = ...;`
-      if (!isExportsOrModuleAssignment(path)) {
+      if (!isExportsOrModuleAssignment2.default(path)) {
         return false
       }
       // Resolve the value of the right hand side. It should resolve to a call
       // expression, something like React.createClass
-      path = resolveToValue(path.get('right'))
+      path = resolveToValue2.default(path.get('right'))
       if (!isComponentDefinition(path)) {
-        path = resolveToValue(resolveHOC(path))
+        path = resolveToValue2.default((resolveHOC2.default && resolveHOC2.default(path)) || path)
         if (!isComponentDefinition(path)) {
           return false
         }

@@ -1,7 +1,15 @@
 import { utils } from 'react-docgen'
 import recast from 'recast'
 
-const { isReactModuleName, match, resolveToModule, resolveToValue } = utils
+const { match, resolveToValue } = utils
+
+const interopRequireDefault = obj => {
+  return obj && obj.__esModule ? obj : { default: obj }
+}
+
+const match2 = interopRequireDefault(match)
+const resolveToValue2 = interopRequireDefault(resolveToValue)
+
 const types = recast.types.namedTypes
 
 const isRenderComponentMethod = node => {
@@ -34,12 +42,9 @@ const isUIComponentClass = path => {
     return false
   }
 
-  const superClass = resolveToValue ? resolveToValue(path.get('superClass')) : null
-  if (superClass && match && !match(superClass.node, { property: { name: 'UIComponent' } })) {
-    return false
-  }
-  const module = resolveToModule(superClass)
-  return !!module && isReactModuleName(module)
+  const superClass = resolveToValue2.default(path.get('superClass'))
+
+  return !!(superClass && match2.default(superClass.node, { property: { name: 'UIComponent' } }))
 }
 
 export default isUIComponentClass
