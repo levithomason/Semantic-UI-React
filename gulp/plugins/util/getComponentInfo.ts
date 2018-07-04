@@ -2,7 +2,6 @@ import _ from 'lodash'
 import path from 'path'
 import { defaultHandlers, parse, resolver } from 'react-docgen'
 import fs from 'fs'
-import ts from 'typescript'
 import parseDefaultValue from './parseDefaultValue'
 import parseDocblock from './parseDocblock'
 import parserCustomHandler from './parserCustomHandler'
@@ -21,15 +20,8 @@ const getComponentInfo = filepath => {
   // "element" for "src/elements/Button/Button.js"
   const componentType = path.basename(path.dirname(dir)).replace(/s$/, '')
 
-  const text = ts.transpile(contents, {
-    jsx: ts.JsxEmit.React,
-    target: ts.ScriptTarget.Latest,
-    module: ts.ModuleKind.CommonJS,
-    allowSyntheticDefaultImports: true,
-  })
-
   // start with react-docgen info
-  const components = parse(text, resolver.findAllComponentDefinitions, [
+  const components = parse(contents, resolver.findAllComponentDefinitions, [
     ...defaultHandlers,
     parserCustomHandler,
   ])

@@ -42,8 +42,6 @@ class Menu extends AutoControlledComponent {
 
     /** A menu can point to show its relationship to nearby content. */
     pointing: PropTypes.bool,
-
-    automaticStyleChildren: PropTypes.bool,
   }
 
   static Item = MenuItem
@@ -92,23 +90,15 @@ class Menu extends AutoControlledComponent {
   }
 
   render() {
-    const { children, className, styles, automaticStyleChildren, type, pointing } = this.props
+    const { children, className, styles } = this.props
 
     const classes = cx('ui-menu', styles.root, className)
     const ElementType = getElementType(Menu, this.props, () => 'ul')
     const rest = getUnhandledProps(Menu, this.props)
 
-    const childrenWithProps = automaticStyleChildren
-      ? React.Children.map(children, child => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child as React.ReactElement<any>, { type, pointing })
-          }
-        })
-      : children
-
     return (
       <ElementType {...rest} className={classes}>
-        {childrenExist(children) ? childrenWithProps : this.renderItems()}
+        {childrenExist(children) ? children : this.renderItems()}
       </ElementType>
     )
   }

@@ -8,6 +8,7 @@ import {
   getElementType,
   getUnhandledProps,
   createComponent,
+  SUI,
 } from '../../lib'
 import HeaderSubheader from './HeaderSubheader'
 import HeaderContent from './HeaderContent'
@@ -37,7 +38,7 @@ class Header extends React.Component<any, any> {
     subheader: customPropTypes.itemShorthand,
 
     /** Align header content. */
-    textAlign: PropTypes.oneOf(['left', 'center', 'right', 'justified']),
+    textAlign: PropTypes.oneOf(SUI.TEXT_ALIGNMENTS),
   }
 
   static handledProps = [
