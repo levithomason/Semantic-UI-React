@@ -1,4 +1,4 @@
-import { fontSizeUtility, pxToRem, setHTMLFontSize } from 'src/lib'
+import { pxToRem, setHTMLFontSize } from 'src/lib'
 
 describe('fontSizeUtility', () => {
   describe('pxToRem', () => {
@@ -41,16 +41,6 @@ describe('fontSizeUtility', () => {
       expect(() => setHTMLFontSize('0px')).toThrowError()
 
       expect(() => setHTMLFontSize('-1px')).toThrowError()
-    })
-  })
-
-  describe('getFontSizeValue', () => {
-    it('should return null when null is passed in', () => {
-      expect(fontSizeUtility['getFontSizeValue'](null)).toBeNull
-    })
-
-    it('should return 12 when 12px is passed in', () => {
-      expect(fontSizeUtility['getFontSizeValue']('12px')).toBe(12)
     })
   })
 })
