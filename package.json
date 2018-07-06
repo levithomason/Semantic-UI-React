@@ -32,7 +32,6 @@
     "satisfied": "satisfied --skip-invalid",
     "pretest": "yarn satisfied && gulp build:docs:docgen",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:codecov": "yarn test && codecov",
     "test:watch": "yarn test --watchAll",
     "generate:component": "gulp generate:component"
   },
