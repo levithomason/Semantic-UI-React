@@ -80,7 +80,7 @@ class Accordion extends Component {
   ]
 
   static defaultProps = {
-    as: 'accordion',
+    as: 'div',
     panels: [],
     exclusive: false,
   }
