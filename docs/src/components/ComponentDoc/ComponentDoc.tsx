@@ -61,7 +61,7 @@ class ComponentDoc extends Component<any, any> {
   handleExamplesRef = examplesRef => this.setState({ examplesRef })
 
   handleSidebarItemClick = (e, { examplePath }) => {
-    const { history } = this.props
+    const { history, location } = this.props
     const activePath = examplePathToHash(examplePath)
 
     history.replace(`${location.pathname}#${activePath}`)
