@@ -30,14 +30,11 @@ class Button extends UIComponent<any, any> {
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
 
-    /** A bunch of styles we might not need. */
-    styles: PropTypes.object,
-
     /** A button can be formatted to show different levels of emphasis. */
     type: PropTypes.oneOf(['primary', 'secondary']),
   }
 
-  static handledProps = ['as', 'circular', 'className', 'content', 'styles', 'type']
+  static handledProps = ['as', 'circular', 'className', 'content', 'type']
 
   static defaultProps = {
     as: 'button',
@@ -52,4 +49,4 @@ class Button extends UIComponent<any, any> {
     )
   }
 }
-export default Button as any
+export default Button

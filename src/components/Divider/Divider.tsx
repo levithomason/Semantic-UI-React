@@ -4,16 +4,15 @@ import PropTypes from 'prop-types'
 import dividerRules from './dividerRules'
 import dividerVariables from './dividerVariables'
 
-import { customPropTypes, UIComponent } from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 
 /**
  * @accessibility
  * This is shown at the top.
  */
 class Divider extends UIComponent<any, any> {
-  constructor(props) {
-    super(props)
-  }
+  static create: Function
+
   static displayName = 'Divider'
 
   static className = 'ui-divider'
@@ -33,6 +32,9 @@ class Divider extends UIComponent<any, any> {
 
     /** Additional classes. */
     className: PropTypes.string,
+
+    /** Shorthand for primary content. */
+    content: customPropTypes.contentShorthand,
   }
 
   static handledProps = ['as', 'children', 'className', 'size']
@@ -42,14 +44,16 @@ class Divider extends UIComponent<any, any> {
   }
 
   renderComponent({ ElementType, classes, rest }) {
-    const { children } = this.props
+    const { children, content } = this.props
 
     return (
       <ElementType {...rest} className={classes.root}>
-        {children}
+        {childrenExist(children) ? children : content}
       </ElementType>
     )
   }
 }
 
-export default Divider as any
+Divider.create = createShorthandFactory(Divider, content => ({ content }))
+
+export default Divider

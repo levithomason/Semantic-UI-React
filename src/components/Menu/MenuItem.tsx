@@ -15,6 +15,8 @@ import {
 import menuItemRules from './menuItemRules'
 
 class MenuItem extends UIComponent<any, any> {
+  static create: Function
+
   static className = 'ui-menu__item'
 
   static rules = menuItemRules
@@ -49,7 +51,7 @@ class MenuItem extends UIComponent<any, any> {
     as: 'li',
   }
 
-  static handledProps = ['active', 'as', 'children', 'className', 'content', 'onClick', 'styles']
+  static handledProps = ['active', 'as', 'children', 'className', 'content', 'onClick']
 
   handleClick = e => {
     _.invoke(this.props, 'onClick', e, this.props)

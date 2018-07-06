@@ -8,6 +8,8 @@ import listVariables from './listVariables'
 import listItemRules from './listItemRules'
 
 class ListItem extends UIComponent<any, any> {
+  static create: Function
+
   static displayName = 'ListItem'
 
   static className = 'ui-list__item'
@@ -139,8 +141,6 @@ class ListItem extends UIComponent<any, any> {
     },
   }
 
-  static create = createShorthandFactory(ListItem, main => ({ main }))
-
   state: any = {}
 
   handleMouseEnter = () => {
@@ -178,4 +178,6 @@ class ListItem extends UIComponent<any, any> {
   }
 }
 
-export default ListItem as any
+ListItem.create = createShorthandFactory(ListItem, main => ({ main }))
+
+export default ListItem

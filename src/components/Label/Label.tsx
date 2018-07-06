@@ -10,6 +10,8 @@ import labelVariables from './labelVariables'
  * A label displays content classification
  */
 class Label extends UIComponent<any, any> {
+  static create: Function
+
   static className = 'ui-label'
 
   static propTypes = {
@@ -27,11 +29,9 @@ class Label extends UIComponent<any, any> {
 
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
-
-    styles: PropTypes.object,
   }
 
-  static handledProps = ['as', 'children', 'circular', 'className', 'content', 'styles']
+  static handledProps = ['as', 'children', 'circular', 'className', 'content']
 
   static defaultProps = {
     as: 'label',

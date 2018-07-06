@@ -7,6 +7,8 @@ import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } f
  * Header content wraps the main content when there is an adjacent Icon or Image.
  */
 class HeaderContent extends UIComponent<any, any> {
+  static create: Function
+
   static className = 'ui-header__content'
 
   static propTypes = {

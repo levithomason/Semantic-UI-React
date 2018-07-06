@@ -1,7 +1,7 @@
 import { pxToRem } from '../../lib'
 
-export default ({ active }) => ({
-  root: {
+export default {
+  root: ({ props }) => ({
     color: 'rgba(0, 0, 0, .87)',
     lineHeight: 1,
     position: 'relative',
@@ -15,7 +15,7 @@ export default ({ active }) => ({
       color: 'rgba(0, 0, 0, .95)',
     },
 
-    ...(active && {
+    ...(props.active && {
       background: 'rgba(0, 0, 0, .05)',
       color: 'rgba(0, 0, 0, .95)',
       ':hover': {
@@ -33,11 +33,12 @@ export default ({ active }) => ({
       width: '1px',
       background: 'rgba(34, 36, 38, .1)',
     },
-  },
-  anchor: {
+  }),
+
+  anchor: () => ({
     color: 'inherit',
     ':hover': {
       color: 'inherit',
     },
-  },
-})
+  }),
+}

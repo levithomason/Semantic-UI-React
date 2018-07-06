@@ -7,13 +7,13 @@ import getElementType from './getElementType'
 import getUnhandledProps from './getUnhandledProps'
 import callable from './callable'
 
-export interface IRenderResultConfig {
-  ElementType: React.ComponentType<any>
+export interface IRenderResultConfig<P> {
+  ElementType: React.ComponentType<P>
   rest: { [key: string]: any }
   classes: { [key: string]: string }
 }
 
-export type RenderComponentCallback = (config: IRenderResultConfig) => any
+export type RenderComponentCallback<P> = (config: IRenderResultConfig<P>) => any
 
 export interface IRenderConfig {
   className?: string
@@ -25,9 +25,9 @@ export interface IRenderConfig {
   variables?: (siteVariables: object) => object
 }
 
-const renderComponent = (
+const renderComponent = <P extends {}>(
   config: IRenderConfig,
-  render: RenderComponentCallback,
+  render: RenderComponentCallback<P>,
 ): React.ReactNode => {
   const { className, defaultProps, displayName, handledProps, props, rules, variables } = config
 
@@ -48,7 +48,7 @@ const renderComponent = (
         const classes = getClasses(props, rules, mergedVariables, theme)
         classes.root = cx(className, classes.root, props.className)
 
-        const config: IRenderResultConfig = { ElementType, rest, classes }
+        const config: IRenderResultConfig<P> = { ElementType, rest, classes }
 
         return render(config)
       }}
