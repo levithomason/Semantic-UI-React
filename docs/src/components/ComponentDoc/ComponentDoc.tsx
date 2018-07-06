@@ -33,11 +33,11 @@ class ComponentDoc extends Component<any, any> {
   state: any = {}
 
   componentWillMount() {
-    const { history } = this.props
+    const { history, location } = this.props
 
-    if (window.location.hash) {
-      const activePath = getFormattedHash(window.location.hash)
-      history.replace(`${window.location.pathname}#${activePath}`)
+    if (location.hash) {
+      const activePath = getFormattedHash(location.hash)
+      history.replace(`${location.pathname}#${activePath}`)
       this.setState({ activePath })
     }
   }
