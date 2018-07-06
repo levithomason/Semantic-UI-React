@@ -2,7 +2,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { childrenExist, customPropTypes, UIComponent } from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 import accordionTitleRules from './accordionTitleRules'
 
 /**
@@ -41,11 +41,7 @@ class AccordionTitle extends UIComponent<any, any> {
     onClick: PropTypes.func,
   }
 
-  static handledProps = ['as', 'className', 'onClick']
-
-  static defaultProps = {
-    as: 'accordionTitle',
-  }
+  static handledProps = ['as', 'active', 'children', 'className', 'content', 'index', 'onClick']
 
   static rules = accordionTitleRules
 
@@ -73,6 +69,6 @@ class AccordionTitle extends UIComponent<any, any> {
   }
 }
 
-AccordionTitle.create = content => ({ content })
+AccordionTitle.create = createShorthandFactory(AccordionTitle, content => ({ content }))
 
 export default AccordionTitle

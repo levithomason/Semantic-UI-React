@@ -7,6 +7,7 @@
     "import-name": [false],
     "max-line-length": [false],
     "object-curly-spacing": [false],
+    "object-shorthand-properties-first": [false],
     "variable-name": false,
     "quotemark": [false],
     "arrow-parens": false,

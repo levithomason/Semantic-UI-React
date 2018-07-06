@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { childrenExist, customPropTypes, UIComponent } from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 import accordionContentRules from './accordionContentRules'
 import accordionContentVariables from './accordionContentVariables'
 
@@ -38,7 +38,7 @@ class AccordionContent extends UIComponent<any, any> {
     onClick: PropTypes.func,
   }
 
-  static handledProps = ['as', 'className', 'onClick']
+  static handledProps = ['as', 'active', 'children', 'className', 'content', 'onClick']
 
   static rules = accordionContentRules
 
@@ -55,6 +55,6 @@ class AccordionContent extends UIComponent<any, any> {
   }
 }
 
-AccordionContent.create = content => ({ content })
+AccordionContent.create = createShorthandFactory(AccordionContent, content => ({ content }))
 
 export default AccordionContent

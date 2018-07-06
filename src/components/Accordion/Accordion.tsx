@@ -61,8 +61,8 @@ class Accordion extends AutoControlledComponent<any, any> {
   static rules = accordionRules
 
   static handledProps = [
-    'activeIndex',
     'as',
+    'activeIndex',
     'children',
     'className',
     'defaultActiveIndex',
@@ -70,12 +70,6 @@ class Accordion extends AutoControlledComponent<any, any> {
     'onTitleClick',
     'panels',
   ]
-
-  static defaultProps = {
-    as: 'accordion',
-    panels: [],
-    exclusive: false,
-  }
 
   static autoControlledProps = ['activeIndex']
 
@@ -109,7 +103,7 @@ class Accordion extends AutoControlledComponent<any, any> {
     },
   })
 
-  isIndexActive = index => {
+  isIndexActive = (index): boolean => {
     const { exclusive } = this.props
     const { activeIndex } = this.state
 

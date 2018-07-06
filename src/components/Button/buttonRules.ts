@@ -29,7 +29,7 @@ export default {
 
       ...(props.circular && { borderRadius: circularRadius, width: circularWidth }),
 
-      ...((props.type === 'primary' && console.log('PRIMARY', props, theme, variables)) || {
+      ...(props.type === 'primary' && {
         color: typePrimaryColor,
         backgroundColor: typePrimaryBackgroundColor,
         borderColor: typePrimaryBorderColor,
