@@ -77,7 +77,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "codecov": "^3.0.2",
     "fbjs": "^0.8.16",
     "fela": "^6.1.7",
     "fela-plugin-fallback-value": "^5.0.17",
