@@ -33,7 +33,7 @@ const ComponentControls: any = props => {
         while Menu should have `display: inline-flex`
       */}
       <div>
-        <Menu color="green" compact icon size="small" text>
+        <Menu color="green" compact icon size="small" floated="right" text>
           <ComponentControlsEditCode active={showCode} onClick={onShowCode} />
           <ComponentControlsShowVariables active={showVariables} onClick={onShowVariables} />
           <ComponentControlsShowHtml active={showHTML} onClick={onShowHTML} />
