@@ -1,17 +1,7 @@
 import { IButtonVariables } from './buttonVariables'
 
-export type ButtonType = 'primary' | 'secondary'
-
-interface IButtonProps {
-  variables: IButtonVariables
-  circular?: boolean
-  type?: ButtonType
-}
-
 export default {
-  root: (props: IButtonProps) => {
-    const { circular, type, variables } = props
-
+  root: ({ props, theme, variables }) => {
     const {
       backgroundColor,
       backgroundColorHover,
@@ -25,7 +15,7 @@ export default {
       typeSecondaryBackgroundColor,
       typeSecondaryBackgroundColorHover,
       typeSecondaryBorderColor,
-    } = variables
+    }: IButtonVariables = variables
 
     return {
       backgroundColor,
@@ -37,9 +27,9 @@ export default {
         backgroundColor: backgroundColorHover,
       },
 
-      ...(circular && { borderRadius: circularRadius, width: circularWidth }),
+      ...(props.circular && { borderRadius: circularRadius, width: circularWidth }),
 
-      ...(type === 'primary' && {
+      ...((props.type === 'primary' && console.log('PRIMARY', props, theme, variables)) || {
         color: typePrimaryColor,
         backgroundColor: typePrimaryBackgroundColor,
         borderColor: typePrimaryBorderColor,
@@ -48,7 +38,7 @@ export default {
         },
       }),
 
-      ...(type === 'secondary' && {
+      ...(props.type === 'secondary' && {
         color: typeSecondaryColor,
         backgroundColor: typeSecondaryBackgroundColor,
         borderColor: typeSecondaryBorderColor,

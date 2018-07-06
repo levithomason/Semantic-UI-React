@@ -6,8 +6,6 @@ import { customPropTypes, UIComponent } from '../../lib'
 import layoutRules from './layoutRules'
 
 class Layout extends UIComponent<any, any> {
-  props: any
-
   static className = 'ui-layout'
 
   static displayName = 'Layout'
@@ -172,5 +170,4 @@ class Layout extends UIComponent<any, any> {
   }
 }
 
-// TODO: remove once UIComponent is properly typed
-export default Layout as any
+export default Layout

@@ -71,7 +71,8 @@ export const getAutoControlledStateValue = (
   // otherwise, undefined
 }
 
-export default class AutoControlledComponent extends UIComponent<any, any> {
+export default class AutoControlledComponent<P, S> extends UIComponent<P, S>
+  implements UIComponent<P, S> {
   constructor(props, ctx) {
     super(props, ctx)
 

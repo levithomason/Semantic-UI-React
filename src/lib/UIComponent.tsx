@@ -10,18 +10,25 @@ class UIComponent<P, S> extends React.Component<P, S> {
   static rules?: any
   static handledProps: any
 
-  childInstanceRender: (config: IRenderResultConfig) => React.ReactNode
-
   constructor(props, context) {
     super(props, context)
+    if (process.env.NODE_ENV !== 'production') {
+      const child = this.constructor
+      const childName = child.name
 
-    // Capture the child instance's render() method
-    // replace it with ours and call the
-    this.childInstanceRender = this.render
-    this.render = this.childRenderReplacement
+      if (typeof this.renderComponent !== 'function') {
+        throw new Error(`${childName} extending UIComponent is missing a renderComponent() method.`)
+      }
+    }
+
+    this.renderComponent = this.renderComponent.bind(this)
   }
 
-  private childRenderReplacement(): React.ReactNode {
+  renderComponent(config: IRenderResultConfig<P>): React.ReactNode {
+    throw new Error('renderComponent is not implemented.')
+  }
+
+  render() {
     return renderComponent(
       {
         className: this.childClass.className,
@@ -32,9 +39,9 @@ class UIComponent<P, S> extends React.Component<P, S> {
         rules: this.childClass.rules,
         variables: this.childClass.variables,
       },
-      this.childInstanceRender,
+      this.renderComponent,
     )
   }
 }
 
-export default UIComponent as any
+export default UIComponent

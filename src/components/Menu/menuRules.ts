@@ -1,7 +1,7 @@
 import { pxToRem } from '../../lib'
 
-export default () => ({
-  root: {
+export default {
+  root: () => ({
     display: 'flex',
     border: '1px solid rgba(34, 36, 38, .15)',
     borderRadius: pxToRem(4),
@@ -9,5 +9,5 @@ export default () => ({
     margin: 0,
     padding: 0,
     listStyleType: 'none',
-  },
-})
+  }),
+}

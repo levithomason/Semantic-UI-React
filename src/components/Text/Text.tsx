@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { customPropTypes, UIComponent } from '../../lib'
+import { childrenExist, customPropTypes, UIComponent } from '../../lib'
 import textRules from './textRules'
-import childrenExist from 'stardust/lib/childrenExist'
 
 /**
  * A component containing text
  */
-class Text extends UIComponent {
+class Text extends UIComponent<any, any> {
   static className = 'ui-text'
 
   static propTypes = {

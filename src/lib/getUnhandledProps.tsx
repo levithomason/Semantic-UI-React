@@ -12,6 +12,8 @@ const getUnhandledProps = (Component, props) => {
     if (!Array.isArray(handledProps)) {
       const name = Component.displayName || Component.name
 
+      console.error(Component)
+
       throw new Error(`\`${name}\` is missing static handledProps array.`)
     }
   }

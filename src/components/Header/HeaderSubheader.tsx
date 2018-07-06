@@ -9,6 +9,8 @@ import headerSubheaderRules from './headerSubheaderRules'
  * Headers may contain subheaders.
  */
 class HeaderSubheader extends UIComponent<any, any> {
+  static create: Function
+
   static className = 'ui-header__subheader'
 
   static propTypes = {
@@ -23,11 +25,9 @@ class HeaderSubheader extends UIComponent<any, any> {
 
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
-
-    styles: PropTypes.object,
   }
 
-  static handledProps = ['as', 'children', 'className', 'content', 'styles']
+  static handledProps = ['as', 'children', 'className', 'content']
 
   static rules = headerSubheaderRules
 
