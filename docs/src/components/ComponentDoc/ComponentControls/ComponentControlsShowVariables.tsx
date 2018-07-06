@@ -5,10 +5,13 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { updateForKeys } from 'docs/src/hoc'
 import ComponentControlsToolTip from './ComponentControlsToolTip'
 
+const content = 'Edit Variables'
+
 const ComponentControlsShowVariables: any = ({ active, onClick }) => (
-  <ComponentControlsToolTip content="Edit Variables">
+  <ComponentControlsToolTip content={content}>
     <Menu.Item active={active} onClick={onClick}>
       <Icon color={active ? 'green' : 'grey'} fitted name="theme" size="large" />
+      {content}
     </Menu.Item>
   </ComponentControlsToolTip>
 )

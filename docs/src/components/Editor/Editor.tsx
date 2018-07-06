@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
-import AceEditor from 'react-ace'
+import AceEditor, { EditorProps } from 'react-ace'
 import ace from 'brace'
 import 'brace/ext/language_tools'
 import 'brace/mode/jsx'
@@ -39,38 +39,73 @@ const semanticUIReactCompleter = {
 
 languageTools.addCompleter(semanticUIReactCompleter)
 
-const Editor: any = props => {
-  const { id, mode, value, ...rest } = props
-
-  return (
-    <AceEditor
-      name={id}
-      mode={mode}
-      theme="tomorrow"
-      width="100%"
-      height="100px"
-      value={value}
-      enableBasicAutocompletion
-      enableLiveAutocompletion
-      editorProps={{ $blockScrolling: Infinity }}
-      highlightActiveLine={false}
-      maxLines={Infinity}
-      showGutter={false}
-      showPrintMargin={false}
-      tabSize={2}
-      {...rest}
-    />
-  )
+export interface IEditorProps {
+  id: string
+  value: string
+  mode?: 'html' | 'jsx'
+  onChange?: (code: string) => void
+  maxLines?: number
+  height?: string
+  readOnly?: boolean
+  shouldFocusEditor?: boolean
 }
 
-Editor.propTypes = {
-  id: PropTypes.string.isRequired,
-  mode: PropTypes.oneOf(['html', 'jsx']),
-  value: PropTypes.string.isRequired,
-}
+class Editor extends React.Component<IEditorProps, any> {
+  public static propTypes = {
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    mode: PropTypes.oneOf(['html', 'jsx']),
+    onChange: PropTypes.func,
+    maxLines: PropTypes.number,
+    height: PropTypes.string,
+    readOnly: PropTypes.bool,
+    shouldFocusEditor: PropTypes.bool,
+  }
 
-Editor.defaultProps = {
-  mode: 'jsx',
+  public static defaultProps = {
+    mode: 'jsx',
+    height: '100px',
+    maxLines: Infinity,
+    readOnly: false,
+    shouldFocusEditor: false,
+  }
+
+  public componentWillReceiveProps(nextProps: IEditorProps) {
+    const { shouldFocusEditor } = nextProps
+    if (shouldFocusEditor && !this.props.shouldFocusEditor && this.editor) {
+      // focus editor when shouldFocusEditor is set
+      this.editor.focus()
+    }
+  }
+
+  public render() {
+    const { id, mode, value, height, maxLines, readOnly, ...rest } = this.props
+
+    return (
+      <AceEditor
+        name={id}
+        mode={mode}
+        readOnly={readOnly}
+        theme="tomorrow"
+        width="100%"
+        height={height}
+        value={value}
+        enableBasicAutocompletion
+        enableLiveAutocompletion
+        editorProps={{ $blockScrolling: Infinity }}
+        highlightActiveLine={false}
+        maxLines={maxLines}
+        showPrintMargin={false}
+        tabSize={2}
+        ref="aceEditor"
+        {...rest}
+      />
+    )
+  }
+
+  private get editor() {
+    return (this.refs.aceEditor as any).editor
+  }
 }
 
 export default Editor

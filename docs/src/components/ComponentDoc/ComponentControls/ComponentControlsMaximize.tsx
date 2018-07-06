@@ -9,11 +9,13 @@ import ComponentControlsToolTip from './ComponentControlsToolTip'
 
 const ComponentControlsMaximize: any = ({ examplePath }) => {
   const href = `/maximize/${_.kebabCase(examplePath.split('/').slice(-1))}`
+  const content = 'Full Screen'
 
   return (
-    <ComponentControlsToolTip content="Full Screen">
+    <ComponentControlsToolTip content={content}>
       <Menu.Item as={NavLink} to={href} target="_blank" rel="noopener noreferrer">
         <Icon color="grey" fitted name="window maximize" size="large" />
+        {content}
       </Menu.Item>
     </ComponentControlsToolTip>
   )

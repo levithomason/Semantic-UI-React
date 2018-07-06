@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import React, { PureComponent, isValidElement } from 'react'
+import React, { PureComponent, isValidElement, CSSProperties } from 'react'
 import { withRouter } from 'react-router'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { html } from 'js-beautify'
 import copyToClipboard from 'copy-to-clipboard'
-import { Divider, Form, Grid, Menu, Segment, Visibility } from 'semantic-ui-react'
+import { Divider, Form, Grid, Menu, Segment, Visibility, Button } from 'semantic-ui-react'
 import { pxToRem } from 'src/lib'
 import evalTypeScript from 'docs/src/utils/evalTypeScript'
 import { Provider } from 'stardust'
@@ -19,7 +19,7 @@ import {
   scrollToAnchor,
   variablesContext,
 } from 'docs/src/utils'
-import Editor from 'docs/src/components/Editor/Editor'
+import Editor, { IEditorProps } from 'docs/src/components/Editor/Editor'
 import ComponentControls from '../ComponentControls'
 import ComponentExampleTitle from './ComponentExampleTitle'
 
@@ -33,10 +33,6 @@ const errorStyle = {
   fontSize: pxToRem(9),
   color: '#a33',
   background: '#fff2f2',
-}
-
-const controlsWrapperStyle = {
-  minHeight: pxToRem(30),
 }
 
 /**
@@ -326,6 +322,10 @@ class ComponentExample extends PureComponent<any, any> {
     ].join('')
   }
 
+  onClickToEditButtonClick = () => {
+    this.setState({ showCode: true }, this.updateHash)
+  }
+
   renderJSXControls = () => {
     const { copiedCode, error } = this.state
 
@@ -364,21 +364,55 @@ class ComponentExample extends PureComponent<any, any> {
 
   renderJSX = () => {
     const { error, showCode, sourceCode } = this.state
-    if (!showCode) return
 
-    const style: any = { width: '100%' }
-    if (error) {
-      style.boxShadow = `inset 0 0 0 1em ${errorStyle.background}`
+    const jsxStyle: CSSProperties = {
+      width: '100%',
+      ...(error && {
+        boxShadow: `inset 0 0 0 1em ${errorStyle.background}`,
+      }),
+    }
+
+    const editorStyle: CSSProperties = {
+      transition: 'box-shadow 200ms, background 200ms',
+      ...(!showCode && {
+        boxShadow: '1px 20px 20px #ececec',
+      }),
+    }
+
+    let editorProps: IEditorProps = {
+      id: `${this.getKebabExamplePath()}-jsx`,
+      value: sourceCode,
+      shouldFocusEditor: true,
+      onChange: this.handleChangeCode,
+    }
+
+    if (!showCode) {
+      editorProps = {
+        ...editorProps,
+        height: '3rem',
+        maxLines: 2,
+        readOnly: true,
+        shouldFocusEditor: false,
+      }
     }
 
     return (
-      <div style={style}>
+      <div style={jsxStyle}>
         {this.renderJSXControls()}
-        <Editor
-          id={`${this.getKebabExamplePath()}-jsx`}
-          value={sourceCode}
-          onChange={this.handleChangeCode}
-        />
+        <div style={editorStyle} onClick={this.onClickToEditButtonClick}>
+          <Editor {...editorProps} />
+        </div>
+        {!showCode && (
+          <Divider horizontal fitted>
+            <Button
+              as="a"
+              basic
+              size="tiny"
+              onClick={this.onClickToEditButtonClick}
+              content="Click to edit"
+            />
+          </Divider>
+        )}
         {error && <pre style={errorStyle}>{error}</pre>}
       </div>
     )
@@ -517,15 +551,8 @@ class ComponentExample extends PureComponent<any, any> {
           onMouseMove={handleMouseMove}
           style={exampleStyle}
         >
-          <Grid.Row>
-            <Grid.Column width={12}>
-              <ComponentExampleTitle
-                description={description}
-                title={title}
-                suiVersion={suiVersion}
-              />
-            </Grid.Column>
-            <Grid.Column textAlign="right" width={4} style={controlsWrapperStyle}>
+          <Grid.Row style={{ padding: 0 }}>
+            <Grid.Column>
               <ComponentControls
                 anchorName={this.anchorName}
                 examplePath={examplePath}
@@ -538,7 +565,17 @@ class ComponentExample extends PureComponent<any, any> {
                 showHTML={showHTML}
                 showRtl={showRtl}
                 showVariables={showVariables}
-                visible={isActive || isHovering}
+                visible
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row style={{ paddingTop: 0 }}>
+            <Grid.Column>
+              <ComponentExampleTitle
+                description={description}
+                title={title}
+                suiVersion={suiVersion}
               />
             </Grid.Column>
           </Grid.Row>
