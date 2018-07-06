@@ -48,7 +48,8 @@ interface IComponentExampleState {
   exampleElement: JSX.Element
   handleMouseLeave: () => void
   handleMouseMove: () => void
-  sourceCode: string
+  sourceCode: { [key in SourceCodeType]: string }
+  visibleSourceCode: { [key in SourceCodeType]: boolean }
   markup: string
   error: string
   showCode: boolean
@@ -86,8 +87,16 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   private anchorName: string
   private kebabExamplePath: string
   private KnobsComponent: any
-  private ghBugHref: string
-  private ghEditHref: string
+
+  private codeChangeHandlers: { [key in SourceCodeType]: (code: string) => void } = {
+    normal: (code: string) => this.handleCodeChange(SourceCodeType.normal, code),
+    shorthand: (code: string) => this.handleCodeChange(SourceCodeType.shorthand, code),
+  }
+
+  private ghEditHref: { [key in SourceCodeType]: string } = {
+    normal: '',
+    shorthand: '',
+  }
 
   private codeTypeApiButtonLabels: { [key in SourceCodeType]: string } = {
     normal: 'Children API',
@@ -120,7 +129,14 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
       handleMouseLeave: this.handleMouseLeave,
       handleMouseMove: this.handleMouseMove,
       showCode: this.isActiveHash(),
-      sourceCode: this.sourceCodeMgr.currentCode,
+      sourceCode: {
+        shorthand: this.sourceCodeMgr.getCodeForType(SourceCodeType.shorthand),
+        normal: this.sourceCodeMgr.getCodeForType(SourceCodeType.normal),
+      },
+      visibleSourceCode: {
+        shorthand: true,
+        normal: false,
+      },
       markup: renderToStaticMarkup(exampleElement),
     })
   }
@@ -234,28 +250,45 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     if (title) _.invoke(this.context, 'onPassed', null, this.props)
   }
 
-  private setApiCodeType = (codeType: SourceCodeType) => {
-    this.sourceCodeMgr.codeType = codeType
-    this.updateAndRenderSourceCode()
+  private onApiCodeTypeClick = (codeType: SourceCodeType) => {
+    const visibleSourceCode = { ...this.state.visibleSourceCode }
+    const newStateValue = !visibleSourceCode[codeType]
+
+    visibleSourceCode[codeType] = newStateValue
+
+    if (!newStateValue) {
+      const remainingVisibleSourceCode = [SourceCodeType.normal, SourceCodeType.shorthand].filter(
+        type => type !== codeType,
+      )
+
+      if (!remainingVisibleSourceCode.find(type => !!visibleSourceCode[type])) {
+        visibleSourceCode[remainingVisibleSourceCode[0]] = true
+      }
+    }
+
+    this.setState({ visibleSourceCode })
+    this.updateAndRenderSourceCode(codeType)
   }
 
-  private copyJSX = () => {
-    copyToClipboard(this.state.sourceCode)
+  private copyJSX = (codeType: SourceCodeType) => {
+    copyToClipboard(this.state.sourceCode[codeType])
     this.setState({ copiedCode: true })
     setTimeout(() => this.setState({ copiedCode: false }), 1000)
   }
 
-  private resetJSX = () => {
+  private resetJSX = (codeType: SourceCodeType) => {
     if (this.sourceCodeMgr.originalCodeHasChanged && confirm('Lose your changes?')) {
-      this.sourceCodeMgr.resetToOriginalCode()
-      this.updateAndRenderSourceCode()
+      this.sourceCodeMgr.resetToOriginalCode(codeType)
+      this.updateAndRenderSourceCode(codeType)
     }
   }
 
   private getKnobsFilename = () => `./${this.props.examplePath}.knobs.tsx`
 
-  private getKebabExamplePath = () => {
-    if (!this.kebabExamplePath) this.kebabExamplePath = _.kebabCase(this.props.examplePath)
+  private getKebabExamplePath = (codeType: SourceCodeType = SourceCodeType.normal) => {
+    if (!this.kebabExamplePath) {
+      this.kebabExamplePath = _.kebabCase(this.sourceCodeMgr.getPathForType(codeType))
+    }
 
     return this.kebabExamplePath
   }
@@ -274,14 +307,23 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   private renderMissingExample = (): JSX.Element => (
     <ContributionPrompt>
       Looks like we're missing{' '}
-      <code>{`./docs/src/examples/${this.sourceCodeMgr.currentPath}.tsx`}</code> example.
+      <code>{`./docs/src/examples/${this.sourceCodeMgr.getCodeForType(
+        SourceCodeType.shorthand,
+      )}.tsx`}</code>{' '}
+      example.
     </ContributionPrompt>
   )
 
   private renderSourceCode = _.debounce(() => {
     try {
-      const { sourceCode } = this.state
-      const Example = sourceCode ? evalTypeScript(sourceCode) : this.renderMissingExample()
+      const { visibleSourceCode, sourceCode } = this.state
+
+      const visibleCodeType = [SourceCodeType.shorthand, SourceCodeType.normal].find(
+        codeType => visibleSourceCode[codeType],
+      )
+      const visibleCode = sourceCode[visibleCodeType] || ''
+
+      const Example = visibleCode ? evalTypeScript(visibleCode) : this.renderMissingExample()
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {
@@ -348,40 +390,54 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     )
   }
 
-  private handleChangeCode = (sourceCode: string) => {
-    this.sourceCodeMgr.currentCode = sourceCode
-    this.updateAndRenderSourceCode()
+  private handleCodeChange(codeType: SourceCodeType, sourceCode: string) {
+    this.sourceCodeMgr.setCodeForType(codeType, sourceCode)
+    this.updateAndRenderSourceCode(codeType)
   }
 
-  private updateAndRenderSourceCode = () => {
-    this.setState({ sourceCode: this.sourceCodeMgr.currentCode }, this.renderSourceCode)
+  private updateAndRenderSourceCode = (codeType: SourceCodeType) => {
+    const { sourceCode } = this.state
+    this.setState(
+      {
+        sourceCode: {
+          ...sourceCode,
+          [codeType]: this.sourceCodeMgr.getCodeForType(codeType),
+        },
+      },
+      this.renderSourceCode,
+    )
   }
+
+  private getTextColor = (): SemanticCOLORS => (this.state.error ? 'red' : 'black')
 
   private setGitHubHrefs = () => {
-    const currentCodePath = this.sourceCodeMgr.currentPath
+     [SourceCodeType.normal, SourceCodeType.shorthand].forEach(codeType => {
+      if (this.ghEditHref[codeType]) {
+        return
+      }
+      // get component name from file path:
+      // elements/Button/Types/ButtonButtonExample
+      const currentCodePath = this.sourceCodeMgr.getPathForType(codeType)
+      const pathParts = currentCodePath.split(__PATH_SEP__)
+      const filename = pathParts[pathParts.length - 1]
 
-    if (this.ghEditHref && this.ghBugHref) return
-
-    // get component name from file path:
-    // elements/Button/Types/ButtonButtonExample
-    const pathParts = currentCodePath.split(__PATH_SEP__)
-    const filename = pathParts[pathParts.length - 1]
-
-    this.ghEditHref = [
-      `${repoURL}/edit/master/docs/src/examples/${currentCodePath}.tsx`,
-      `?message=docs(${filename}): your description`,
-    ].join('')
+      this.ghEditHref[codeType] = [
+        `${repoURL}/edit/master/docs/src/examples/${currentCodePath}.tsx`,
+        `?message=docs(${filename}): your description`,
+      ].join('')
+    })
   }
 
-  private renderApiCodeMenu = (color: SemanticCOLORS): JSX.Element => {
+  private renderApiCodeMenu = (): JSX.Element => {
+    const color = this.getTextColor()
     const menuItems = [SourceCodeType.shorthand, SourceCodeType.normal].map(codeType => {
-      const active = !!this.state.error || this.sourceCodeMgr.codeType === codeType
+      const active = !!this.state.error || this.state.visibleSourceCode[codeType]
       return {
         active,
         key: codeType,
         icon: 'code',
         color: active ? 'green' : color,
-        onClick: this.setApiCodeType.bind(this, codeType),
+        onClick: this.onApiCodeTypeClick.bind(this, codeType),
         content: this.codeTypeApiButtonLabels[codeType],
       }
     })
@@ -393,16 +449,17 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     )
   }
 
-  private renderCodeEditorMenu = (color: SemanticCOLORS): JSX.Element => {
+  private renderCodeEditorMenu = (codeType: SourceCodeType): JSX.Element => {
     const { copiedCode, error } = this.state
-    const codeHasChanged = this.sourceCodeMgr.originalCodeHasChanged
+    const color = this.getTextColor()
+    const codeHasChanged = this.sourceCodeMgr.originalCodeHasChanged(codeType)
 
     return (
-      <Menu size="small" text widths="8" style={{ margin: '0' }}>
+      <Menu size="small" text widths="4" style={{ margin: '0' }}>
         <Menu.Item
           active={copiedCode || !!error} // to show the color
           color={copiedCode ? 'green' : color}
-          onClick={this.copyJSX}
+          onClick={this.copyJSX.bind(codeType)}
           icon={!copiedCode && 'copy'}
           content={copiedCode ? 'Copied!' : 'Copy'}
         />
@@ -411,7 +468,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
           fitted
           icon="refresh"
           content="Reset"
-          onClick={this.resetJSX}
+          onClick={this.resetJSX.bind(codeType)}
           color={codeHasChanged ? 'red' : color}
         />
         <Menu.Item
@@ -419,7 +476,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
           fitted
           icon="github"
           content="Edit"
-          href={this.ghEditHref}
+          href={this.ghEditHref[codeType]}
           target="_blank"
           color={color}
         />
@@ -427,35 +484,49 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     )
   }
 
-  private renderJSXControls = () => {
-    const color = this.state.error ? 'red' : 'black'
-    this.setGitHubHrefs()
+  private renderEditor = (codeType: SourceCodeType): JSX.Element => {
+    const editorStyle: CSSProperties = {
+      background: '#fbfbfb',
+      boxShadow: '0 .1rem .2rem 0 #ddd',
+    }
 
     return (
       <div>
-        {this.renderApiCodeMenu(color)}
-        {this.renderCodeEditorMenu(color)}
+        {this.renderCodeEditorMenu(codeType)}
+        <Editor
+          style={editorStyle}
+          id={`${this.getKebabExamplePath()}-jsx`}
+          value={this.state.sourceCode[codeType]}
+          onChange={this.codeChangeHandlers[codeType]}
+        />
       </div>
     )
   }
 
   private renderJSX = () => {
-    const { error, showCode, sourceCode } = this.state
+    const { error, showCode, visibleSourceCode } = this.state
     if (!showCode) return
 
-    const style: any = { width: '100%' }
-    if (error) {
-      style.boxShadow = `inset 0 0 0 1em ${errorStyle.background}`
+    const jsxStyle: CSSProperties = {
+      width: '100%',
+      ...(error && {
+        boxShadow: `inset 0 0 0 1em ${errorStyle.background}`,
+      }),
     }
 
+    this.setGitHubHrefs()
+
+    const gridColumns = [SourceCodeType.shorthand, SourceCodeType.normal].map(
+      (codeType, index) =>
+        visibleSourceCode[codeType] ? (
+          <Grid.Column key={index}>{this.renderEditor(codeType)}</Grid.Column>
+        ) : null,
+    )
+
     return (
-      <div style={style}>
-        {this.renderJSXControls()}
-        <Editor
-          id={`${this.getKebabExamplePath()}-jsx`}
-          value={sourceCode}
-          onChange={this.handleChangeCode}
-        />
+      <div style={jsxStyle}>
+        {this.renderApiCodeMenu()}
+        {gridColumns}
         {error && <pre style={errorStyle}>{error}</pre>}
       </div>
     )
@@ -567,17 +638,16 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
 
     const isActive = this.isActiveHash() || this.isActiveState()
 
-    const exampleStyle = {
+    const exampleStyle: CSSProperties = {
       position: 'relative',
       transition: 'box-shadow 200ms, background 200ms',
+      background: '#fff',
       ...(isActive
         ? {
-            background: '#fff',
             boxShadow: '0 0 30px #ccc',
           }
         : isHovering && {
-            background: '#fff',
-            boxShadow: '0 0 10px #ccc',
+            boxShadow: '0 0 20px #ccc',
             zIndex: 1,
           }),
     }
@@ -643,6 +713,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Divider horizontal />
       </Visibility>
     )
   }

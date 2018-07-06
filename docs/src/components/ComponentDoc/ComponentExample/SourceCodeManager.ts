@@ -10,11 +10,11 @@ interface ISourceCodeData {
 }
 
 export interface ISourceCodeManager {
-  currentCode: string
-  currentPath: string
-  codeType: SourceCodeType
-  originalCodeHasChanged: boolean
-  resetToOriginalCode: () => void
+  setCodeForType: (codeType: SourceCodeType, code: string) => void
+  getCodeForType: (codeType: SourceCodeType) => string
+  getPathForType: (codeType: SourceCodeType) => string
+  originalCodeHasChanged: (codeType: SourceCodeType) => boolean
+  resetToOriginalCode: (codeType: SourceCodeType) => void
 }
 
 export const examplePathPatterns: { [key in SourceCodeType]: string } = {
@@ -28,40 +28,36 @@ class SourceCodeManager implements ISourceCodeManager {
     shorthand: null,
   }
 
-  public codeType: SourceCodeType = SourceCodeType.shorthand // by default we show shorthand first
-
   constructor(private sourceCodePath: string) {
      [SourceCodeType.normal, SourceCodeType.shorthand].forEach(sourceCodeType => {
       this.setDataForCodeType(sourceCodeType)
     })
   }
 
-  public set currentCode(currentCode: string) {
-    this.currentCodeData.code = currentCode
+  public setCodeForType(codeType: SourceCodeType, code: string): void {
+    this.getCodeData(codeType).code = code
   }
 
-  public get currentCode(): string {
-    return this.currentCodeData.code || this.currentCodeData.originalCode
+  public getCodeForType(codeType: SourceCodeType): string {
+    return this.getCodeData(codeType).code
   }
 
-  public get currentPath(): string {
-    return this.currentCodeData.path
+  public getPathForType(codeType: SourceCodeType): string {
+    return this.getCodeData(codeType).path
   }
 
-  public get originalCodeHasChanged(): boolean {
-    return this.currentCodeData.code !== this.currentCodeData.originalCode
+  public originalCodeHasChanged(codeType: SourceCodeType): boolean {
+    const codeData = this.getCodeData(codeType)
+    return codeData.code !== codeData.originalCode
   }
 
-  public resetToOriginalCode(): void {
-    this.currentCodeData.code = this.currentCodeData.originalCode
+  public resetToOriginalCode(codeType: SourceCodeType): void {
+    const codeData = this.getCodeData(codeType)
+    codeData.code = codeData.originalCode
   }
 
-  private get currentCodeData(): ISourceCodeData {
-    return this.data[this.codeType]
-  }
-
-  private set currentCodeData(codeData: ISourceCodeData) {
-    this.data[this.codeType] = codeData
+  private getCodeData(codeType: SourceCodeType): ISourceCodeData {
+    return this.data[codeType]
   }
 
   private setDataForCodeType(sourceCodeType: SourceCodeType): void {
