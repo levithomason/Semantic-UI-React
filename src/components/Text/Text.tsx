@@ -43,6 +43,18 @@ class Text extends UIComponent<any, any> {
     as: 'span',
   }
 
+  static handledProps = [
+    'as',
+    'atMention',
+    'className',
+    'content',
+    'disabled',
+    'error',
+    'size',
+    'success',
+    'timestamp',
+  ]
+
   static rules = textRules
 
   renderComponent({ ElementType, classes, rest }) {
