@@ -38,7 +38,7 @@ class Image extends UIComponent {
     as: 'img',
   }
 
-  render({ ElementType, classes, rest }) {
+  renderComponent({ ElementType, classes, rest }) {
     return <ElementType {...rest} className={classes.root} />
   }
 }

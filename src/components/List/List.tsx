@@ -63,7 +63,7 @@ class List extends UIComponent<any, any> {
   // List props that are passed to each individual Item props
   static itemProps = ['debug', 'selection', 'truncateContent', 'truncateHeader', 'variables']
 
-  render({ ElementType, classes, rest }) {
+  renderComponent({ ElementType, classes, rest }) {
     const { items } = this.props
     const itemProps = _.pick(this.props, List.itemProps)
 

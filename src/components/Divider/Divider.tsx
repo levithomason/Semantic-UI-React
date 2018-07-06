@@ -38,7 +38,7 @@ class Divider extends UIComponent<any, any> {
     size: 0,
   }
 
-  render({ ElementType, classes, rest }) {
+  renderComponent({ ElementType, classes, rest }) {
     const { children } = this.props
 
     return (

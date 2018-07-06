@@ -117,7 +117,7 @@ class Layout extends UIComponent<any, any> {
     },
   }
 
-  render({ ElementType, classes, rest }) {
+  renderComponent({ ElementType, classes, rest }) {
     const {
       reducing,
       disappearing,

@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { ReactNode } from 'react'
+import React from 'react'
 
-import { UIComponent, customPropTypes } from '../../lib'
+import { UIComponent, childrenExist, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
-import getElementType from 'stardust/lib/getElementType'
 
 /**
  * A button.
@@ -22,21 +21,35 @@ class Button extends UIComponent<any, any> {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
 
+    /** A button can appear circular. */
+    circular: PropTypes.bool,
+
     /** Additional classes. */
     className: PropTypes.string,
 
-    /** A button can appear circular. */
-    circular: PropTypes.bool,
+    /** Shorthand for primary content. */
+    content: customPropTypes.contentShorthand,
+
+    /** A bunch of styles we might not need. */
+    styles: PropTypes.object,
+
+    /** A button can be formatted to show different levels of emphasis. */
+    type: PropTypes.oneOf(['primary', 'secondary']),
   }
 
-  static handledProps = ['as', 'circular', 'className']
+  static handledProps = ['as', 'circular', 'className', 'content', 'styles', 'type']
 
   static defaultProps = {
     as: 'button',
   }
 
   renderComponent({ ElementType, classes, rest }) {
-    return <ElementType {...rest} className={classes.root} />
+    const { children, content } = this.props
+    return (
+      <ElementType {...rest} className={classes.root}>
+        {childrenExist(children) ? children : content}
+      </ElementType>
+    )
   }
 }
 

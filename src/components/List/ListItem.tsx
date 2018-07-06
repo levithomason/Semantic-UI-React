@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { customPropTypes, rem, UIComponent, createShorthandFactory } from '../../lib'
+import { createShorthandFactory, customPropTypes, pxToRem, UIComponent } from '../../lib'
 import Layout from '../Layout'
 import listVariables from './listVariables'
 import listItemRules from './listItemRules'
@@ -106,7 +106,7 @@ class ListItem extends UIComponent<any, any> {
         <Layout
           className={mergedClasses}
           alignItems="end"
-          gap={rem(0.8)}
+          gap={pxToRem(8)}
           debug={debug}
           // disappearing={!truncateHeader}
           truncateMain={truncateHeader}
@@ -127,7 +127,7 @@ class ListItem extends UIComponent<any, any> {
         <Layout
           className={mergedClasses}
           alignItems="start"
-          gap={rem(0.8)}
+          gap={pxToRem(8)}
           debug={debug}
           // disappearing={!truncateContent}
           truncateMain={truncateContent}
@@ -149,7 +149,7 @@ class ListItem extends UIComponent<any, any> {
     this.setState({ isHovering: false })
   }
 
-  render({ ElementType, classes, rest }) {
+  renderComponent({ ElementType, classes, rest }) {
     const { as, debug, endMedia, media, renderMainArea } = this.props
     const { isHovering } = this.state
 
@@ -161,7 +161,7 @@ class ListItem extends UIComponent<any, any> {
       <Layout
         as={as}
         alignItems="center"
-        gap={rem(0.8)}
+        gap={pxToRem(8)}
         className={classes.root}
         debug={debug}
         reducing
