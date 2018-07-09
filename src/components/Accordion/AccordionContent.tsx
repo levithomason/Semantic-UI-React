@@ -60,7 +60,7 @@ AccordionContent.propTypes = {
 AccordionContent.handledProps = ['as', 'className', 'styles', 'onClick']
 
 AccordionContent.defaultProps = {
-  as: 'div',
+  as: 'span',
 }
 
 export default createComponent(AccordionContent, {
