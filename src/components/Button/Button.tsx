@@ -15,6 +15,7 @@ import buttonVariables from './buttonVariables'
 /**
  * A button.
  */
+
 const Button: any = (props: any) => {
   const ElementType = getElementType(Button, props)
   const rest = getUnhandledProps(Button, props)
