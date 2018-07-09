@@ -538,7 +538,8 @@ class ComponentExample extends PureComponent<any, any> {
                 showHTML={showHTML}
                 showRtl={showRtl}
                 showVariables={showVariables}
-                visible={isActive || isHovering}
+                visible={true}
+                isParentHovered={isHovering}
               />
             </Grid.Column>
           </Grid.Row>

@@ -55,7 +55,6 @@ const Editor: any = props => {
       editorProps={{ $blockScrolling: Infinity }}
       highlightActiveLine={false}
       maxLines={Infinity}
-      showGutter={false}
       showPrintMargin={false}
       tabSize={2}
       {...rest}
