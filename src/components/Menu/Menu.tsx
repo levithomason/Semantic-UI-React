@@ -38,7 +38,7 @@ class Menu extends AutoControlledComponent {
     styles: PropTypes.object,
 
     /** The menu can have primary or secondary type */
-    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+    type: PropTypes.oneOf(['primary', 'secondary']),
 
     /** A menu can point to show its relationship to nearby content. */
     pointing: PropTypes.bool,
@@ -86,7 +86,7 @@ class Menu extends AutoControlledComponent {
   }
 
   static defaultProps = {
-    type: 'default',
+    type: 'primary',
   }
 
   render() {

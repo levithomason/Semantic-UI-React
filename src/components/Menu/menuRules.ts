@@ -3,7 +3,7 @@ import { pxToRem } from '../../lib'
 export default ({ type, pointing }) => ({
   root: {
     display: 'flex',
-    ...(type === 'default' && {
+    ...(type === 'primary' && {
       border: '1px solid rgba(34, 36, 38, .15)',
       borderRadius: pxToRem(4),
     }),
