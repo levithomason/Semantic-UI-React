@@ -39,6 +39,17 @@ const controlsWrapperStyle = {
   minHeight: pxToRem(30),
 }
 
+const variablesPanelStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  maxHeight: pxToRem(250),
+  overflowY: 'auto',
+}
+
+const variableInputStyle = {
+  paddingBottom: pxToRem(10),
+}
+
 /**
  * Renders a `component` and the raw `code` that produced it.
  * Allows toggling the the raw `code` code block.
@@ -240,6 +251,8 @@ class ComponentExample extends PureComponent<any, any> {
 
     try {
       const Example = evalTypeScript(this.state.sourceCode)
+
+      console.log(Example)
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {
@@ -299,6 +312,9 @@ class ComponentExample extends PureComponent<any, any> {
   getComponentName = () => this.props.examplePath.split('/')[1]
 
   renderWithProvider(ExampleComponent) {
+    console.log('renderWithProvider:state', this.state)
+    console.log('renderWithProivder:componentVariables', this.state.componentVariables)
+
     return (
       <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
         <ExampleComponent knobs={this.getKnobsValue()} />
@@ -441,9 +457,10 @@ class ComponentExample extends PureComponent<any, any> {
             return (
               <div>
                 <Form>
-                  <Form.Group inline>
+                  <Form.Group inline style={variablesPanelStyle}>
                     {_.map(defaultVariables, (val, key) => (
                       <Form.Input
+                        style={variableInputStyle}
                         key={key}
                         label={key}
                         defaultValue={val}
@@ -466,7 +483,6 @@ class ComponentExample extends PureComponent<any, any> {
         componentVariables: {
           ...state.componentVariables,
           [component]: {
-            ...(state.componentVariables && state.componentVariables[component]),
             [variable]: value,
           },
         },
