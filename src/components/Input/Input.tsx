@@ -4,7 +4,11 @@ import cx from 'classnames'
 import _ from 'lodash'
 
 import {
-  customPropTypes, getUnhandledProps, getElementType, createComponent, useKeyOnly,
+  customPropTypes,
+  getUnhandledProps,
+  getElementType,
+  createComponent,
+  useKeyOnly,
 } from '../../lib'
 import inputRules from './inputRules'
 import Button from '../Button'
@@ -30,7 +34,7 @@ class Input extends React.Component<any, any> {
     icon: PropTypes.oneOfType([PropTypes.bool, customPropTypes.itemShorthand]),
 
     /** The HTML input type. */
-    type: PropTypes.string,
+    type: PropTypes.contentShorthand,
   }
 
   static handleProps = ['as']
@@ -50,12 +54,15 @@ class Input extends React.Component<any, any> {
   }
 
   render() {
-    const { styles, className, children } = this.props
+    const { styles, className, children, error, type } = this.props
     const rest = getUnhandledProps(Input, this.props)
     const ElementType = getElementType(Input, this.props)
 
     return (
-      <ElementType {...rest} className={cx('ui-input', useKeyOnly(error, 'error'), styles.root, className)}>
+      <ElementType
+        {...rest}
+        className={cx('ui-input', useKeyOnly(error, 'error'), styles.root, className)}
+      >
         {Button.create(this.computeIcon())}
       </ElementType>
     )
@@ -64,5 +71,4 @@ class Input extends React.Component<any, any> {
 
 export default createComponent(Input, {
   rules: inputRules,
-  shorthand: (type) => ({ type }),
 })
