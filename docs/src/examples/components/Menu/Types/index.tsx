@@ -10,6 +10,7 @@ const Types = () => (
       examplePath="components/Menu/Types/MenuExample"
     />
     <ComponentExample
+      title="Menu with content prop"
       description="Menu item text can be defined with the content prop."
       examplePath="components/Menu/Types/MenuExampleContentProp"
     />
