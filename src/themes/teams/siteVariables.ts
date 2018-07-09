@@ -1,4 +1,4 @@
-import { rem } from '../../lib'
+import { pxToRem } from '../../lib'
 
 //
 // VARIABLES
@@ -6,16 +6,16 @@ import { rem } from '../../lib'
 
 export const htmlFontSize = '14px' // what 1rem represents
 
-const blackRgbaFormat = 'rgba(37, 36, 36, {alpha})'
-export const black = blackRgbaFormat.replace('{alpha}', '1')
-export const gray02 = blackRgbaFormat.replace('{alpha}', '.75')
-export const gray03 = blackRgbaFormat.replace('{alpha}', '.65')
-export const gray04 = blackRgbaFormat.replace('{alpha}', '.50')
-export const gray06 = blackRgbaFormat.replace('{alpha}', '.30')
-export const gray08 = blackRgbaFormat.replace('{alpha}', '.15')
+const blackRgbaFormat = alpha => `rgba(37, 36, 36, ${alpha})`
+export const black = blackRgbaFormat(1)
+export const gray02 = blackRgbaFormat(0.75)
+export const gray03 = blackRgbaFormat(0.65)
+export const gray04 = blackRgbaFormat(0.5)
+export const gray06 = blackRgbaFormat(0.3)
+export const gray08 = blackRgbaFormat(0.15)
 export const gray09 = '#EDEBE9'
 export const gray10 = '#F3F2F1'
-export const gray12 = blackRgbaFormat.replace('{alpha}', '.05')
+export const gray12 = blackRgbaFormat(0.05)
 export const gray14 = '#FAF9F8'
 
 export const white = '#FFF'
@@ -46,7 +46,7 @@ export const bodyMargin = 0
 export const bodyFontFamily = '"Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif'
 export const bodyFontSize = '1rem'
 export const bodyColor = black
-export const bodyLineHeight = rem(2)
+export const bodyLineHeight = pxToRem(20)
 
 //
 // Colors
@@ -61,16 +61,16 @@ export const timestampTextColor = gray04
 //
 // Fonts
 //
-export const fontSizeBase = rem(1.4)
-export const fontSizeSmall = rem(1.2)
-export const fontSizeExtraSmall = rem(1)
+export const fontSizeBase = pxToRem(14)
+export const fontSizeSmall = pxToRem(12)
+export const fontSizeExtraSmall = pxToRem(10)
 
 //
 // Line Heights
 //
-export const lineHeightBase = rem(2.0)
-export const lineHeightSmall = rem(1.6)
-export const lineHeightExtraSmall = rem(1.2)
+export const lineHeightBase = pxToRem(20)
+export const lineHeightSmall = pxToRem(16)
+export const lineHeightExtraSmall = pxToRem(12)
 
 //
 // Text Component
