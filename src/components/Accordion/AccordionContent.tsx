@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 import cx from 'classnames'
@@ -61,7 +60,7 @@ AccordionContent.propTypes = {
 AccordionContent.handledProps = ['as', 'className', 'styles', 'onClick']
 
 AccordionContent.defaultProps = {
-  as: 'accordionContent',
+  as: 'div',
 }
 
 export default createComponent(AccordionContent, {

@@ -49,7 +49,7 @@ class AccordionTitle extends React.Component<any, any> {
 
   static handledProps = ['as', 'className', 'styles', 'onClick']
   static defaultProps = {
-    as: 'accordionTitle',
+    as: 'div',
   }
 
   handleClick = e => {
