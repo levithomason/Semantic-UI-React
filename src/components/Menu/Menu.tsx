@@ -34,14 +34,14 @@ class Menu extends AutoControlledComponent {
     /** Shorthand array of props for Menu. */
     items: customPropTypes.collectionShorthand,
 
+    /** A menu can point to show its relationship to nearby content. */
+    pointing: PropTypes.bool,
+
     /** FELA styles */
     styles: PropTypes.object,
 
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['primary', 'secondary']),
-
-    /** A menu can point to show its relationship to nearby content. */
-    pointing: PropTypes.bool,
   }
 
   static Item = MenuItem
@@ -55,7 +55,9 @@ class Menu extends AutoControlledComponent {
     'className',
     'defaultActiveIndex',
     'items',
+    'pointing',
     'styles',
+    'type',
   ]
 
   handleItemOverrides = predefinedProps => ({
