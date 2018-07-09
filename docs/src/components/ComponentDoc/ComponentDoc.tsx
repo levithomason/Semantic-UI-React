@@ -7,6 +7,7 @@ import { Grid, Header, Icon } from 'semantic-ui-react'
 
 import componentInfoShape from 'docs/src/utils/componentInfoShape'
 import { scrollToAnchor, examplePathToHash, getFormattedHash } from 'docs/src/utils'
+import { accessibilityErrorMessage } from 'docs/src/constants'
 import ComponentDocLinks from './ComponentDocLinks'
 import ComponentDocSee from './ComponentDocSee'
 import ComponentExamples from './ComponentExamples'
@@ -73,9 +74,6 @@ class ComponentDoc extends Component<any, any> {
   render() {
     const { info } = this.props
     const { activePath, examplesRef } = this.state
-
-    const accessibilityErrorMessage = `No accessibility description found for this component. Please explain the
-        accessibility concerns of the component by adding the @accessibility tag to the component's docblock.`
 
     return (
       <DocumentTitle title={`${info.displayName} | Stardust`}>
