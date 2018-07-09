@@ -373,6 +373,7 @@ class ComponentExample extends PureComponent<any, any> {
     }
 
     const editorStyle: CSSProperties = {
+      background: '#fbfbfb',
       transition: 'box-shadow 200ms, background 200ms',
       ...(!showCode && {
         boxShadow: '1px 20px 20px #ececec',
@@ -382,8 +383,8 @@ class ComponentExample extends PureComponent<any, any> {
     let editorProps: IEditorProps = {
       id: `${this.getKebabExamplePath()}-jsx`,
       value: sourceCode,
-      shouldFocusEditor: true,
       onChange: this.handleChangeCode,
+      shouldFocusEditor: true,
     }
 
     if (!showCode) {
@@ -603,6 +604,7 @@ class ComponentExample extends PureComponent<any, any> {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Divider horizontal />
       </Visibility>
     )
   }
