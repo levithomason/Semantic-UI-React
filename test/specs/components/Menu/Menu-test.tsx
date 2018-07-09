@@ -1,11 +1,9 @@
 import React from 'react'
-import _ from 'lodash'
-
-import { isConformant } from '../../commonTests'
 import { mount } from 'enzyme'
 
-import Menu from '../../../../src/components/Menu/Menu'
+import Menu from 'src/components/Menu/Menu'
 import Provider from 'src/components/Provider'
+import { isConformant } from 'test/specs/commonTests'
 
 describe('Menu', () => {
   isConformant(Menu)
