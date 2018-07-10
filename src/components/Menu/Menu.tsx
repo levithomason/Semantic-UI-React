@@ -41,6 +41,7 @@ class Menu extends AutoControlledComponent {
   static Item = MenuItem
 
   static autoControlledProps = ['activeIndex']
+
   static handledProps = [
     'activeIndex',
     'as',
@@ -69,7 +70,7 @@ class Menu extends AutoControlledComponent {
       MenuItem.create(item, {
         defaultProps: {
           index,
-          ...(parseInt(activeIndex, 10) === index && { active: true }),
+          active: parseInt(activeIndex, 10) === index,
         },
         overrideProps: this.handleItemOverrides,
       }),

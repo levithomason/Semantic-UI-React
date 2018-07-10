@@ -32,9 +32,6 @@ class MenuItem extends React.Component<any, {}> {
     /** MenuItem index inside Menu. */
     index: PropTypes.number,
 
-    /** Internal name of the MenuItem. */
-    name: PropTypes.string,
-
     /**
      * Called on click. When passed, the component will render as an `a`
      * tag by default instead of a `div`.
@@ -55,21 +52,24 @@ class MenuItem extends React.Component<any, {}> {
     'className',
     'content',
     'index',
-    'name',
     'onClick',
     'styles',
   ]
+
+  static defaultProps = {
+    as: 'li',
+  }
 
   handleClick = e => {
     _.invoke(this.props, 'onClick', e, this.props)
   }
 
   render() {
-    const { children, className, content, name, onClick, styles } = this.props
+    const { children, className, content, styles } = this.props
 
     const classes = cx('ui-menu__item', styles.root, className)
     const anchorClasses = cx('ui-menu__item__anchor', styles.anchor)
-    const ElementType = getElementType(MenuItem, this.props, () => 'li')
+    const ElementType = getElementType(MenuItem, this.props)
     const rest = getUnhandledProps(MenuItem, this.props)
 
     if (childrenExist(children)) {
@@ -82,7 +82,7 @@ class MenuItem extends React.Component<any, {}> {
 
     return (
       <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        <a className={anchorClasses}>{_.isNil(content) ? _.startCase(name) : content}</a>
+        <a className={anchorClasses}>{content}</a>
       </ElementType>
     )
   }

@@ -13,7 +13,7 @@ const Types = () => (
     <ShorthandExample examplePath="components/Menu/Types/MenuExampleShorthand" />
     <ComponentExample
       description="Menu item text can be defined with the content prop."
-      examplePath="components/Menu/Types/MenuExampleContentProp"
+      examplePath="components/Menu/Types/MenuExampleContent"
     />
   </ExampleSection>
 )
