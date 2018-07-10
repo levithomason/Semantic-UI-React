@@ -66,7 +66,7 @@ const controlsWrapperStyle: CSSProperties = {
 
 const codeTypeApiButtonLabels: { [key in SourceCodeType]: string } = {
   normal: 'Children API',
-  shorthand: 'Shorhand API',
+  shorthand: 'Shorthand API',
 }
 
 /**
@@ -363,8 +363,13 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   private renderApiCodeMenu = (color: SemanticCOLORS): JSX.Element => {
     const menuItems = [SourceCodeType.shorthand, SourceCodeType.normal].map(codeType => {
       const active = !!this.state.error || this.sourceCodeMgr.codeType === codeType
+      // we disable the menu button for Children API in case we don't have the example for it
+      const disabled =
+        codeType === SourceCodeType.normal && !this.sourceCodeMgr.isCodeValidForType(codeType)
+
       return {
         active,
+        disabled,
         key: codeType,
         icon: 'code',
         color: active ? 'green' : color,
@@ -374,7 +379,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     })
 
     return (
-      <Divider horizontal fitted>
+      <Divider horizontal style={{ marginBottom: 0 } as CSSProperties}>
         <Menu size="small" items={menuItems} />
       </Divider>
     )

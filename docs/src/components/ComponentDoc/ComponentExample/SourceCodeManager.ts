@@ -14,6 +14,7 @@ export interface ISourceCodeManager {
   currentPath: string
   codeType: SourceCodeType
   originalCodeHasChanged: boolean
+  isCodeValidForType(codeType: SourceCodeType): boolean
   resetToOriginalCode: () => void
 }
 
@@ -28,12 +29,17 @@ class SourceCodeManager implements ISourceCodeManager {
     shorthand: null,
   }
 
-  public codeType: SourceCodeType = SourceCodeType.shorthand // by default we show shorthand first
+  public codeType: SourceCodeType
 
   constructor(private sourceCodePath: string) {
-     [SourceCodeType.normal, SourceCodeType.shorthand].forEach(sourceCodeType => {
+    const prioritizedCodeTypes = [SourceCodeType.shorthand, SourceCodeType.normal] // order is relevant
+    prioritizedCodeTypes.forEach(sourceCodeType => {
       this.setDataForCodeType(sourceCodeType)
     })
+
+    this.codeType =
+      prioritizedCodeTypes.find(codeType => this.isCodeValidForType(codeType)) ||
+      SourceCodeType.shorthand
   }
 
   public set currentCode(currentCode: string) {
@@ -50,6 +56,10 @@ class SourceCodeManager implements ISourceCodeManager {
 
   public get originalCodeHasChanged(): boolean {
     return this.currentCodeData.code !== this.currentCodeData.originalCode
+  }
+
+  public isCodeValidForType(codeType: SourceCodeType): boolean {
+    return this.data[codeType].code != null
   }
 
   public resetToOriginalCode(): void {
