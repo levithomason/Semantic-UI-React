@@ -1,6 +1,6 @@
 {
-  "name": "stardust",
-  "version": "0.53.0",
+  "name": "@stardust-ui/react",
+  "version": "0.1.0",
   "description": "A themable React component library.",
   "jsnext:main": "dist/es/index.js",
   "main": "dist/commonjs/index.js",
@@ -13,7 +13,7 @@
     "build": "gulp build",
     "build:docs": "gulp --series dll build:docs",
     "build:dist": "gulp --series dll build:dist",
-    "ci": "yarn tsd:lint && yarn tsd:test && yarn lint && yarn test",
+    "ci": "yarn lint && yarn prettier && yarn test",
     "predeploy:docs": "cross-env NODE_ENV=production yarn build:docs",
     "deploy:docs": "gulp deploy:docs",
     "lint": "tslint -p .",
@@ -22,7 +22,7 @@
     "prettier:fix": "prettier --write \"**/*.{ts,tsx}\"",
     "precommit": "lint-staged && gulp build:docs:toc",
     "postcommit": "git update-index --again",
-    "prerelease": "yarn lint && yarn test && cross-env NODE_ENV=production yarn build",
+    "prerelease": "yarn ci && cross-env NODE_ENV=production yarn build",
     "postrelease": "yarn deploy:docs",
     "release:major": "yarn prerelease && ta-script npm/release major && yarn postrelease",
     "release:minor": "yarn prerelease && ta-script npm/release minor && yarn postrelease",
@@ -31,7 +31,7 @@
     "start": "gulp --series dll docs",
     "satisfied": "satisfied --skip-invalid",
     "pretest": "yarn satisfied && gulp build:docs:docgen",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "yarn test --watchAll",
     "generate:component": "gulp generate:component"
   },
@@ -53,6 +53,8 @@
   },
   "homepage": "https://github.com/stardust-ui/stardust#readme",
   "jest": {
+    "coverageDirectory": "./coverage/",
+    "coverageReporters": ["json", "lcov"],
     "testRegex": "/test/.*-test\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
