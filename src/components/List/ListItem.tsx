@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { createComponent, customPropTypes, getUnhandledProps, rem } from '../../lib'
+import { createComponent, customPropTypes, getUnhandledProps, pxToRem } from '../../lib'
 import Layout from '../Layout'
 import listVariables from './listVariables'
 import listItemRules from './listItemRules'
@@ -45,11 +45,11 @@ class ListItem extends React.Component<any, any> {
   static handledProps = [
     'as',
     'className',
-    'contentMedia',
     'content',
+    'contentMedia',
     'debug',
-    'header',
     'endMedia',
+    'header',
     'headerMedia',
     'important',
     'media',
@@ -57,10 +57,10 @@ class ListItem extends React.Component<any, any> {
     'renderHeaderArea',
     'renderMainArea',
     'selection',
+    'styles',
     'truncateContent',
     'truncateHeader',
     'variables',
-    'styles',
   ]
 
   static defaultProps = {
@@ -103,7 +103,7 @@ class ListItem extends React.Component<any, any> {
         <Layout
           className={classes}
           alignItems="end"
-          gap={rem(0.8)}
+          gap={pxToRem(8)}
           debug={debug}
           // disappearing={!truncateHeader}
           truncateMain={truncateHeader}
@@ -124,7 +124,7 @@ class ListItem extends React.Component<any, any> {
         <Layout
           className={classes}
           alignItems="start"
-          gap={rem(0.8)}
+          gap={pxToRem(8)}
           debug={debug}
           // disappearing={!truncateContent}
           truncateMain={truncateContent}
@@ -160,7 +160,7 @@ class ListItem extends React.Component<any, any> {
       <Layout
         as={as}
         alignItems="center"
-        gap={rem(0.8)}
+        gap={pxToRem(8)}
         className={cx('ui-list__item', styles.root, className)}
         debug={debug}
         reducing
