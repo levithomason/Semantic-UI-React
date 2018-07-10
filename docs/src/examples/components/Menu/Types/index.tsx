@@ -16,19 +16,9 @@ const Types = () => (
       examplePath="components/Menu/Types/MenuExampleContent"
     />
     <ComponentExample
-      title="Unbordered Menu"
-      description="A menu can adjust its appearance to de-emphasize its contents."
-      examplePath="components/Menu/Types/MenuExampleUnbordered"
-    />
-    <ComponentExample
-      title="Pointing"
+      title="Default Primary"
       description="A menu can point to show its relationship to nearby content."
-      examplePath="components/Menu/Types/MenuExamplePointing"
-    />
-    <ComponentExample
-      title="Underlined"
-      description="A menu can underline the active element."
-      examplePath="components/Menu/Types/MenuExampleUnderlined"
+      examplePath="components/Menu/Types/MenuExampleShorthandPrimary"
     />
   </ExampleSection>
 )

@@ -51,7 +51,7 @@ class MenuItem extends React.Component<any, {}> {
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['primary', 'secondary']),
 
-    shape: PropTypes.oneOf(['unbordered', 'pointing', 'underlined']),
+    shape: PropTypes.oneOf(['pills', 'pointing', 'underlined']),
   }
 
   static handledProps = [

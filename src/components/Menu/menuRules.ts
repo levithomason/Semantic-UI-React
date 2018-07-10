@@ -7,7 +7,7 @@ const solidBorder = (color: string) => ({
 export default ({ type, shape, variables }) => ({
   root: {
     display: 'flex',
-    ...(shape !== 'unbordered' &&
+    ...(shape !== 'pills' &&
       shape !== 'underlined' && {
         ...solidBorder(variables.defaultBorderColor),
         ...(type === 'primary' && {

@@ -7,10 +7,10 @@ const items = [
   { key: 'events', content: 'Upcoming Events' },
 ]
 
-class MenuExampleUnbordered extends React.Component {
+class MenuExamplePillsPrimary extends React.Component {
   render() {
-    return <Menu defaultActiveIndex={0} items={items} shape="unbordered" />
+    return <Menu defaultActiveIndex={0} items={items} shape="pills" type="primary" />
   }
 }
 
-export default MenuExampleUnbordered
+export default MenuExamplePillsPrimary

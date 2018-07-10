@@ -2,7 +2,7 @@ import { pxToRem } from '../../lib'
 import { IMenuVariables } from './menuVariables'
 
 export type MenuType = 'primary' | 'secondary'
-export type MenuShape = 'unbordered' | 'pointing' | 'underlined'
+export type MenuShape = 'pills' | 'pointing' | 'underlined'
 
 interface IMenuProps {
   variables: IMenuVariables
@@ -27,7 +27,7 @@ export default (props: IMenuProps) => {
       padding: `${pxToRem(14)} ${pxToRem(18)}`,
       cursor: 'pointer',
       display: 'block',
-      ...(shape === 'unbordered' && {
+      ...(shape === 'pills' && {
         margin: `0 ${pxToRem(8)} 0 0`,
         borderRadius: pxToRem(5),
       }),
