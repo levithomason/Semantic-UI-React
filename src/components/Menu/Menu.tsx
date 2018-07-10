@@ -13,6 +13,7 @@ import {
 } from '../../lib'
 import MenuItem from './MenuItem'
 import menuRules from './menuRules'
+import menuVariables from './menuVariables'
 
 class Menu extends AutoControlledComponent {
   static propTypes = {
@@ -34,14 +35,13 @@ class Menu extends AutoControlledComponent {
     /** Shorthand array of props for Menu. */
     items: customPropTypes.collectionShorthand,
 
-    /** A menu can point to show its relationship to nearby content. */
-    pointing: PropTypes.bool,
-
     /** FELA styles */
     styles: PropTypes.object,
 
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['primary', 'secondary']),
+
+    shape: PropTypes.oneOf(['unbordered', 'pointing', 'underlined']),
   }
 
   static Item = MenuItem
@@ -55,7 +55,7 @@ class Menu extends AutoControlledComponent {
     'className',
     'defaultActiveIndex',
     'items',
-    'pointing',
+    'shape',
     'styles',
     'type',
   ]
@@ -71,14 +71,14 @@ class Menu extends AutoControlledComponent {
   })
 
   renderItems = () => {
-    const { items, type, pointing } = this.props
+    const { items, type, shape } = this.props
     const { activeIndex } = this.state
 
     return _.map(items, (item, index) =>
       MenuItem.create(item, {
         defaultProps: {
           type,
-          pointing,
+          shape,
           index,
           active: parseInt(activeIndex, 10) === index,
         },
@@ -87,9 +87,7 @@ class Menu extends AutoControlledComponent {
     )
   }
 
-  static defaultProps = {
-    type: 'primary',
-  }
+  static defaultProps = {}
 
   render() {
     const { children, className, styles } = this.props
@@ -108,4 +106,5 @@ class Menu extends AutoControlledComponent {
 
 export default createComponent(Menu, {
   rules: menuRules,
+  variables: menuVariables,
 })

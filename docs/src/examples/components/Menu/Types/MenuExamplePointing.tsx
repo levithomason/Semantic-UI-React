@@ -9,7 +9,7 @@ const items = [
 
 class MenuExamplePointing extends React.Component {
   render() {
-    return <Menu defaultActiveIndex={0} items={items} pointing />
+    return <Menu defaultActiveIndex={0} items={items} shape="pointing" />
   }
 }
 

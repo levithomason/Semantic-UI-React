@@ -11,6 +11,7 @@ import {
   getUnhandledProps,
 } from '../../lib'
 import menuItemRules from './menuItemRules'
+import menuVariables from './menuVariables'
 
 class MenuItem extends React.Component<any, {}> {
   static propTypes = {
@@ -48,7 +49,9 @@ class MenuItem extends React.Component<any, {}> {
     styles: PropTypes.object,
 
     /** The menu can have primary or secondary type */
-    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+    type: PropTypes.oneOf(['primary', 'secondary']),
+
+    shape: PropTypes.oneOf(['unbordered', 'pointing', 'underlined']),
   }
 
   static handledProps = [
@@ -60,6 +63,7 @@ class MenuItem extends React.Component<any, {}> {
     'index',
     'onClick',
     'pointing',
+    'shape',
     'styles',
     'type',
   ]
@@ -98,4 +102,5 @@ class MenuItem extends React.Component<any, {}> {
 
 export default createComponent(MenuItem, {
   rules: menuItemRules,
+  variables: menuVariables,
 })

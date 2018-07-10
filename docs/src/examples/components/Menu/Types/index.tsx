@@ -16,16 +16,20 @@ const Types = () => (
       examplePath="components/Menu/Types/MenuExampleContent"
     />
     <ComponentExample
-      title="Secondary Menu"
+      title="Unbordered Menu"
       description="A menu can adjust its appearance to de-emphasize its contents."
-      examplePath="components/Menu/Types/MenuExampleSecondary"
+      examplePath="components/Menu/Types/MenuExampleUnbordered"
     />
     <ComponentExample
       title="Pointing"
       description="A menu can point to show its relationship to nearby content."
       examplePath="components/Menu/Types/MenuExamplePointing"
     />
-    <ComponentExample examplePath="components/Menu/Types/MenuExampleSecondaryPointing" />
+    <ComponentExample
+      title="Underlined"
+      description="A menu can underline the active element."
+      examplePath="components/Menu/Types/MenuExampleUnderlined"
+    />
   </ExampleSection>
 )
 
