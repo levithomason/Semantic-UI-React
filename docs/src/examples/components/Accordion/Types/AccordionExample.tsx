@@ -4,12 +4,12 @@ import faker from 'faker'
 
 const panels = [
   {
-    key: 'first',
+    key: '1',
     title: 'What is a point?',
     content: faker.hacker.phrase(),
   },
   {
-    key: 'second',
+    key: '2',
     title: 'What is a dimension of a point?',
     content: faker.hacker.phrase(),
   },

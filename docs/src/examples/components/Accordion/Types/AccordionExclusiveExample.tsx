@@ -8,7 +8,7 @@ const panels = [
     content: '2 3 4',
   },
   {
-    key: 'fice',
+    key: 'five',
     title: 'Five',
     content: '6 7 8 9',
   },
