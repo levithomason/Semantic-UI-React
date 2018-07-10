@@ -1,5 +1,6 @@
-export default ({}) => ({
+export default ({ error, focus }) => ({
   root: {
-    borderColor: 'blue',
+    // ...(focus && { borderColor: 'blue' }),
+    ...(error && { borderColor: 'red' }),
   },
 })
