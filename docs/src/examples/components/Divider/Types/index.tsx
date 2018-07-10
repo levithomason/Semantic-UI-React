@@ -14,6 +14,16 @@ const Types = () => (
       description="A Divider can contain children."
       examplePath="components/Divider/Types/DividerExampleChildren"
     />
+    <ComponentExample
+      title="Primary divider"
+      description="A Divider can be styled as primary."
+      examplePath="components/Divider/Types/DividerExamplePrimary"
+    />
+    <ComponentExample
+      title="Secondary divider"
+      description="A Divider can be styled as secondary."
+      examplePath="components/Divider/Types/DividerExampleSecondary"
+    />
   </ExampleSection>
 )
 

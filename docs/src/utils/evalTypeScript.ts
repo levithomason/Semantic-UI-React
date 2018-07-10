@@ -83,12 +83,13 @@ interface IExecutionSandboxGlobals {
   REACT_DOM: any
   STARDUST: any
   FAKER: any
+  LODASH: any
 }
 /**
  * Executes JavaScript code within our sandbox. Returns the result of the
  * last evaluated expression.
  */
-const execute = (code, { REACT, REACT_DOM, FAKER, STARDUST }: IExecutionSandboxGlobals) => {
+const execute = (code, { REACT, REACT_DOM, FAKER, LODASH, STARDUST }: IExecutionSandboxGlobals) => {
   return eval(code) // tslint:disable-line
 }
 
@@ -103,6 +104,7 @@ const evalTypeScript = (sourceCode): any => {
     REACT_DOM: ReactDOM,
     STARDUST: Stardust,
     FAKER: faker,
+    LODASH: _,
   })
 }
 

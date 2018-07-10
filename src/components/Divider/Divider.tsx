@@ -33,9 +33,15 @@ Divider.propTypes = {
 
   /** Additional classes. */
   className: PropTypes.string,
+
+  /** A Divider can be formatted to show different levels of emphasis. */
+  type: PropTypes.oneOf(['primary', 'secondary']),
+
+  /** A divider can appear more important and draw the user's attention. */
+  important: PropTypes.bool,
 }
 
-Divider.handledProps = ['as', 'children', 'className', 'size', 'styles']
+Divider.handledProps = ['as', 'children', 'className', 'important', 'size', 'styles', 'type']
 
 Divider.defaultProps = {
   size: 0,
