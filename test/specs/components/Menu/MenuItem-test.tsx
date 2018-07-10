@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { isConformant } from '../../commonTests'
-import { mountWithProvider, getTestingRenderedComponent } from 'test/utils'
+import { getTestingRenderedComponent } from 'test/utils'
 import MenuItem from 'src/components/Menu/MenuItem'
 
 describe('MenuItem', () => {
