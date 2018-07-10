@@ -3,17 +3,17 @@ import { Accordion } from 'stardust'
 
 const panels = [
   {
-    key: '1',
+    key: 'one',
     title: 'One',
     content: '2 3 4',
   },
   {
-    key: '5',
+    key: 'fice',
     title: 'Five',
     content: '6 7 8 9',
   },
   {
-    key: '10',
+    key: 'ten',
     title: "What's next?",
     content: '10',
   },
