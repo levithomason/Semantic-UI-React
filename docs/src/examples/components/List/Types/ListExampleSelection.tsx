@@ -1,9 +1,8 @@
-import faker from 'faker'
 import React from 'react'
 import { List } from 'stardust'
+import { pxToRem } from 'src/lib/fontSizeUtility'
 
-const imgStyle = { display: 'block', width: '2rem', borderRadius: '999rem' }
-const getAvatar = () => <img src={faker.internet.avatar()} style={imgStyle} />
+const imgStyle = { display: 'block', width: pxToRem(28), borderRadius: pxToRem(9999) }
 
 const ListExampleSelection = ({ knobs }) => (
   <List
@@ -11,7 +10,7 @@ const ListExampleSelection = ({ knobs }) => (
     items={[
       {
         key: 'irving',
-        media: getAvatar(),
+        media: <img src="/public/images/avatar/small/matt.jpg" style={imgStyle} />,
         header: 'Irving Kuhic',
         headerMedia: '7:26:56 AM',
         content:
@@ -19,14 +18,14 @@ const ListExampleSelection = ({ knobs }) => (
       },
       {
         key: 'skyler',
-        media: getAvatar(),
+        media: <img src="/public/images/avatar/small/steve.jpg" style={imgStyle} />,
         header: 'Skyler Parks',
         headerMedia: '11:30:17 PM',
         content: 'Use the online FTP application, then you can input the multi-byte application!',
       },
       {
         key: 'dante',
-        media: getAvatar(),
+        media: <img src="/public/images/avatar/small/nom.jpg" style={imgStyle} />,
         header: 'Dante Schneider',
         headerMedia: '5:22:40 PM',
         content: 'The GB pixel is down, navigate the virtual interface!',
