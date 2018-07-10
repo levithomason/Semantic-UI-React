@@ -2,9 +2,9 @@ import React from 'react'
 import { Menu } from 'stardust'
 
 const items = [
-  { key: 'editorials', name: 'Editorials' },
-  { key: 'review', name: 'Reviews' },
-  { key: 'events', name: 'Upcoming Events' },
+  { key: 'editorials', content: 'Editorials' },
+  { key: 'review', content: 'Reviews' },
+  { key: 'events', content: 'Upcoming Events' },
 ]
 
 class MenuExampleProps extends React.Component {
