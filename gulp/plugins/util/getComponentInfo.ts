@@ -29,12 +29,12 @@ const getComponentInfo = filepath => {
     throw new Error(`Could not find a component definition in "${filepath}".`)
   }
   if (components.length > 1) {
-    // throw new Error(
-    //   [
-    //     `Found more than one component definition in "${filepath}".`,
-    //     'This is currently not supported, please ensure your module only defines a single React component.',
-    //   ].join(' '),
-    // )
+    throw new Error(
+      [
+        `Found more than one component definition in "${filepath}".`,
+        'This is currently not supported, please ensure your module only defines a single React component.',
+      ].join(' '),
+    )
   }
   const info = components[0]
 

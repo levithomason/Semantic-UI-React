@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -7,8 +8,8 @@ import {
   customPropTypes,
   getElementType,
   getUnhandledProps,
-  createComponent,
   SUI,
+  createComponent,
 } from '../../lib'
 import HeaderSubheader from './HeaderSubheader'
 import HeaderContent from './HeaderContent'
@@ -55,7 +56,7 @@ class Header extends React.Component<any, any> {
   static Subheader = HeaderSubheader
 
   render() {
-    const { children, className, content, subheader, styles } = this.props
+    const { children, className, content, subheader, textAlign, styles } = this.props
 
     const classes = cx('ui-header', styles.root, className)
     const rest = getUnhandledProps(Header, this.props)
