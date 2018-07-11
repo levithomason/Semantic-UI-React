@@ -1,15 +1,4 @@
 import { childrenExist, pxToRem } from '../../lib'
-import { IDividerVariables } from './dividerVariables'
-
-export type DividerType = 'primary' | 'secondary'
-
-interface IDividerProps {
-  variables: IDividerVariables
-  size?: number
-  type?: DividerType
-  children?: any
-  important?: boolean
-}
 
 const dividerBorderRule = (size, color) => ({
   height: `${size + 1}px`,
@@ -28,10 +17,10 @@ const beforeAndAfter = (size, type, variables) => ({
   }),
 })
 
-export default (props: IDividerProps) => {
-  const { children, size, type, important, variables } = props
-  return {
-    root: {
+export default {
+  root: ({ props, variables }) => {
+    const { children, size, type, important } = props
+    return {
       marginTop: pxToRem(10 + size * 7.5),
       marginBottom: pxToRem(10 + size * 7.5),
       ...(important && {
@@ -69,6 +58,6 @@ export default (props: IDividerProps) => {
               ...dividerBorderRule(size, variables.defaultBackgroundColor),
             }),
           }),
-    },
-  }
+    }
+  },
 }

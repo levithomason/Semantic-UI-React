@@ -54,7 +54,10 @@
   "homepage": "https://github.com/stardust-ui/stardust#readme",
   "jest": {
     "coverageDirectory": "./coverage/",
-    "coverageReporters": ["json", "lcov"],
+    "coverageReporters": [
+      "json",
+      "lcov"
+    ],
     "testRegex": "/test/.*-test\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
@@ -130,7 +133,7 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-test-renderer": "^16.0.0",
-    "recast": "^0.15.1",
+    "recast": "0.15.2",
     "rimraf": "^2.6.1",
     "satisfied": "^1.1.1",
     "semantic-ui-css": "^2.3.1",
