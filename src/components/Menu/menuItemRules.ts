@@ -24,10 +24,7 @@ export default {
         margin: '0',
         background: 'transparent',
         boxShadow: 'none',
-        color: variables.defaultActiveColor,
-        ...(type === 'primary' && {
-          color: variables.typePrimaryActiveColor,
-        }),
+        color: variables.defaultColor,
       }),
       ...((!shape || shape === 'pointing') && {
         ':before': {
@@ -46,9 +43,6 @@ export default {
 
       ':hover': {
         color: variables.defaultActiveColor,
-        ...(type === 'primary' && {
-          color: variables.typePrimaryActiveColor,
-        }),
         // all menus should have gray background on hover except the underlined menu
         ...(shape !== 'underlined' && {
           background: variables.defaultActiveBackgroundColor,
@@ -73,9 +67,12 @@ export default {
         }),
         color: variables.defaultColor,
         ':hover': {
-          color: variables.defaultColor,
           ...(shape !== 'underlined' && {
+            color: variables.defaultActiveColor,
             background: variables.defaultActiveBackgroundColor,
+            ...(type === 'primary' && {
+              background: variables.typePrimaryActiveBackgroundColor,
+            }),
           }),
         },
         ...(shape === 'pointing' && {
