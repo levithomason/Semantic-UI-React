@@ -1,53 +1,65 @@
-import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import dividerRules from './dividerRules'
 import dividerVariables from './dividerVariables'
 
-import { customPropTypes, createComponent, getElementType, getUnhandledProps } from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 
-const Divider: any = (props: any) => {
-  const ElementType = getElementType(Divider, props)
-  const { children, className, styles } = props
-  const rest = getUnhandledProps(Divider, props)
+/**
+ * @accessibility
+ * This is shown at the top.
+ */
+class Divider extends UIComponent<any, any> {
+  static displayName = 'Divider'
 
-  return (
-    <ElementType {...rest} className={cx('ui-divider', styles.root, className)}>
-      {children}
-    </ElementType>
-  )
+  static create: Function
+
+  static className = 'ui-divider'
+
+  static rules = dividerRules
+
+  static variables = dividerVariables
+
+  static propTypes = {
+    as: customPropTypes.as,
+
+    /** Child content * */
+    children: PropTypes.node,
+
+    /** Additional classes. */
+    className: PropTypes.string,
+
+    /** Shorthand for primary content. */
+    content: customPropTypes.contentShorthand,
+
+    /** Size multiplier (default 0) * */
+    size: PropTypes.number,
+
+    /** A Divider can be formatted to show different levels of emphasis. */
+    type: PropTypes.oneOf(['primary', 'secondary']),
+
+    /** A divider can appear more important and draw the user's attention. */
+    important: PropTypes.bool,
+  }
+
+  static handledProps = ['as', 'children', 'className', 'content', 'important', 'size', 'type']
+
+  static defaultProps = {
+    size: 0,
+  }
+
+  renderComponent({ ElementType, classes, rest }) {
+    const { children, content } = this.props
+
+    return (
+      <ElementType {...rest} className={classes.root}>
+        {childrenExist(children) ? children : content}
+      </ElementType>
+    )
+  }
 }
 
-Divider.propTypes = {
-  as: customPropTypes.as,
+Divider.create = createShorthandFactory(Divider, content => ({ content }))
 
-  /** Size multiplier (default 0) * */
-  size: PropTypes.number,
-
-  /** TODO: this is not a prop we want here... */
-  styles: PropTypes.object,
-
-  /** Child content * */
-  children: PropTypes.node,
-
-  /** Additional classes. */
-  className: PropTypes.string,
-
-  /** A Divider can be formatted to show different levels of emphasis. */
-  type: PropTypes.oneOf(['primary', 'secondary']),
-
-  /** A divider can appear more important and draw the user's attention. */
-  important: PropTypes.bool,
-}
-
-Divider.handledProps = ['as', 'children', 'className', 'important', 'size', 'styles', 'type']
-
-Divider.defaultProps = {
-  size: 0,
-}
-
-export default createComponent(Divider, {
-  rules: dividerRules,
-  variables: dividerVariables,
-})
+export default Divider

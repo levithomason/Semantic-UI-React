@@ -1,6 +1,5 @@
-import React from 'react'
+import { isConformant } from 'test/specs/commonTests'
 
-import { isConformant } from '../../commonTests'
 import Divider from 'src/components/Divider/Divider'
 
 describe('Divider', () => {
