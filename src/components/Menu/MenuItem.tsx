@@ -13,6 +13,8 @@ class MenuItem extends UIComponent<any, any> {
 
   static className = 'ui-menu__item'
 
+  static variables = menuVariables
+
   static create: Function
 
   static rules = menuItemRules
@@ -70,10 +72,6 @@ class MenuItem extends UIComponent<any, any> {
     'shape',
     'type',
   ]
-
-  static defaultProps = {
-    as: 'li',
-  }
 
   handleClick = e => {
     _.invoke(this.props, 'onClick', e, this.props)

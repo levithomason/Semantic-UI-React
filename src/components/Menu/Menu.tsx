@@ -12,6 +12,8 @@ class Menu extends AutoControlledComponent<any, any> {
 
   static className = 'ui-menu'
 
+  static variables = menuVariables
+
   static create: Function
 
   static propTypes = {
@@ -88,7 +90,7 @@ class Menu extends AutoControlledComponent<any, any> {
   }
 
   renderComponent({ ElementType, classes, rest }) {
-    const { children, content } = this.props
+    const { children } = this.props
     return (
       <ElementType {...rest} className={classes.root}>
         {childrenExist(children) ? children : this.renderItems()}

@@ -1,25 +1,14 @@
 import { pxToRem } from '../../lib'
-import { IMenuVariables } from './menuVariables'
-
-export type MenuType = 'primary' | 'secondary'
-export type MenuShape = 'pills' | 'pointing' | 'underlined'
-
-interface IMenuProps {
-  variables: IMenuVariables
-  active?: boolean
-  type?: MenuType
-  shape?: MenuShape
-}
 
 const underlinedItem = (color: string) => ({
   borderBottom: `solid 5px ${color}`,
   transition: 'color .1s ease',
 })
 
-export default (props: IMenuProps) => {
-  const { active, shape, type, variables } = props
-  return {
-    root: {
+export default {
+  root: ({ props, variables }) => {
+    const { active, shape, type } = props
+    return {
       color: variables.defaultColor,
       lineHeight: 1,
       position: 'relative',
@@ -123,12 +112,12 @@ export default (props: IMenuProps) => {
           }),
         }),
       }),
-    },
-    anchor: {
+    }
+  },
+  anchor: () => ({
+    color: 'inherit',
+    ':hover': {
       color: 'inherit',
-      ':hover': {
-        color: 'inherit',
-      },
     },
-  }
+  }),
 }
