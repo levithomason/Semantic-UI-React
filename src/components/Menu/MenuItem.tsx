@@ -3,17 +3,20 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {
-  childrenExist,
-  createComponent,
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-} from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
+
 import menuItemRules from './menuItemRules'
 import menuVariables from './menuVariables'
 
-class MenuItem extends React.Component<any, {}> {
+class MenuItem extends UIComponent<any, any> {
+  static displayName = 'MenuItem'
+
+  static className = 'ui-menu__item'
+
+  static create: Function
+
+  static rules = menuItemRules
+
   static propTypes = {
     /** A menu item can be active. */
     active: PropTypes.bool,
@@ -45,13 +48,14 @@ class MenuItem extends React.Component<any, {}> {
     /** A menu can point to show its relationship to nearby content. */
     pointing: PropTypes.bool,
 
-    /** FELA styles */
-    styles: PropTypes.object,
-
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['primary', 'secondary']),
 
     shape: PropTypes.oneOf(['pills', 'pointing', 'underlined']),
+  }
+
+  static defaultProps = {
+    as: 'li',
   }
 
   static handledProps = [
@@ -64,7 +68,6 @@ class MenuItem extends React.Component<any, {}> {
     'onClick',
     'pointing',
     'shape',
-    'styles',
     'type',
   ]
 
@@ -76,31 +79,21 @@ class MenuItem extends React.Component<any, {}> {
     _.invoke(this.props, 'onClick', e, this.props)
   }
 
-  render() {
-    const { children, className, content, styles } = this.props
-
-    const classes = cx('ui-menu__item', styles.root, className)
-    const anchorClasses = cx('ui-menu__item__anchor', styles.anchor)
-    const ElementType = getElementType(MenuItem, this.props)
-    const rest = getUnhandledProps(MenuItem, this.props)
-
-    if (childrenExist(children)) {
-      return (
-        <ElementType {...rest} className={classes} onClick={this.handleClick}>
-          {children}
-        </ElementType>
-      )
-    }
+  renderComponent({ ElementType, classes, rest }) {
+    const { children, content } = this.props
 
     return (
-      <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        <a className={anchorClasses}>{content}</a>
+      <ElementType {...rest} className={classes.root} onClick={this.handleClick}>
+        {childrenExist(children) ? (
+          children
+        ) : (
+          <a className={cx('ui-menu__item__anchor', classes.anchor)}>{content}</a>
+        )}
       </ElementType>
     )
   }
 }
 
-export default createComponent(MenuItem, {
-  rules: menuItemRules,
-  variables: menuVariables,
-})
+MenuItem.create = createShorthandFactory(MenuItem, content => ({ content }))
+
+export default MenuItem

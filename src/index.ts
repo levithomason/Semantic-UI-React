@@ -1,5 +1,6 @@
 export { default as Accordion } from './components/Accordion'
 export { default as Button } from './components/Button'
+export { default as Chat } from './components/Chat'
 export { default as Divider } from './components/Divider'
 export { default as Image } from './components/Image'
 export { default as Label } from './components/Label'
@@ -13,5 +14,4 @@ export { default as ProviderConsumer } from './components/Provider/ProviderConsu
 export { default as Icon } from './components/Icon'
 export { default as Text } from './components/Text'
 export { default as Header } from './components/Header'
-export { HeaderContent } from './components/Header'
 export { HeaderSubheader } from './components/Header'
