@@ -226,9 +226,8 @@ export default (Component, options: any = {}) => {
       const expectedProps = _.uniq(computedProps).sort()
 
       const message =
-        'It seems that not all props were defined in Component.handledProps, you need' +
-        ' to check that they are equal to the union of Component.wrappedComponentAutoControlledProps and keys of ' +
-        'Component.wrappedComponentDefaultProps and Component.propTypes'
+        'Not all handled props were defined in static handledProps. Add all props defined in' +
+        ' static autoControlledProps, static defaultProps and static propTypes must.'
 
       expect({
         message,

@@ -9,6 +9,8 @@ import accordionTitleRules from './accordionTitleRules'
  * A standard AccordionTitle.
  */
 class AccordionTitle extends UIComponent<any, any> {
+  static displayName = 'AccordionTitle'
+
   static create: Function
 
   static className = 'ui-accordion__title'

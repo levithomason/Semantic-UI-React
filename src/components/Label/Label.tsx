@@ -10,6 +10,8 @@ import labelVariables from './labelVariables'
  * A label displays content classification
  */
 class Label extends UIComponent<any, any> {
+  static displayName = 'Label'
+
   static create: Function
 
   static className = 'ui-label'

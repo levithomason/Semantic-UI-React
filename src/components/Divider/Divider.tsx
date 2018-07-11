@@ -11,9 +11,9 @@ import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } f
  * This is shown at the top.
  */
 class Divider extends UIComponent<any, any> {
-  static create: Function
-
   static displayName = 'Divider'
+
+  static create: Function
 
   static className = 'ui-divider'
 
@@ -24,9 +24,6 @@ class Divider extends UIComponent<any, any> {
   static propTypes = {
     as: customPropTypes.as,
 
-    /** Size multiplier (default 0) * */
-    size: PropTypes.number,
-
     /** Child content * */
     children: PropTypes.node,
 
@@ -35,9 +32,12 @@ class Divider extends UIComponent<any, any> {
 
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
+
+    /** Size multiplier (default 0) * */
+    size: PropTypes.number,
   }
 
-  static handledProps = ['as', 'children', 'className', 'size']
+  static handledProps = ['as', 'children', 'className', 'content', 'size']
 
   static defaultProps = {
     size: 0,

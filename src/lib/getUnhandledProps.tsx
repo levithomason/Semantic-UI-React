@@ -6,17 +6,7 @@
  * @returns {{}} A shallow copy of the prop object
  */
 const getUnhandledProps = (Component, props) => {
-  const { handledProps } = Component
-
-  if (process.env.NODE_ENV !== 'production') {
-    if (!Array.isArray(handledProps)) {
-      const name = Component.displayName || Component.name
-
-      console.error(Component)
-
-      throw new Error(`\`${name}\` is missing static handledProps array.`)
-    }
-  }
+  const { handledProps = [] } = Component
 
   return Object.keys(props).reduce((acc, prop) => {
     if (handledProps.indexOf(prop) === -1) acc[prop] = props[prop]

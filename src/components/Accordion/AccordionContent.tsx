@@ -9,6 +9,8 @@ import accordionContentVariables from './accordionContentVariables'
  * A standard AccordionContent.
  */
 class AccordionContent extends UIComponent<any, any> {
+  static displayName = 'AccordionContent'
+
   static create: Function
 
   static className = 'ui-accordion__content'

@@ -19,6 +19,8 @@ class List extends UIComponent<any, any> {
   static propTypes = {
     as: customPropTypes.as,
 
+    children: PropTypes.node,
+
     /** Additional classes. */
     className: PropTypes.string,
 
@@ -39,8 +41,6 @@ class List extends UIComponent<any, any> {
 
     /** Variables */
     variables: PropTypes.object,
-
-    children: PropTypes.node,
   }
 
   static defaultProps = {
@@ -56,6 +56,7 @@ class List extends UIComponent<any, any> {
     'selection',
     'truncateContent',
     'truncateHeader',
+    'variables',
   ]
 
   static Item = ListItem

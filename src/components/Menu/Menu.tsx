@@ -6,9 +6,11 @@ import MenuItem from './MenuItem'
 import menuRules from './menuRules'
 
 class Menu extends UIComponent<any, any> {
-  static create: Function
+  static displayName = 'Menu'
 
   static className = 'ui-menu'
+
+  static create: Function
 
   static propTypes = {
     /** An element type to render as (string or function). */
@@ -28,7 +30,7 @@ class Menu extends UIComponent<any, any> {
     as: 'ul',
   }
 
-  static handledProps = ['as', 'children', 'className']
+  static handledProps = ['as', 'children', 'className', 'content']
 
   static Item = MenuItem
 

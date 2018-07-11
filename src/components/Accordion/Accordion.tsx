@@ -11,6 +11,8 @@ import AccordionContent from './AccordionContent'
  * A standard Accordion.
  */
 class Accordion extends AutoControlledComponent<any, any> {
+  static displayName = 'Accordion'
+
   static className = 'ui-accordion'
 
   static propTypes = {
@@ -61,8 +63,8 @@ class Accordion extends AutoControlledComponent<any, any> {
   static rules = accordionRules
 
   static handledProps = [
-    'as',
     'activeIndex',
+    'as',
     'children',
     'className',
     'defaultActiveIndex',

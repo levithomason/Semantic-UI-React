@@ -3,21 +3,16 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {
-  childrenExist,
-  createShorthandFactory,
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-  UIComponent,
-} from '../../lib'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 
 import menuItemRules from './menuItemRules'
 
 class MenuItem extends UIComponent<any, any> {
-  static create: Function
+  static displayName = 'MenuItem'
 
   static className = 'ui-menu__item'
+
+  static create: Function
 
   static rules = menuItemRules
 

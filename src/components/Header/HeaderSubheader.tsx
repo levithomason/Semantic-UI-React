@@ -13,6 +13,8 @@ class HeaderSubheader extends UIComponent<any, any> {
 
   static className = 'ui-header__subheader'
 
+  static displayName = 'HeaderSubheader'
+
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,

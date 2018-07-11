@@ -3,7 +3,6 @@ import React from 'react'
 
 import { childrenExist, customPropTypes, UIComponent } from '../../lib'
 import HeaderSubheader from './HeaderSubheader'
-import HeaderContent from './HeaderContent'
 import headerRules from './headerRules'
 import headerVariables from './headerVariables'
 
@@ -12,6 +11,8 @@ import headerVariables from './headerVariables'
  */
 class Header extends UIComponent<any, any> {
   static className = 'ui-header'
+
+  static displayName = 'Header'
 
   static propTypes = {
     /** An element type to render as (string or function). */
@@ -39,7 +40,6 @@ class Header extends UIComponent<any, any> {
 
   static variables = headerVariables
 
-  static Content = HeaderContent
   static Subheader = HeaderSubheader
 
   renderComponent({ ElementType, classes, rest }) {
