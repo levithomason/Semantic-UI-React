@@ -32,6 +32,7 @@ CONTRIBUTING
     - [Usage](#usage)
     - [isConformant (required)](#isconformant-required)
     - [Writing tests](#writing-tests)
+    - [Good tests](#good-tests)
     - [Running tests](#running-tests)
 - [State](#state)
   - [AutoControlledComponent](#autocontrolledcomponent)
@@ -497,6 +498,12 @@ Create your test file in `test/specs` directory. The **specs** directory mirrors
 For every source file, there needs to be a test file and they should named as `<Component>-test.js`.
 
 There should be one describe block for each prop of your component.
+
+#### Good tests
+
+We want to test 1) behaviors the user expects through 2) the public API.  This means our tests use the same APIs that the user will use.  The assertions we make are assertions about what the results the user expects given the public API usage under test.
+
+For public APIs that result in style changes, we rely on visual testing since that is the result the user is expecting.
 
 #### Running tests
 
