@@ -16,12 +16,12 @@ const Types = () => (
     />
     <ComponentExample
       title="Primary divider"
-      description="A Divider can be styled as primary."
+      description="A primary Divider catches the user's attention."
       examplePath="components/Divider/Types/DividerExamplePrimary"
     />
     <ComponentExample
       title="Secondary divider"
-      description="A Divider can be styled as secondary."
+      description="A secondary Divider is more subtle and less noticeable."
       examplePath="components/Divider/Types/DividerExampleSecondary"
     />
   </ExampleSection>
