@@ -1,6 +1,5 @@
 import React from 'react'
 import { Accordion, List, Image, Button } from 'stardust'
-import { render } from 'react-dom'
 
 class AccordionExampleList extends React.Component {
   imgStyle = { display: 'block', width: '2rem' }
