@@ -32,6 +32,9 @@ class MenuItem extends UIComponent<any, any> {
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
 
+    /** MenuItem index inside Menu. */
+    index: PropTypes.number,
+
     /**
      * Called on click. When passed, the component will render as an `a`
      * tag by default instead of a `div`.
@@ -40,20 +43,39 @@ class MenuItem extends UIComponent<any, any> {
      * @param {object} data - All props.
      */
     onClick: PropTypes.func,
+
+    /** A menu can point to show its relationship to nearby content. */
+    pointing: PropTypes.bool,
+
+    /** FELA styles */
+    styles: PropTypes.object,
+
+    /** The menu can have primary or secondary type */
+    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
   }
 
   static defaultProps = {
     as: 'li',
   }
 
-  static handledProps = ['active', 'as', 'children', 'className', 'content', 'onClick']
+  static handledProps = [
+    'active',
+    'as',
+    'children',
+    'className',
+    'content',
+    'index',
+    'onClick',
+    'pointing',
+    'type',
+  ]
 
   handleClick = e => {
     _.invoke(this.props, 'onClick', e, this.props)
   }
 
   renderComponent({ ElementType, classes, rest }) {
-    const { children, content, onClick } = this.props
+    const { children, content } = this.props
 
     return (
       <ElementType {...rest} className={classes.root} onClick={this.handleClick}>

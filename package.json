@@ -16,11 +16,11 @@
     "ci": "yarn lint && yarn prettier && yarn test",
     "predeploy:docs": "cross-env NODE_ENV=production yarn build:docs",
     "deploy:docs": "gulp deploy:docs",
-    "lint": "tslint -p .",
+    "lint": "tslint -t stylish -p .",
     "lint:fix": "yarn lint --fix",
     "prettier": "prettier --list-different \"**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx}\"",
-    "precommit": "lint-staged && gulp build:docs:toc",
+    "precommit": "lint-staged",
     "postcommit": "git update-index --again",
     "prerelease": "yarn ci && cross-env NODE_ENV=production yarn build",
     "postrelease": "yarn deploy:docs",
@@ -31,14 +31,14 @@
     "start": "gulp --series dll docs",
     "satisfied": "satisfied --skip-invalid",
     "pretest": "yarn satisfied && gulp build:docs:docgen",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "yarn test --watchAll",
     "generate:component": "gulp generate:component"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "prettier --write",
-      "tslint --fix",
+      "tslint -t stylish --fix",
       "git add"
     ]
   },
@@ -53,6 +53,8 @@
   },
   "homepage": "https://github.com/stardust-ui/stardust#readme",
   "jest": {
+    "coverageDirectory": "./coverage/",
+    "coverageReporters": ["json", "lcov"],
     "testRegex": "/test/.*-test\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
@@ -64,9 +66,6 @@
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
-    "roots": [
-      "<rootDir>/test/specs"
-    ],
     "moduleNameMapper": {
       "docs/(.*)$": "<rootDir>/docs/$1",
       "src/(.*)$": "<rootDir>/src/$1",
@@ -104,7 +103,6 @@
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "express": "^4.15.4",
-    "faker": "^4.1.0",
     "gh-pages": "^1.0.0",
     "gulp": "^4.0.0",
     "gulp-debug": "^4.0.0",

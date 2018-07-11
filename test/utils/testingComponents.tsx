@@ -3,11 +3,15 @@ import { mount } from 'enzyme'
 
 import Provider from 'src/components/Provider'
 
-export const getComponentMountedWithProvider = (Element: any, options?: {}) =>
-  mount(<Provider siteVariables={{}}>{Element}</Provider>, options)
+export const withProvider = element => <Provider siteVariables={{}}>{element}</Provider>
 
-export const getTestingRenderedComponent = (Component: any, Element: any, options?: {}) => {
-  const wrapper = getComponentMountedWithProvider(Element, options)
+export const mountWithProvider = (Element: React.ReactNode, options?: {}) =>
+  mount(withProvider(Element), options)
 
-  return wrapper.find(Component)
+export const getTestingRenderedComponent = (
+  Component: any,
+  Element: React.ReactNode,
+  options?: {},
+) => {
+  return mountWithProvider(Element, options).find(Component)
 }
