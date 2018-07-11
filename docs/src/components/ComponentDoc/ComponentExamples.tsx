@@ -2,7 +2,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React, { Component, createElement } from 'react'
 
-import { exampleContext } from 'docs/src/utils'
+import { exampleContext, truncateStyle } from 'docs/src/utils'
 import { Grid, List } from 'semantic-ui-react'
 import { examplePathPatterns } from './ComponentExample'
 import ContributionPrompt from './ContributionPrompt'
@@ -44,7 +44,7 @@ export default class ComponentExamples extends Component<IComponentExamples, any
     }
 
     // rules #2 and #3
-    const missingPaths = this.testExamplesStructure({ displayName, allPaths })
+    const missingPaths = this.testExamplesStructure(displayName, allPaths)
     return missingPaths && missingPaths.length ? (
       <div>
         {this.renderMissingShorthandExamples(missingPaths)} {ExamplesElement}
@@ -59,7 +59,9 @@ export default class ComponentExamples extends Component<IComponentExamples, any
 
     return this.renderElementWrappedInGrid(
       <ContributionPrompt>
-        Looks like we're missing <code>{`<${displayName} />`}</code> examples.
+        <div style={truncateStyle}>
+          Looks like we're missing <code title={displayName}>{`<${displayName} />`}</code> examples.
+        </div>
       </ContributionPrompt>,
     )
   }
@@ -79,13 +81,7 @@ export default class ComponentExamples extends Component<IComponentExamples, any
     </Grid>
   )
 
-  private testExamplesStructure({
-    allPaths,
-    displayName,
-  }: {
-    allPaths: string[]
-    displayName: string,
-  }): string[] {
+  private testExamplesStructure(displayName: string, allPaths: string[]): string[] {
     const examplesPattern = `\.\/\\w*\/${displayName}[\\w\/]*\/\\w+Example`
     const allExamplesRegExp = new RegExp(`${examplesPattern}[\\w\.]*\.tsx$`)
 

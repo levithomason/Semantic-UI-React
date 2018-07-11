@@ -17,6 +17,7 @@ import {
   repoURL,
   scrollToAnchor,
   variablesContext,
+  truncateStyle,
 } from 'docs/src/utils'
 import Editor from 'docs/src/components/Editor/Editor'
 import ComponentControls from '../ComponentControls'
@@ -255,12 +256,17 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     return _.isFunction(Example) ? this.renderWithProvider(Example) : Example
   }
 
-  private renderMissingExample = (): JSX.Element => (
-    <ContributionPrompt>
-      Looks like we're missing{' '}
-      <code>{`./docs/src/examples/${this.sourceCodeMgr.currentPath}.tsx`}</code> example.
-    </ContributionPrompt>
-  )
+  private renderMissingExample = (): JSX.Element => {
+    const missingExamplePath = `./docs/src/examples/${this.sourceCodeMgr.currentPath}.tsx`
+    return (
+      <ContributionPrompt>
+        <div style={truncateStyle}>
+          Looks like we're missing <code title={missingExamplePath}>{missingExamplePath}</code>{' '}
+          example.
+        </div>
+      </ContributionPrompt>
+    )
+  }
 
   private renderSourceCode = _.debounce(() => {
     try {
