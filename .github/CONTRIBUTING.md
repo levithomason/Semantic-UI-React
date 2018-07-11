@@ -39,6 +39,7 @@ CONTRIBUTING
   - [Website](#website)
   - [Components](#components)
   - [Props](#props)
+    - [Writing prop descriptions](#writing-prop-descriptions)
   - [Examples](#examples)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -144,7 +145,6 @@ const MyComponent = props => {
   ))
 }
 ```
-  
 
 ### Conformance Test
 
@@ -605,6 +605,22 @@ Label.propTypes = {
   ]),
 }
 ```
+
+#### Writing prop descriptions
+
+Avoid descriptions that say exactly what the props are. Example, given a Divider component and prop is "primary", it is already apparent to the user that 'A Divider can be styled as primary.'  This description is not helpful.
+
+Instead, try to describe the intent or purpose of the prop. Another way to think of it is, how would you explain this prop to someone who can't see the component? How would you define this prop as a specification to someone to implement it? This angle forces us to describe the prop opposed to declaring that it exists as a prop.
+
+// Do
+
+"A primary Divider catches the user's attention."
+"A secondary Divider is more subtle and less noticeable."
+
+// Don't
+
+"A Divider can be styled as primary."
+"A Divider can be styled as secondary."
 
 ### Examples
 
