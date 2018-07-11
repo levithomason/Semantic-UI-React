@@ -47,9 +47,6 @@ class MenuItem extends UIComponent<any, any> {
     /** A menu can point to show its relationship to nearby content. */
     pointing: PropTypes.bool,
 
-    /** FELA styles */
-    styles: PropTypes.object,
-
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['default', 'primary', 'secondary']),
   }

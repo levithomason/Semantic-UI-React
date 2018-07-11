@@ -2,23 +2,16 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {
-  AutoControlledComponent,
-  childrenExist,
-  createShorthandFactory,
-  customPropTypes,
-} from '../../lib'
+import { AutoControlledComponent, childrenExist, customPropTypes } from '../../lib'
 import MenuItem from './MenuItem'
 import menuRules from './menuRules'
 
-class Menu extends AutoControlledComponent {
-  static autoControlledProps = ['activeIndex']
+class Menu extends AutoControlledComponent<any, any> {
+  static displayName = 'Menu'
 
   static className = 'ui-menu'
 
   static create: Function
-
-  static displayName = 'Menu'
 
   static propTypes = {
     /** An element type to render as (string or function). */
@@ -32,9 +25,6 @@ class Menu extends AutoControlledComponent {
 
     /** Additional classes. */
     className: PropTypes.string,
-
-    /** Shorthand for primary content. */
-    content: customPropTypes.contentShorthand,
 
     /** Initial activeIndex value. */
     defaultActiveIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -62,9 +52,12 @@ class Menu extends AutoControlledComponent {
     'defaultActiveIndex',
     'items',
     'pointing',
-    'styles',
     'type',
   ]
+
+  static autoControlledProps = ['activeIndex']
+
+  static rules = menuRules
 
   static Item = MenuItem
 
@@ -99,12 +92,10 @@ class Menu extends AutoControlledComponent {
     const { children, content } = this.props
     return (
       <ElementType {...rest} className={classes.root}>
-        {childrenExist(children) ? children : content}
+        {childrenExist(children) ? children : this.renderItems()}
       </ElementType>
     )
   }
 }
-
-Menu.create = createShorthandFactory(Menu, content => ({ content }))
 
 export default Menu

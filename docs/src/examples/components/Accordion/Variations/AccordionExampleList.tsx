@@ -3,16 +3,21 @@ import { Accordion, List, Image, Button } from 'stardust'
 
 class AccordionExampleList extends React.Component {
   render() {
-    const listItems = [
-      { key: 'a', media: <Image avatar src="//placehold.it/100" />, header: 'cat' },
-      { key: 'b', media: <Image avatar src="//placehold.it/100" />, header: 'dog' },
-      { key: 'c', media: <Image avatar src="//placehold.it/100" />, header: 'mouse' },
-    ]
-
     const panels = [
       {
         title: 'Pets',
-        content: [<List key="a" items={listItems} />, <Button key="b">Add pet</Button>],
+        content: (
+          <div>
+            <List
+              items={[
+                { key: 'a', media: <Image avatar src="//placehold.it/100" />, header: 'cat' },
+                { key: 'b', media: <Image avatar src="//placehold.it/100" />, header: 'dog' },
+                { key: 'c', media: <Image avatar src="//placehold.it/100" />, header: 'mouse' },
+              ]}
+            />
+            <Button>Add pet</Button>
+          </div>
+        ),
       },
     ]
 
