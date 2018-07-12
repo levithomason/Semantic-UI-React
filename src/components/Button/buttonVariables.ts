@@ -20,7 +20,7 @@ export default (siteVars: any): IButtonVariables => {
     backgroundColor: siteVars.gray08,
     backgroundColorHover: siteVars.gray06,
     circularRadius: pxToRem(999),
-    circularWidth: '32px',
+    circularWidth: pxToRem(32),
     typePrimaryColor: siteVars.white,
     typePrimaryBackgroundColor: siteVars.brand,
     typePrimaryBackgroundColorHover: siteVars.brand04,

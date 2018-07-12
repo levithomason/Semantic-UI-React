@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { html } from 'js-beautify'
 import copyToClipboard from 'copy-to-clipboard'
 import { Divider, Form, Grid, Menu, Segment, Visibility } from 'semantic-ui-react'
-import { pxToRem } from 'src/lib'
+import { pxToRem, createSpy, ActiveVariablesTracker } from 'src/lib'
 import evalTypeScript from 'docs/src/utils/evalTypeScript'
 import { Provider } from 'stardust'
 
@@ -39,6 +39,18 @@ const controlsWrapperStyle = {
   minHeight: pxToRem(30),
 }
 
+const variablesPanelStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  maxHeight: pxToRem(250),
+  overflowY: 'auto',
+}
+
+const variableInputStyle = {
+  paddingBottom: pxToRem(10),
+}
+
 /**
  * Renders a `component` and the raw `code` that produced it.
  * Allows toggling the the raw `code` code block.
@@ -51,6 +63,7 @@ class ComponentExample extends PureComponent<any, any> {
   KnobsComponent: any
   ghBugHref: any
   ghEditHref: any
+  variablesTracker = new ActiveVariablesTracker()
 
   static contextTypes = {
     onPassed: PropTypes.func,
@@ -297,8 +310,21 @@ class ComponentExample extends PureComponent<any, any> {
   getComponentName = () => this.props.examplePath.split('/')[1]
 
   renderWithProvider(ExampleComponent) {
+    const variableSpies = createSpy({
+      componentDisplayName: this.getComponentName(),
+      onVariableTouched: variableName => this.variablesTracker.registerAsActive(variableName),
+      whenApplied: () => {
+        this.variablesTracker.isEnabled = true
+      },
+    })
+
+    this.variablesTracker.resetAndDisable()
     return (
-      <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
+      <Provider
+        componentVariables={this.state.componentVariables}
+        rtl={this.state.showRtl}
+        variableSpies={variableSpies}
+      >
         <ExampleComponent knobs={this.getKnobsValue()} />
       </Provider>
     )
@@ -439,9 +465,13 @@ class ComponentExample extends PureComponent<any, any> {
             return (
               <div>
                 <Form>
-                  <Form.Group inline>
+                  <Form.Group inline style={variablesPanelStyle}>
                     {_.map(defaultVariables, (val, key) => (
                       <Form.Input
+                        disabled={
+                          this.variablesTracker.isEnabled && !this.variablesTracker.isActive(key)
+                        }
+                        style={variableInputStyle}
                         key={key}
                         label={key}
                         defaultValue={val}

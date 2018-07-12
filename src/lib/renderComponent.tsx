@@ -45,7 +45,7 @@ const renderComponent = <P extends {}>(
         const mergedVariables = () =>
           Object.assign({}, variablesFromFile, variablesFromTheme, variablesFromProp)
 
-        const classes = getClasses(props, rules, mergedVariables, theme)
+        const classes = getClasses(displayName, props, rules, mergedVariables, theme)
         classes.root = cx(className, classes.root, props.className)
 
         const config: IRenderResultConfig<P> = { ElementType, rest, classes }

@@ -1,22 +1,27 @@
 import renderer from './felaRenderer'
+import { connect } from './variablesTracking'
 
 export interface IClasses {
   [key: string]: string
 }
 
 /**
+ * @param displayName
  * @param rules
  * @param props
  * @param variables
  * @param theme
  * @returns {{}}
  */
-const getClasses = (props, rules, variables: any = () => {}, theme: any = {}): IClasses => {
+const getClasses = (displayName: string, props, rules, getVariables: any = () => {}, theme: any = {}): IClasses => {
   const { renderRule } = renderer
+  const variables = getVariables(theme.siteVariables)
+
   const ruleProps = {
     props,
     theme,
-    variables: variables(theme.siteVariables),
+    variables: variables,
+    trackVariables: connect(theme.spies || {}, displayName, variables)
   }
 
   return Object.keys(rules).reduce((acc, ruleName) => {
