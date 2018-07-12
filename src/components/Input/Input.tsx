@@ -1,23 +1,33 @@
 import PropTypes from 'prop-types'
-import React, { Children, cloneElement, Component } from 'react'
+import React, { Children, cloneElement } from 'react'
 import cx from 'classnames'
 import _ from 'lodash'
 
 import {
   childrenExist,
-  createComponent,
   createHTMLInput,
   customPropTypes,
   getElementType,
   getUnhandledProps,
   partitionHTMLProps,
+  UIComponent,
   useKeyOnly,
 } from '../../lib'
 import inputRules from './inputRules'
 import inputVariables from './inputVariables'
 import Icon from '../Icon'
 
-class Input extends Component<any, any> {
+/**
+ * An Input
+ */
+class Input extends UIComponent<any, any> {
+  static className = 'ui-input'
+
+  static displayName = 'Input'
+
+  static rules = inputRules
+  static variables = inputVariables
+
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
@@ -105,25 +115,23 @@ class Input extends Component<any, any> {
     }
   }
 
-  render() {
+  renderComponent({ ElementType, classes, rest }) {
     const { children, className, error, focus, icon, input, styles, themes, type } = this.props
-    const [htmlInputProps, rest] = this.partitionProps()
-    const ElementType = getElementType(Input, this.props)
-    const themesClasses = cx(styles.themes)
-    const iconClasses = cx('ui-input-icon', styles.icon)
-    const focusClasses = cx(styles.focus)
-    const errorClasses = cx(styles.error)
+    const [htmlInputProps, restX] = this.partitionProps()
 
-    const classes = cx(
-      'ui-input',
-      useKeyOnly(error, 'error'),
-      useKeyOnly(focus, 'focus'),
-      styles.root,
-      className,
-      themes && themesClasses,
-      focus && focusClasses,
-      error && errorClasses,
-      icon && iconClasses,
+    const inputClasses = cx(
+      classes.root,
+      themes && classes.inputThemes,
+      focus && classes.inputFocus,
+      error && classes.inputError,
+      icon && classes.inputWithIcon,
+    )
+
+    const iconClasses = cx(
+      classes.root,
+      focus && classes.iconFocus,
+      error && classes.iconError,
+      themes && classes.iconThemes,
     )
 
     // Render with children
@@ -136,7 +144,7 @@ class Input extends Component<any, any> {
       })
 
       return (
-        <ElementType {...rest} className={classes}>
+        <ElementType {...rest} className={classes.root}>
           {childElements}
         </ElementType>
       )
@@ -144,25 +152,25 @@ class Input extends Component<any, any> {
 
     if (this.computeIcon()) {
       return (
-        <ElementType {...rest} className={classes} {...htmlInputProps}>
-          {createHTMLInput(input || type, { defaultProps: htmlInputProps, className: classes })}
-          <Icon name={this.computeIcon()} />
+        <ElementType {...rest} className={classes.root} {...htmlInputProps}>
+          {createHTMLInput(input || type, {
+            defaultProps: htmlInputProps,
+            className: classes.inputClasses,
+          })}
+          <Icon name={this.computeIcon()} className={classes.iconClasses} />
         </ElementType>
       )
     }
 
     return (
-      <ElementType {...rest} className={classes} {...htmlInputProps}>
+      <ElementType {...rest} className={classes.root} {...htmlInputProps}>
         {createHTMLInput(input || type, {
           defaultProps: htmlInputProps,
-          overrideProps: { className: classes },
+          overrideProps: { className: inputClasses },
         })}
       </ElementType>
     )
   }
 }
 
-export default createComponent(Input, {
-  rules: inputRules,
-  variables: inputVariables,
-})
+export default Input

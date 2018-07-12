@@ -1,33 +1,33 @@
 import { pxToRem } from '../../lib'
 
-export default ({ error, focus, icon, themes, variables }) => ({
-  root: {
-    display: 'inline-flex',
-    position: 'relative',
-    '>input': {
-      borderRadius: variables.borderRadius,
-      padding: `${pxToRem(6)} ${pxToRem(10)}`,
-      outline: 0,
-      border: variables.defaultBorder,
-    },
-    '>input:focus': { border: variables.defaultBorderFocus },
+const inputRules = {
+  root: ({ props, variables }) => {
+    return {
+      display: 'inline-flex',
+      position: 'relative',
+      '>input': {
+        borderRadius: variables.borderRadius,
+        padding: `${pxToRem(6)} ${pxToRem(10)}`,
+        outline: 0,
+        border: variables.defaultBorder,
+      },
+      '>input:focus': { border: variables.defaultBorderFocus },
+    }
   },
 
-  focus: {
-    '>input': { border: variables.defaultBorderFocus },
+  inputFocus: ({ props, variables }) => {
+    return { border: variables.defaultBorderFocus }
   },
 
-  error: {
-    '>input': {
+  inputError: ({ props, variables }) => {
+    return {
       border: variables.defaultBorderError,
       backgroundColor: '#fff6f6',
-    },
+    }
   },
-  icon: {
-    '>input': {
-      padding: `${pxToRem(6)} ${pxToRem(25)} ${pxToRem(6)} ${pxToRem(10)}`,
-    },
-    '>i': {
+
+  icon: ({ props, variables }) => {
+    return {
       position: 'absolute',
       top: 0,
       right: 0,
@@ -44,12 +44,28 @@ export default ({ error, focus, icon, themes, variables }) => ({
         marginTop: '-5px',
         width: '100%',
       },
-    },
+    }
   },
 
-  themes: {
-    ...(themes === 'teams' && {
-      '>input': {
+  inputWithIcon: ({ props, variables }) => {
+    return {
+      padding: `${pxToRem(6)} ${pxToRem(25)} ${pxToRem(6)} ${pxToRem(10)}`,
+    }
+  },
+
+  iconThemes: ({ props, variables }) => {
+    const { themes } = props
+    return {
+      ...(themes === 'teams' && {
+        color: '#222426',
+      }),
+    }
+  },
+
+  inputThemes: ({ props, variables }) => {
+    const { themes } = props
+    return {
+      ...(themes === 'teams' && {
         backgroundColor: variables.themeBackgroundColor,
         color: variables.themeFontColor,
         height: '100%',
@@ -61,10 +77,9 @@ export default ({ error, focus, icon, themes, variables }) => ({
           borderColor: 'transparent',
           borderBottom: variables.themeFocusBorderBottom,
         },
-      },
-      '>i': {
-        color: '#222426',
-      },
-    }),
+      }),
+    }
   },
-})
+}
+
+export default inputRules
