@@ -14,7 +14,8 @@ import {
   useKeyOnly,
 } from '../../lib'
 import inputRules from './inputRules'
-import Button from '../Button'
+import inputVariables from './inputVariables'
+import Icon from '../Icon'
 
 class Input extends Component<any, any> {
   static propTypes = {
@@ -36,16 +37,24 @@ class Input extends Component<any, any> {
     /** Optional Icon to display inside the Input. */
     icon: PropTypes.oneOfType([PropTypes.bool, customPropTypes.itemShorthand]),
 
+    /** Shorthand for creating the HTML Input. */
+    input: customPropTypes.itemShorthand,
+
     /** The HTML input type. */
     type: PropTypes.string,
+
+    /** One of the predefined themes to be applied on the element. */
+    themes: PropTypes.string,
   }
 
   static handleProps = ['as']
 
   static defaultProps = {
-    as: 'input',
+    as: 'div',
     type: 'text',
   }
+
+  inputRef: PropTypes.ref
 
   focus = () => this.inputRef.focus()
 
@@ -87,6 +96,7 @@ class Input extends Component<any, any> {
     const { icon } = this.props
 
     if (!_.isNil(icon)) return icon
+    return null
   }
 
   componentDidMount() {
@@ -96,15 +106,24 @@ class Input extends Component<any, any> {
   }
 
   render() {
-    const { children, className, error, focus, styles, type } = this.props
+    const { children, className, error, focus, icon, input, styles, themes, type } = this.props
     const [htmlInputProps, rest] = this.partitionProps()
     const ElementType = getElementType(Input, this.props)
+    const themesClasses = cx(styles.themes)
+    const iconClasses = cx('ui-input-icon', styles.icon)
+    const focusClasses = cx(styles.focus)
+    const errorClasses = cx(styles.error)
+
     const classes = cx(
       'ui-input',
       useKeyOnly(error, 'error'),
       useKeyOnly(focus, 'focus'),
       styles.root,
       className,
+      themes && themesClasses,
+      focus && focusClasses,
+      error && errorClasses,
+      icon && iconClasses,
     )
 
     // Render with children
@@ -123,9 +142,21 @@ class Input extends Component<any, any> {
       )
     }
 
+    if (this.computeIcon()) {
+      return (
+        <ElementType {...rest} className={classes} {...htmlInputProps}>
+          {createHTMLInput(input || type, { defaultProps: htmlInputProps, className: classes })}
+          <Icon name={this.computeIcon()} />
+        </ElementType>
+      )
+    }
+
     return (
       <ElementType {...rest} className={classes} {...htmlInputProps}>
-        {Button.create(this.computeIcon())}
+        {createHTMLInput(input || type, {
+          defaultProps: htmlInputProps,
+          overrideProps: { className: classes },
+        })}
       </ElementType>
     )
   }
@@ -133,4 +164,5 @@ class Input extends Component<any, any> {
 
 export default createComponent(Input, {
   rules: inputRules,
+  variables: inputVariables,
 })
