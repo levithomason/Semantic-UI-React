@@ -36,3 +36,10 @@ export { default as leven } from './leven'
 
 export { pxToRem, setHTMLFontSize } from './fontSizeUtility'
 export { customPropTypes, SUI }
+
+export {
+  createSpy,
+  connect,
+  ActiveVariablesTracker,
+  WithTrackedVariables,
+} from './variablesTracking'

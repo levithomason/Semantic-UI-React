@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { html } from 'js-beautify'
 import copyToClipboard from 'copy-to-clipboard'
 import { Divider, Form, Grid, Menu, Segment, Visibility } from 'semantic-ui-react'
-import { pxToRem } from 'src/lib'
+import { pxToRem, createSpy, ActiveVariablesTracker } from 'src/lib'
 import evalTypeScript from 'docs/src/utils/evalTypeScript'
 import { Provider } from 'stardust'
 
@@ -42,6 +42,7 @@ const controlsWrapperStyle = {
 const variablesPanelStyle = {
   display: 'flex',
   flexWrap: 'wrap',
+  justifyContent: 'space-between',
   maxHeight: pxToRem(250),
   overflowY: 'auto',
 }
@@ -62,6 +63,7 @@ class ComponentExample extends PureComponent<any, any> {
   KnobsComponent: any
   ghBugHref: any
   ghEditHref: any
+  variablesTracker = new ActiveVariablesTracker()
 
   static contextTypes = {
     onPassed: PropTypes.func,
@@ -249,8 +251,6 @@ class ComponentExample extends PureComponent<any, any> {
   renderSourceCode = _.debounce(() => {
     try {
       const Example = evalTypeScript(this.state.sourceCode)
-
-      console.log(Example)
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {
@@ -310,11 +310,21 @@ class ComponentExample extends PureComponent<any, any> {
   getComponentName = () => this.props.examplePath.split('/')[1]
 
   renderWithProvider(ExampleComponent) {
-    console.log('renderWithProvider:state', this.state)
-    console.log('renderWithProivder:componentVariables', this.state.componentVariables)
+    const variableSpies = createSpy({
+      componentDisplayName: this.getComponentName(),
+      onVariableTouched: variableName => this.variablesTracker.registerAsActive(variableName),
+      whenApplied: () => {
+        this.variablesTracker.isEnabled = true
+      },
+    })
 
+    this.variablesTracker.resetAndDisable()
     return (
-      <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
+      <Provider
+        componentVariables={this.state.componentVariables}
+        rtl={this.state.showRtl}
+        variableSpies={variableSpies}
+      >
         <ExampleComponent knobs={this.getKnobsValue()} />
       </Provider>
     )
@@ -458,6 +468,9 @@ class ComponentExample extends PureComponent<any, any> {
                   <Form.Group inline style={variablesPanelStyle}>
                     {_.map(defaultVariables, (val, key) => (
                       <Form.Input
+                        disabled={
+                          this.variablesTracker.isEnabled && !this.variablesTracker.isActive(key)
+                        }
                         style={variableInputStyle}
                         key={key}
                         label={key}
@@ -481,6 +494,7 @@ class ComponentExample extends PureComponent<any, any> {
         componentVariables: {
           ...state.componentVariables,
           [component]: {
+            ...(state.componentVariables && state.componentVariables[component]),
             [variable]: value,
           },
         },

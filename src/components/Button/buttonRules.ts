@@ -1,51 +1,38 @@
 import { IButtonVariables } from './buttonVariables'
 
 export default {
-  root: ({ props, theme, variables }) => {
-    const {
-      backgroundColor,
-      backgroundColorHover,
-      circularRadius,
-      circularWidth,
-      typePrimaryColor,
-      typePrimaryBackgroundColor,
-      typePrimaryBackgroundColorHover,
-      typePrimaryBorderColor,
-      typeSecondaryColor,
-      typeSecondaryBackgroundColor,
-      typeSecondaryBackgroundColorHover,
-      typeSecondaryBorderColor,
-    }: IButtonVariables = variables
+  root: ({ props, theme, trackVariables }) => {
+    const v = trackVariables()
 
     return {
-      backgroundColor,
+      backgroundColor: v.backgroundColor,
       display: 'inline-block',
       verticalAlign: 'middle',
       cursor: 'pointer',
       borderWidth: 0,
       ':hover': {
-        backgroundColor: backgroundColorHover,
+        backgroundColor: v.backgroundColorHover,
       },
 
-      ...(props.circular && { borderRadius: circularRadius, width: circularWidth }),
+      ...(props.circular && { borderRadius: v.circularRadius, width: v.circularWidth }),
 
       ...(props.type === 'primary' && {
-        color: typePrimaryColor,
-        backgroundColor: typePrimaryBackgroundColor,
-        borderColor: typePrimaryBorderColor,
+        color: v.typePrimaryColor,
+        backgroundColor: v.typePrimaryBackgroundColor,
+        borderColor: v.typePrimaryBorderColor,
         ':hover': {
-          backgroundColor: typePrimaryBackgroundColorHover,
+          backgroundColor: v.typePrimaryBackgroundColorHover,
         },
       }),
 
       ...(props.type === 'secondary' && {
-        color: typeSecondaryColor,
-        backgroundColor: typeSecondaryBackgroundColor,
-        borderColor: typeSecondaryBorderColor,
+        color: v.typeSecondaryColor,
+        backgroundColor: v.typeSecondaryBackgroundColor,
+        borderColor: v.typeSecondaryBorderColor,
         borderWidth: '2px',
         ':hover': {
           borderColor: 'transparent',
-          backgroundColor: typeSecondaryBackgroundColorHover,
+          backgroundColor: v.typeSecondaryBackgroundColorHover,
         },
       }),
     }
