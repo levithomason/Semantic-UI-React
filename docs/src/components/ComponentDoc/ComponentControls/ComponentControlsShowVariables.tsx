@@ -5,16 +5,18 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { updateForKeys } from 'docs/src/hoc'
 import ComponentControlsToolTip from './ComponentControlsToolTip'
 
-const content = 'Edit Variables'
+const ComponentControlsShowVariables: any = ({ active, onClick }) => {
+  const btnLabel = 'Edit Variables'
 
-const ComponentControlsShowVariables: any = ({ active, onClick }) => (
-  <ComponentControlsToolTip content={content}>
-    <Menu.Item active={active} onClick={onClick}>
-      <Icon color={active ? 'green' : 'grey'} fitted name="theme" size="large" />
-      {content}
-    </Menu.Item>
-  </ComponentControlsToolTip>
-)
+  return (
+    <ComponentControlsToolTip content={btnLabel}>
+      <Menu.Item active={active} onClick={onClick}>
+        <Icon color={active ? 'green' : 'grey'} fitted name="theme" size="large" />
+        {btnLabel}
+      </Menu.Item>
+    </ComponentControlsToolTip>
+  )
+}
 
 ComponentControlsShowVariables.propTypes = {
   active: PropTypes.bool,
