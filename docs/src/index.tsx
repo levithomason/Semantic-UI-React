@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import faker from 'faker'
 
 // TODO make themes a monorepo of packages
 import { siteVariables, normalizeCSS } from 'src/themes/teams'
@@ -46,6 +47,9 @@ const fontFaces = [
     style: { fontWeight: 700 },
   },
 ]
+
+// Set faker seed to keep faker content consistant
+faker.seed(1333)
 
 const render = NewApp =>
   ReactDOM.render(

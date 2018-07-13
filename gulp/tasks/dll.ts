@@ -2,6 +2,7 @@ import { task, series } from 'gulp'
 import loadPlugins from 'gulp-load-plugins'
 import rimraf from 'rimraf'
 import webpack from 'webpack'
+import faker from 'faker'
 
 import config from '../../config'
 

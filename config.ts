@@ -91,6 +91,7 @@ const config = {
     'brace/theme/tomorrow',
     'classnames',
     'copy-to-clipboard',
+    'faker',
     'react-ace',
   ],
 }

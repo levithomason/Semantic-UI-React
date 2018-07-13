@@ -1,3 +1,4 @@
+import faker from 'faker'
 import _ from 'lodash'
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
@@ -411,7 +412,7 @@ export default (Component, options: any = {}) => {
 
       if (!defaultClasses) return
 
-      const userClasses = 'generate'
+      const userClasses = faker.hacker.verb()
       const wrapperWithCustomClasses = mount(
         <Component {...requiredProps} className={userClasses} />,
       )

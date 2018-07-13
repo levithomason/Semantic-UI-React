@@ -1,3 +1,4 @@
+import faker from 'faker'
 import React, { createElement } from 'react'
 
 import helpers from './commonHelpers'
@@ -17,13 +18,12 @@ export default (Component, options = {}) => {
 
   describe('children (common)', () => {
     it('renders child text', () => {
-      const text =
-        "transmitting the program won't do anything, we need to quantify the open-source SMS system!"
+      const text = faker.hacker.phrase()
       shallow(createElement(Component, requiredProps, text)).should.contain.text(text)
     })
 
     it('renders child components', () => {
-      const child = <div data-child="hard drive" />
+      const child = <div data-child={faker.hacker.noun()} />
       shallow(createElement(Component, requiredProps, child)).should.contain(child)
     })
 
@@ -35,14 +35,14 @@ export default (Component, options = {}) => {
   if (rendersContent) {
     describe('content (common)', () => {
       it('renders child text', () => {
-        const text = 'Try to copy the PCI firewall, maybe it will hack the multi-byte panel!'
+        const text = faker.hacker.phrase()
         shallow(createElement(Component, { ...requiredProps, content: text })).should.contain.text(
           text,
         )
       })
 
       it('renders child components', () => {
-        const child = <div data-child="application" />
+        const child = <div data-child={faker.hacker.noun()} />
         shallow(createElement(Component, { ...requiredProps, content: child })).should.contain(
           child,
         )
