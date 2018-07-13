@@ -20,7 +20,7 @@ const previewStyle: CSSProperties = {
   zIndex: 10,
   opacity: 0.25,
   bottom: 0,
-  background: 'linear-gradient(#fff, #fff, black)',
+  background: 'linear-gradient(#fff, #fff, #666)',
   width: '100%',
 }
 
