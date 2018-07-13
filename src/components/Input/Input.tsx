@@ -121,18 +121,14 @@ class Input extends UIComponent<any, any> {
 
     const inputClasses = cx(
       classes.root,
+      classes.input,
       themes && classes.inputThemes,
       focus && classes.inputFocus,
       error && classes.inputError,
       icon && classes.inputWithIcon,
     )
 
-    const iconClasses = cx(
-      classes.root,
-      focus && classes.iconFocus,
-      error && classes.iconError,
-      themes && classes.iconThemes,
-    )
+    const iconClasses = cx(classes.root, icon && classes.icon)
 
     // Render with children
     // ----------------------------------------
@@ -155,9 +151,9 @@ class Input extends UIComponent<any, any> {
         <ElementType {...rest} className={classes.root} {...htmlInputProps}>
           {createHTMLInput(input || type, {
             defaultProps: htmlInputProps,
-            className: classes.inputClasses,
+            overrideProps: { className: inputClasses },
           })}
-          <Icon name={this.computeIcon()} className={classes.iconClasses} />
+          <Icon name={this.computeIcon()} className={iconClasses} />
         </ElementType>
       )
     }

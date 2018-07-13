@@ -5,13 +5,16 @@ const inputRules = {
     return {
       display: 'inline-flex',
       position: 'relative',
-      '>input': {
-        borderRadius: variables.borderRadius,
-        padding: `${pxToRem(6)} ${pxToRem(10)}`,
-        outline: 0,
-        border: variables.defaultBorder,
-      },
-      '>input:focus': { border: variables.defaultBorderFocus },
+    }
+  },
+
+  input: ({ props, variables }) => {
+    return {
+      borderRadius: variables.borderRadius,
+      padding: `${pxToRem(6)} ${pxToRem(10)}`,
+      outline: 0,
+      border: variables.defaultBorder,
+      ':focus': { border: variables.defaultBorderFocus },
     }
   },
 
@@ -36,7 +39,7 @@ const inputRules = {
       width: pxToRem(26),
       fontSize: pxToRem(13),
       verticalAlign: 'middle',
-      '::before': {
+      ':before': {
         left: 0,
         textAlign: 'center',
         position: 'absolute',
@@ -63,7 +66,7 @@ const inputRules = {
   },
 
   inputThemes: ({ props, variables }) => {
-    const { themes } = props
+    const { focus, themes } = props
     return {
       ...(themes === 'teams' && {
         backgroundColor: variables.themeBackgroundColor,
@@ -77,6 +80,10 @@ const inputRules = {
           borderColor: 'transparent',
           borderBottom: variables.themeFocusBorderBottom,
         },
+        ...(focus && {
+          borderColor: 'transparent',
+          borderBottom: variables.themeFocusBorderBottom,
+        }),
       }),
     }
   },
