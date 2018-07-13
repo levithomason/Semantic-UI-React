@@ -18,9 +18,9 @@ const commonStyle: CSSProperties = {
 const previewStyle: CSSProperties = {
   ...commonStyle,
   zIndex: 10,
-  opacity: 0.6,
+  opacity: 0.25,
   bottom: 0,
-  background: 'linear-gradient(#fff, #eee)',
+  background: 'linear-gradient(#fff, #fff, black)',
   width: '100%',
 }
 
@@ -55,7 +55,7 @@ class EditorPreview extends React.Component<IEditorPreviewProps> {
 
     return (
       <div>
-        <div style={{ ...previewStyle, height: `${size * EditorPreview.lineHeight / 2}px` }} />
+        <div style={{ ...previewStyle, height: `${size * EditorPreview.lineHeight}px` }} />
         <div style={labelStyle}>
           {icon && <Icon name={icon} />}
           {label}
