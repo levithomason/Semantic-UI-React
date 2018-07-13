@@ -4,10 +4,8 @@ import { Menu, Transition } from 'semantic-ui-react'
 
 import { updateForKeys } from 'docs/src/hoc'
 import ComponentControlsCopyLink from './ComponentControlsCopyLink'
-import ComponentControlsEditCode from './ComponentControlsEditCode'
 import ComponentControlsShowVariables from './ComponentControlsShowVariables'
 import ComponentControlsMaximize from './ComponentControlsMaximize'
-import ComponentControlsShowHtml from './ComponentControlsShowHtml'
 import ComponentControlsRtl from './ComponentControlsRtl'
 
 const ComponentControls: any = props => {
