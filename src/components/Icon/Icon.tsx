@@ -33,7 +33,10 @@ class Icon extends UIComponent<any, any> {
       'black',
     ]),
 
-    /** The type of font that needs to be used */
+    /** Use icon color as a background. */
+    inverted: PropTypes.bool,
+
+    /** The type of font that needs to be used. */
     kind: PropTypes.string,
 
     /** Name of the icon. */
@@ -43,7 +46,7 @@ class Icon extends UIComponent<any, any> {
     size: PropTypes.oneOf(['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']),
   }
 
-  static handledProps = ['as', 'className', 'color', 'kind', 'name', 'size']
+  static handledProps = ['as', 'className', 'color', 'inverted', 'kind', 'name', 'size']
 
   static defaultProps = {
     as: 'i',

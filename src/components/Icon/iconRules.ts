@@ -28,10 +28,20 @@ const getIcon = (kind, name) => {
 
 const getSize = size => `${sizes.get(size)}em` || '1em'
 
+const swapMainAndBackgroundColors = (style: any) => {
+  const { color } = style
+
+  return {
+    ...style,
+    color: 'white',
+    backgroundColor: color || 'black',
+  }
+}
+
 const iconRules = {
-  root: ({ props: { color, kind, name, size } }) => {
+  root: ({ props: { color, inverted, kind, name, size } }) => {
     const { fontFamily, content } = getIcon(kind, name)
-    return {
+    const normalStyle = {
       fontFamily,
       color,
       display: 'inline-block',
@@ -51,12 +61,22 @@ const iconRules = {
       verticalAlign: 'middle',
       lineHeight: 1,
 
+      ...(inverted && {
+        height: '2em',
+        width: '2em',
+        padding: '0.5em 0',
+        border: 'none',
+        boxShadow: 'none',
+      }),
+
       '::before': {
         content,
         boxSizing: 'inherit',
         background: '0 0!important',
       },
     }
+
+    return inverted ? swapMainAndBackgroundColors(normalStyle) : normalStyle
   },
 }
 
