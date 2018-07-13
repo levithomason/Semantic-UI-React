@@ -15,11 +15,76 @@ import ComponentProps from './ComponentProps'
 import ComponentSidebar from './ComponentSidebar'
 import ComponentDocTag from './ComponentDocTag'
 
+import getComponentGroup from '../../utils/getComponentGroup'
+import Menu from '../../../../src/components/Menu/Menu'
+import Button from '../../../../src/components/Button/Button'
+
 const topRowStyle = { margin: '1em' }
 const exampleEndStyle = {
   textAlign: 'center',
   opacity: 0.5,
   paddingTop: '75vh',
+}
+
+const showAnatomy = (displayName, render) => {
+  const group = getComponentGroup(displayName)
+  const parentInfo = group[displayName]
+
+  const parentClassName = parentInfo.componentClassName
+  const subcomponentClassNames = _.map(
+    parentInfo.subcomponents,
+    displayName => getComponentGroup(displayName)[displayName].componentClassName,
+  )
+
+  console.log({
+    parentClassName,
+    subcomponentClassNames,
+  })
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <style>{`
+      .${parentClassName}::before {
+        content: '${parentInfo.apiPath}';
+        background: cornflowerblue;
+      }
+      ${_.map(
+        parentInfo.subcomponents,
+        displayName => `
+        .${group[displayName].componentClassName}::before {
+          content: '${group[displayName].apiPath}';
+          background: salmon;
+        }
+      `,
+      )}
+      .${parentClassName}::before, .${subcomponentClassNames.join('::before .')}::before {
+          position: absolute;
+          padding: 1px 4px 1px;
+          top: -2px;
+          left: -2px;
+          font-size: 8px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: 1px;
+          color: #fff;
+      }
+
+      .${parentClassName}, .${subcomponentClassNames.join(' .')} {
+        position: relative;
+        padding: 8px;
+        margin: 2px;
+      }
+      .${parentClassName} {
+        border: 2px solid cornflowerblue;
+      }
+      .${subcomponentClassNames.join(' .')} {
+        border: 2px dashed salmon;
+      }
+      `}</style>
+      <h2>Anatomy</h2>
+      {render()}
+    </div>
+  )
 }
 
 class ComponentDoc extends Component<any, any> {
@@ -91,6 +156,17 @@ class ComponentDoc extends Component<any, any> {
                 errorMessage={accessibilityErrorMessage}
                 info={info}
               />
+              <div>
+                <h2>Anatomy</h2>
+                {showAnatomy('Button', () => <Button type="primary" content="Click me" />)}
+                {showAnatomy('Menu', () => (
+                  <Menu>
+                    <Menu.Item content="Home" />
+                    <Menu.Item content="Settings" />
+                    <Menu.Item content="Profile" />
+                  </Menu>
+                ))}
+              </div>
               <ComponentDocSee displayName={info.displayName} />
               <ComponentDocLinks
                 displayName={info.displayName}
