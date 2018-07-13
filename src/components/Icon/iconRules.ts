@@ -29,12 +29,12 @@ const getIcon = (kind, name) => {
 const getSize = size => `${sizes.get(size)}em` || '1em'
 
 const getBorderedStyles = circular => ({
-  lineHeight: '1 !important',
-  padding: '0.5em 0 !important',
+  lineHeight: '1',
+  padding: '0.5em 0',
   boxShadow: '0 0 0 0.1em rgba(0,0,0,.1) inset',
-  width: '2em !important',
-  height: '2em !important',
-  ...(circular ? { borderRadius: '500em !important' } : { verticalAlign: 'baseline' }),
+  width: '2em',
+  height: '2em',
+  ...(circular ? { borderRadius: '500em' } : { verticalAlign: 'baseline' }),
 })
 
 const iconRules = {
