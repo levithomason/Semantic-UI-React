@@ -13,6 +13,12 @@ class Icon extends UIComponent<any, any> {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
 
+    /** Icon can appear with rectangular border. */
+    bordered: PropTypes.bool,
+
+    /** Icon can appear as circular. */
+    circular: PropTypes.bool,
+
     /** Additional classes. */
     className: PropTypes.string,
 
@@ -43,7 +49,7 @@ class Icon extends UIComponent<any, any> {
     size: PropTypes.oneOf(['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']),
   }
 
-  static handledProps = ['as', 'className', 'color', 'kind', 'name', 'size']
+  static handledProps = ['as', 'bordered', 'circular', 'className', 'color', 'kind', 'name', 'size']
 
   static defaultProps = {
     as: 'i',
