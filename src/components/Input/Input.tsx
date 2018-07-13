@@ -19,6 +19,7 @@ import Icon from '../Icon'
 
 /**
  * An Input
+ * @accessibility This is example usage of the accessibility tag.
  */
 class Input extends UIComponent<any, any> {
   static className = 'ui-input'
@@ -66,7 +67,7 @@ class Input extends UIComponent<any, any> {
 
   inputRef: PropTypes.ref
 
-  focus = () => this.inputRef.focus()
+  focusCbk = () => this.inputRef.focus()
 
   handleInputRef = c => (this.inputRef = c)
 
@@ -111,13 +112,13 @@ class Input extends UIComponent<any, any> {
 
   componentDidMount() {
     if (this.props.focus) {
-      this.focus()
+      this.focusCbk()
     }
   }
 
   renderComponent({ ElementType, classes, rest }) {
     const { children, className, error, focus, icon, input, styles, themes, type } = this.props
-    const [htmlInputProps, restX] = this.partitionProps()
+    const [htmlInputProps, restProps] = this.partitionProps()
 
     const inputClasses = cx(
       classes.root,
@@ -128,7 +129,7 @@ class Input extends UIComponent<any, any> {
       icon && classes.inputWithIcon,
     )
 
-    const iconClasses = cx(classes.root, icon && classes.icon)
+    const iconClasses = cx('ui-input-icon', classes.root, classes.icon)
 
     // Render with children
     // ----------------------------------------

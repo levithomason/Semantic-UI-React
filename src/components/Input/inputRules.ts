@@ -35,16 +35,16 @@ const inputRules = {
       top: 0,
       right: 0,
       margin: 0,
-      height: '100%',
+      height: `100%`,
       width: pxToRem(26),
       fontSize: pxToRem(13),
       verticalAlign: 'middle',
-      ':before': {
+      ':before, :after': {
         left: 0,
         textAlign: 'center',
         position: 'absolute',
         top: '50%',
-        marginTop: '-5px',
+        marginTop: '2px',
         width: '100%',
       },
     }
@@ -58,11 +58,7 @@ const inputRules = {
 
   iconThemes: ({ props, variables }) => {
     const { themes } = props
-    return {
-      ...(themes === 'teams' && {
-        color: '#222426',
-      }),
-    }
+    return {}
   },
 
   inputThemes: ({ props, variables }) => {
