@@ -406,11 +406,15 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   }
 
   private renderCodeEditorMenu = (color: SemanticCOLORS): JSX.Element => {
-    const { copiedCode, error } = this.state
+    const { showCode, copiedCode, error } = this.state
     const codeHasChanged = this.sourceCodeMgr.originalCodeHasChanged
+    const codeEditorStyle: CSSProperties = {
+      margin: '0',
+      visibility: showCode ? 'visible' : 'hidden',
+    }
 
     return (
-      <Menu size="small" text widths="8" style={{ margin: '0' }}>
+      <Menu size="small" text widths="8" style={codeEditorStyle}>
         <Menu.Item
           active={copiedCode || !!error} // to show the color
           color={copiedCode ? 'green' : color}
@@ -464,7 +468,6 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
       },
       ...(!showCode && {
         active: false,
-        // readOnly: true,
         showCursor: false,
         highlightActiveLine: false,
       }),
@@ -474,7 +477,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
 
     return (
       <div style={jsxStyle}>
-        {/* Copy|Reset|Edit menu */}
+        {/* Example Type Menu */}
         {this.renderApiCodeMenu(color)}
 
         {/* Code Editor */}
