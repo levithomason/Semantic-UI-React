@@ -4,22 +4,36 @@ const getAvatarDimension = (size: number) => {
   return 12 + size * 4
 }
 
-const getPresenceSpanTop = () => {
-  return -0.6
-}
-
-const getPresenceSpanLeft = (size: number) => {
-  return 0.6 + size * 0.2
-}
-
 const getPresenceIconSize = (size: number) => {
-  if (size <= 4) {
+  if (size < 4) {
     return 8
   }
-  if (size <= 7) {
+  if (size < 8) {
     return 10
   }
   return 12
+}
+
+const getPresenceIconPadding = (size: number, presenceIconPadding: number) => {
+  if (size < 4) {
+    return presenceIconPadding - 1
+  }
+  if (size < 8) {
+    return presenceIconPadding
+  }
+  return presenceIconPadding + 1
+}
+
+const getPresenceSpanLeft = (size: number, presenceIconPadding: number) => {
+  return (
+    getAvatarDimension(size) -
+    getPresenceIconSize(size) -
+    getPresenceIconPadding(size, presenceIconPadding)
+  )
+}
+
+const getPresenceSpanTop = (size: number, presenceIconPadding: number) => {
+  return getPresenceIconSize(size) + getPresenceIconPadding(size, presenceIconPadding)
 }
 
 export default {
@@ -39,17 +53,33 @@ export default {
     verticalAlign: 'middle',
     textAlign: 'center',
   }),
-  presenceSpan: ({ props }) => ({
+  presenceSpan: ({ props, variables }) => ({
     display: 'block',
     position: 'relative',
     background: 'inherit',
-    padding: '1px',
+    padding: pxToRem(getPresenceIconPadding(props.size, variables.presenceIconPadding)),
     margin: '0px',
     borderRadius: pxToRem(9999),
-    height: '1rem',
-    width: '1rem',
-    top: `${getPresenceSpanTop()}rem`,
-    left: `${getPresenceSpanLeft(props.size)}rem`,
+    height: pxToRem(
+      getPresenceIconSize(props.size) +
+        getPresenceIconPadding(props.size, variables.presenceIconPadding) * 2,
+    ),
+    width: pxToRem(
+      getPresenceIconSize(props.size) +
+        getPresenceIconPadding(props.size, variables.presenceIconPadding) * 2,
+    ),
+    top: `-${pxToRem(
+      getPresenceSpanTop(
+        props.size,
+        getPresenceIconPadding(props.size, variables.presenceIconPadding),
+      ),
+    )}`,
+    left: pxToRem(
+      getPresenceSpanLeft(
+        props.size,
+        getPresenceIconPadding(props.size, variables.presenceIconPadding),
+      ),
+    ),
   }),
   presenceIconLabel: ({ props }) => ({
     position: 'relative',

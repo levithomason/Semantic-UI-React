@@ -4,6 +4,7 @@ import { Image, Label, Icon } from '../../'
 
 import { customPropTypes, UIComponent } from '../../lib'
 import avatarRules from './avatarRules'
+import avatarVariables from './avatarVariables'
 
 /**
  * An avatar is a graphic representation of user alongside with a presence icon.
@@ -18,6 +19,8 @@ class Avatar extends UIComponent<any, any> {
   static handledProps = ['as', 'className', 'name', 'size', 'src', 'status']
 
   static rules = avatarRules
+
+  static variables = avatarVariables
 
   static propTypes = {
     /** An element type to render as (string or function). */
