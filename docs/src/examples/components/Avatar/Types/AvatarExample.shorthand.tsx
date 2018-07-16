@@ -1,10 +1,10 @@
 import React from 'react'
 import { Avatar } from 'stardust'
 
-const AvatarExample = () => (
+const AvatarExampleShorthand = () => (
   <div style={{ background: 'white' }}>
     <Avatar name="John Doe" />
   </div>
 )
 
-export default AvatarExample
+export default AvatarExampleShorthand

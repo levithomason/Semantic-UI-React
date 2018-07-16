@@ -25,16 +25,13 @@ class Avatar extends UIComponent<any, any> {
 
   static displayName = 'Avatar'
 
-  static handledProps = ['as', 'className', 'name', 'onClick', 'size', 'src', 'status']
+  static handledProps = ['as', 'className', 'name', 'size', 'src', 'status']
 
   static rules = avatarRules
 
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
-
-    /** The presence of the user, used for showing different presence icon in the Avatar. */
-    status: PropTypes.oneOf(Object.keys(Status)),
 
     /** Additional classes. */
     className: PropTypes.string,
@@ -48,11 +45,11 @@ class Avatar extends UIComponent<any, any> {
     /** The src of the image used in the Avatar. */
     src: PropTypes.string,
 
-    onClick: PropTypes.func,
+    /** The presence of the user, used for showing different presence icon in the Avatar. */
+    status: PropTypes.oneOf(Object.keys(Status)),
   }
 
   static defaultProps = {
-    as: 'div',
     size: 5,
   }
 

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { Avatar } from 'stardust'
 
-const DividerExampleSize = () =>
+const AvatarExampleSizeShorthand = () =>
   _.times(10, i => {
     const size = i + 1
 
@@ -18,4 +18,4 @@ const DividerExampleSize = () =>
     )
   })
 
-export default DividerExampleSize
+export default AvatarExampleSizeShorthand

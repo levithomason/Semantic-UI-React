@@ -1,7 +1,7 @@
 import React from 'react'
-import { Avatar, Header } from 'stardust'
+import { Avatar } from 'stardust'
 
-const AvatarExampleStatus = () => (
+const AvatarExampleStatusShorthand = () => (
   <div style={{ background: 'white' }}>
     <Avatar
       src="/public/images/avatar/small/matt.jpg"
@@ -41,4 +41,4 @@ const AvatarExampleStatus = () => (
   </div>
 )
 
-export default AvatarExampleStatus
+export default AvatarExampleStatusShorthand
