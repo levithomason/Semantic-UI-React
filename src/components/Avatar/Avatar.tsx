@@ -5,16 +5,6 @@ import { Image, Label, Icon } from '../../'
 import { customPropTypes, UIComponent } from '../../lib'
 import avatarRules from './avatarRules'
 
-enum Status {
-  Available = 'Available',
-  Away = 'Away',
-  BeRightBack = 'BeRightBack',
-  Busy = 'Busy',
-  DoNotDisturb = 'DoNotDisturb',
-  Offline = 'Offline',
-  PresenceUnknown = 'PresenceUnknown',
-}
-
 /**
  * An avatar is a graphic representation of user alongside with a presence icon.
  * @accessibility To be discussed
@@ -46,7 +36,15 @@ class Avatar extends UIComponent<any, any> {
     src: PropTypes.string,
 
     /** The presence of the user, used for showing different presence icon in the Avatar. */
-    status: PropTypes.oneOf(Object.keys(Status)),
+    status: PropTypes.oneOf([
+      'Available',
+      'Away',
+      'BeRightBack',
+      'Busy',
+      'DoNotDisturb',
+      'Offline',
+      'PresenceUnknown',
+    ]),
   }
 
   static defaultProps = {
