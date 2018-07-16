@@ -11,7 +11,7 @@ const Types = () => (
     />
     <ComponentExample
       title="Divider with content"
-      description="A Divider can contain text displayed in the middle."
+      description="A Divider can contain text or other content displayed alongside with the line."
       examplePath="components/Divider/Types/DividerExampleContent"
     />
     <ComponentExample
