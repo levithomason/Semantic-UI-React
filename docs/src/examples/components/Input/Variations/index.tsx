@@ -9,11 +9,6 @@ const Variations = () => (
       description="An input can have a search icon."
       examplePath="components/Input/Variations/InputExampleIcon"
     />
-    <ComponentExample
-      title="Themed"
-      description="An input can follow the styles corresponding to a predefined theme."
-      examplePath="components/Input/Variations/InputExampleThemed"
-    />
   </ExampleSection>
 )
 

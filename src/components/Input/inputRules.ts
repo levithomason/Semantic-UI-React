@@ -18,17 +18,6 @@ const inputRules = {
     }
   },
 
-  inputFocus: ({ props, variables }) => {
-    return { border: variables.defaultBorderFocus }
-  },
-
-  inputError: ({ props, variables }) => {
-    return {
-      border: variables.defaultBorderError,
-      backgroundColor: '#fff6f6',
-    }
-  },
-
   icon: ({ props, variables }) => {
     return {
       position: 'absolute',
@@ -53,34 +42,6 @@ const inputRules = {
   inputWithIcon: ({ props, variables }) => {
     return {
       padding: `${pxToRem(6)} ${pxToRem(25)} ${pxToRem(6)} ${pxToRem(10)}`,
-    }
-  },
-
-  iconThemes: ({ props, variables }) => {
-    const { themes } = props
-    return {}
-  },
-
-  inputThemes: ({ props, variables }) => {
-    const { focus, themes } = props
-    return {
-      ...(themes === 'teams' && {
-        backgroundColor: variables.themeBackgroundColor,
-        color: variables.themeFontColor,
-        height: '100%',
-        padding: variables.themeInputPadding,
-        borderColor: 'transparent',
-        margin: 0,
-        borderBottom: `solid ${pxToRem(2)} transparent`,
-        ':focus, ::selection': {
-          borderColor: 'transparent',
-          borderBottom: variables.themeFocusBorderBottom,
-        },
-        ...(focus && {
-          borderColor: 'transparent',
-          borderBottom: variables.themeFocusBorderBottom,
-        }),
-      }),
     }
   },
 }

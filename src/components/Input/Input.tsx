@@ -7,11 +7,9 @@ import {
   childrenExist,
   createHTMLInput,
   customPropTypes,
-  getElementType,
   getUnhandledProps,
   partitionHTMLProps,
   UIComponent,
-  useKeyOnly,
 } from '../../lib'
 import inputRules from './inputRules'
 import inputVariables from './inputVariables'
@@ -39,12 +37,6 @@ class Input extends UIComponent<any, any> {
     /** Additional classes. */
     className: PropTypes.string,
 
-    /** An Input field can show that the data contains errors. */
-    error: PropTypes.bool,
-
-    /** An Input field can show a user is currently interacting with it. */
-    focus: PropTypes.bool,
-
     /** Optional Icon to display inside the Input. */
     icon: PropTypes.oneOfType([PropTypes.bool, customPropTypes.itemShorthand]),
 
@@ -53,38 +45,19 @@ class Input extends UIComponent<any, any> {
 
     /** The HTML input type. */
     type: PropTypes.string,
-
-    /** One of the predefined themes to be applied on the element. */
-    themes: PropTypes.string,
   }
 
-  static handleProps = ['as']
+  static handledProps = ['as', 'children', 'className', 'icon', 'input', 'type']
 
   static defaultProps = {
     as: 'div',
     type: 'text',
   }
 
-  inputRef: PropTypes.ref
-
-  focusCbk = () => this.inputRef.focus()
-
-  handleInputRef = c => (this.inputRef = c)
-
   handleChildOverrides = (child, defaultProps) => ({
     ...defaultProps,
     ...child.props,
-    ref: c => {
-      _.invoke(child, 'ref', c)
-      this.handleInputRef(c)
-    },
   })
-
-  handleChange = e => {
-    const value = _.get(e, 'target.value')
-
-    _.invoke(this.props, 'onChange', e, { ...this.props, value })
-  }
 
   partitionProps = () => {
     const { type } = this.props
@@ -96,8 +69,6 @@ class Input extends UIComponent<any, any> {
       {
         ...htmlInputProps,
         type,
-        onChange: this.handleChange,
-        ref: this.handleInputRef,
       },
       rest,
     ]
@@ -110,25 +81,11 @@ class Input extends UIComponent<any, any> {
     return null
   }
 
-  componentDidMount() {
-    if (this.props.focus) {
-      this.focusCbk()
-    }
-  }
-
   renderComponent({ ElementType, classes, rest }) {
-    const { children, className, error, focus, icon, input, styles, themes, type } = this.props
+    const { children, className, icon, input, type } = this.props
     const [htmlInputProps, restProps] = this.partitionProps()
 
-    const inputClasses = cx(
-      classes.root,
-      classes.input,
-      themes && classes.inputThemes,
-      focus && classes.inputFocus,
-      error && classes.inputError,
-      icon && classes.inputWithIcon,
-    )
-
+    const inputClasses = cx(classes.root, classes.input, icon && classes.inputWithIcon)
     const iconClasses = cx('ui-input-icon', classes.root, classes.icon)
 
     // Render with children
