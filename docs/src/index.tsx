@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
 // TODO make themes a monorepo of packages
-import { siteVariables, normalizeCSS } from 'stardust/themes/teams'
+import { siteVariables, normalizeCSS } from 'src/themes/teams'
 import { Provider } from 'stardust'
 
 import Router from './routes'
@@ -32,17 +32,17 @@ const globalRules = siteVars => ({
 const fontFaces = [
   {
     name: 'Segoe UI',
-    paths: ['/public/fonts/segoe-ui-regular.woff2'],
+    paths: ['public/fonts/segoe-ui-regular.woff2'],
     style: { fontWeight: 400 },
   },
   {
     name: 'Segoe UI',
-    paths: ['/public/fonts/segoe-ui-semibold.woff2'],
+    paths: ['public/fonts/segoe-ui-semibold.woff2'],
     style: { fontWeight: 600 },
   },
   {
     name: 'Segoe UI',
-    paths: ['/public/fonts/segoe-ui-bold.woff2'],
+    paths: ['public/fonts/segoe-ui-bold.woff2'],
     style: { fontWeight: 700 },
   },
 ]
