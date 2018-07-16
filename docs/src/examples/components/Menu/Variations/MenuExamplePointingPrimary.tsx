@@ -1,5 +1,6 @@
 import React from 'react'
-import { Menu } from 'stardust'
+import _ from 'lodash'
+import { Menu, MenuItem } from 'stardust'
 
 const items = [
   { key: 'editorials', content: 'Editorials' },
@@ -8,8 +9,30 @@ const items = [
 ]
 
 class MenuExamplePointingPrimary extends React.Component {
+  state = { activeIndex: 0 }
+
+  handleItemClick = activeIndex => () => {
+    this.setState({ activeIndex })
+  }
+
   render() {
-    return <Menu defaultActiveIndex={0} items={items} shape="pointing" type="primary" />
+    const { activeIndex } = this.state
+    return (
+      <Menu defaultActiveIndex={0} shape="pointing" type="primary">
+        {_.times(3, i => {
+          return (
+            <MenuItem
+              key={items[i].key}
+              content={items[i].content}
+              shape="pointing"
+              type="primary"
+              active={activeIndex === i}
+              onClick={this.handleItemClick(i)}
+            />
+          )
+        })}
+      </Menu>
+    )
   }
 }
 

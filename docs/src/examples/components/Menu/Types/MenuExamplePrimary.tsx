@@ -8,7 +8,7 @@ const items = [
   { key: 'events', content: 'Upcoming Events' },
 ]
 
-class MenuExamplePillsPrimary extends React.Component {
+class MenuExamplePrimary extends React.Component {
   state = { activeIndex: 0 }
 
   handleItemClick = activeIndex => () => {
@@ -17,17 +17,17 @@ class MenuExamplePillsPrimary extends React.Component {
 
   render() {
     const { activeIndex } = this.state
+
     return (
-      <Menu defaultActiveIndex={0} shape="pills" type="primary">
+      <Menu type="primary">
         {_.times(3, i => {
           return (
             <MenuItem
               key={items[i].key}
+              onClick={this.handleItemClick(i)}
               content={items[i].content}
-              shape="pills"
               type="primary"
               active={activeIndex === i}
-              onClick={this.handleItemClick(i)}
             />
           )
         })}
@@ -36,4 +36,4 @@ class MenuExamplePillsPrimary extends React.Component {
   }
 }
 
-export default MenuExamplePillsPrimary
+export default MenuExamplePrimary
