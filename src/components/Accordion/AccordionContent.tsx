@@ -46,6 +46,10 @@ class AccordionContent extends UIComponent<any, any> {
 
   static variables = accordionContentVariables
 
+  static defaultProps = {
+    as: 'span',
+  }
+
   renderComponent({ ElementType, classes, rest }) {
     const { children, content } = this.props
 
