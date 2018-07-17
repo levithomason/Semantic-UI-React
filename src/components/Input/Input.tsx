@@ -85,8 +85,7 @@ class Input extends UIComponent<any, any> {
     const { children, className, icon, input, type } = this.props
     const [htmlInputProps, restProps] = this.partitionProps()
 
-    const inputClasses = cx(classes.root, classes.input, icon && classes.inputWithIcon)
-    const iconClasses = cx('ui-input-icon', classes.root, classes.icon)
+    const inputClasses = cx(classes.input)
 
     // Render with children
     // ----------------------------------------
@@ -111,7 +110,7 @@ class Input extends UIComponent<any, any> {
             defaultProps: htmlInputProps,
             overrideProps: { className: inputClasses },
           })}
-          <Icon name={this.computeIcon()} className={iconClasses} />
+          <Icon name={this.computeIcon()} />
         </ElementType>
       )
     }
