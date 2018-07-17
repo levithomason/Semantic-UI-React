@@ -21,7 +21,7 @@ const getFontSizeValue = (size: string): number => {
  * the HTML font size has been previously defined with setHTMLFontSize().
  * @param {number} value The px value to convert to rem.
  * @example
- * // Returns '1rem'
+ * // Returns '1rem' when HTML font size is 10px
  * pxToRem(10)
  * @returns {string} The value converted to the rem.
  */
