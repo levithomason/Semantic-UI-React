@@ -38,7 +38,7 @@ class Input extends UIComponent<any, any> {
     className: PropTypes.string,
 
     /** Optional Icon to display inside the Input. */
-    icon: PropTypes.oneOfType([PropTypes.bool, customPropTypes.itemShorthand]),
+    icon: customPropTypes.itemShorthand,
 
     /** Shorthand for creating the HTML Input. */
     input: customPropTypes.itemShorthand,
