@@ -103,7 +103,7 @@ class ComponentDoc extends Component<any, any> {
           </Grid.Row>
 
           <Grid.Row columns="equal">
-            <Grid.Column style={{ marginLeft: '14px' } as CSSProperties}>
+            <Grid.Column style={{ padding: '0 0 0 28px' } as CSSProperties}>
               <div ref={this.handleExamplesRef}>
                 <ComponentExamples displayName={info.displayName} />
               </div>
