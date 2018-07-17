@@ -1,5 +1,3 @@
-import { pxToRem } from '../../lib'
-
 const inputRules = {
   root: ({ props, variables }) => {
     return {
@@ -10,7 +8,7 @@ const inputRules = {
       border: variables.defaultBorder,
       borderRadius: variables.borderRadius,
       outline: 0,
-      padding: `${pxToRem(6)} 0 ${pxToRem(6)} ${pxToRem(10)}`,
+      padding: variables.defaultPadding,
     }
   },
 
