@@ -9,22 +9,22 @@ export interface IEditorPreviewProps {
 }
 
 const commonStyle: CSSProperties = {
-  position: 'absolute',
   cursor: 'pointer',
   left: 0,
   right: 0,
 }
 
-const previewStyle: CSSProperties = {
+const staticPreviewStyle: CSSProperties = {
   ...commonStyle,
+  position: 'absolute',
   zIndex: 10,
-  opacity: 0.25,
+  opacity: 0.3,
   bottom: 0,
-  background: 'linear-gradient(#fff, #fff, #666)',
+  background: 'linear-gradient(#fff, #fff, #777)',
   width: '100%',
 }
 
-const labelStyle: CSSProperties = {
+const staticLabelStyle: CSSProperties = {
   ...commonStyle,
   zIndex: 11,
   opacity: 0.8,
@@ -35,6 +35,7 @@ const labelStyle: CSSProperties = {
 
 class EditorPreview extends React.Component<IEditorPreviewProps> {
   private static readonly lineHeight = 16
+  private static readonly labelHeight = 20
 
   public static propTypes = {
     size: PropTypes.number,
@@ -53,15 +54,29 @@ class EditorPreview extends React.Component<IEditorPreviewProps> {
   public render() {
     const { label, size, icon } = this.props
 
+    const previewStyle: CSSProperties = {
+      ...staticPreviewStyle,
+      height: this.toPx(size * EditorPreview.lineHeight + EditorPreview.labelHeight),
+    }
+
+    const labelStyle: CSSProperties = {
+      ...staticLabelStyle,
+      height: this.toPx(EditorPreview.labelHeight),
+    }
+
     return (
       <div>
-        <div style={{ ...previewStyle, height: `${size * EditorPreview.lineHeight}px` }} />
+        <div style={previewStyle} />
         <div style={labelStyle}>
           {icon && <Icon name={icon} />}
           {label}
         </div>
       </div>
     )
+  }
+
+  private toPx(value: number): string {
+    return `${value}px`
   }
 }
 

@@ -19,7 +19,7 @@ import {
 } from 'docs/src/utils'
 import evalTypeScript from 'docs/src/utils/evalTypeScript'
 import { pxToRem, doesNodeContainClick } from 'src/lib'
-import Editor, { IEditorProps } from 'docs/src/components/Editor/Editor'
+import Editor, { IEditorProps } from 'docs/src/components/Editor'
 import ComponentControls from '../ComponentControls'
 import ComponentExampleTitle from './ComponentExampleTitle'
 import ContributionPrompt from '../ContributionPrompt'
@@ -61,13 +61,34 @@ const errorStyle: CSSProperties = {
   background: '#fff2f2',
 }
 
-const controlsWrapperStyle: CSSProperties = {
-  minHeight: pxToRem(30),
-}
-
 const codeTypeApiButtonLabels: { [key in SourceCodeType]: string } = {
   normal: 'Children API',
   shorthand: 'Shorthand API',
+}
+
+const staticEditorProps = {
+  jsx: {
+    setOptions: {
+      fixedWidthGutter: true,
+    },
+    preview: {
+      size: 4,
+      label: 'Edit',
+      icon: 'code',
+    },
+  } as IEditorProps,
+  html: {
+    mode: 'html',
+    showGutter: false,
+    showCursor: false,
+    readOnly: true,
+    highlightActiveLine: false,
+    preview: {
+      size: 4,
+      label: 'Show more',
+      icon: 'html5',
+    },
+  } as IEditorProps,
 }
 
 /**
@@ -453,19 +474,12 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     }
 
     const editorProps: IEditorProps = {
+      ...staticEditorProps.jsx,
       id: `${this.getKebabExamplePath()}-jsx`,
       value: sourceCode,
       onChange: this.handleChangeCode,
       onClick: this.handleShowCode.bind(this, true),
       onOutsideClick: this.handleShowCodeInactive,
-      setOptions: {
-        fixedWidthGutter: true,
-      },
-      preview: {
-        size: 4,
-        label: 'Click to edit',
-        icon: 'code',
-      },
       ...(!showCode && {
         active: false,
         showCursor: false,
@@ -510,21 +524,12 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
     })
 
     const editorProps: IEditorProps = {
+      ...staticEditorProps.html,
       id: `${this.getKebabExamplePath()}-html`,
-      mode: 'html',
       onClick: this.handleShowHTML.bind(this, true),
       onOutsideClick: this.handleShowHTMLInactive,
       value: beautifiedHTML,
-      showGutter: false,
-      showCursor: false,
-      readOnly: true,
-      highlightActiveLine: false,
       active: showHTML,
-      preview: {
-        size: 4,
-        label: 'Show more',
-        icon: 'html5',
-      },
     }
 
     return (
@@ -616,12 +621,13 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
       position: 'relative',
       transition: 'box-shadow 200ms, background 200ms',
       background: '#fff',
+      boxShadow: '0 0 15px #ccc',
       ...(isActive
         ? {
-            boxShadow: '0 0 30px #ccc',
+            boxShadow: '0 0 40px #aaa',
           }
         : isHovering && {
-            boxShadow: '0 0 20px #ccc',
+            boxShadow: '0 0 30px #aaa',
             zIndex: 1,
           }),
     }
