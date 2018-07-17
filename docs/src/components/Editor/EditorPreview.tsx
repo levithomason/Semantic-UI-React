@@ -8,14 +8,10 @@ export interface IEditorPreviewProps {
   icon?: SemanticICONS
 }
 
-const commonStyle: CSSProperties = {
+const staticPreviewStyle: CSSProperties = {
   cursor: 'pointer',
   left: 0,
   right: 0,
-}
-
-const staticPreviewStyle: CSSProperties = {
-  ...commonStyle,
   position: 'absolute',
   zIndex: 10,
   opacity: 0.3,
@@ -25,16 +21,16 @@ const staticPreviewStyle: CSSProperties = {
 }
 
 const staticLabelStyle: CSSProperties = {
-  ...commonStyle,
   zIndex: 11,
   opacity: 0.8,
   textAlign: 'center',
+  verticalAlign: 'middle',
   fontWeight: 500,
 }
 
 class EditorPreview extends React.Component<IEditorPreviewProps> {
   private static readonly lineHeight = 16
-  private static readonly labelHeight = 20
+  private static readonly labelHeight = 25
 
   public static propTypes = {
     size: PropTypes.number,
@@ -60,7 +56,7 @@ class EditorPreview extends React.Component<IEditorPreviewProps> {
 
     const labelStyle: CSSProperties = {
       ...staticLabelStyle,
-      height: this.toPx(EditorPreview.labelHeight),
+      lineHeight: this.toPx(EditorPreview.labelHeight),
     }
 
     return (
