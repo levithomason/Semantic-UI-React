@@ -7,6 +7,7 @@ import { assertBodyContains, consoleUtil, syntheticEvent } from 'test/utils'
 import helpers from './commonHelpers'
 
 import * as stardust from 'src/'
+import ComponentDoc from 'docs/src/components/ComponentDoc'
 
 /**
  * Assert Component conforms to guidelines that are applicable to all components.
@@ -258,9 +259,6 @@ export default (Component, options: any = {}) => {
         // onKeyDown => keyDown
         const eventName = _.camelCase(listenerName.replace('on', ''))
 
-        // onKeyDown => handleKeyDown
-        const handlerName = _.camelCase(listenerName.replace('on', 'handle'))
-
         const handlerSpy = jest.fn()
         const props = {
           ...requiredProps,
@@ -268,14 +266,14 @@ export default (Component, options: any = {}) => {
           'data-simulate-event-here': true,
         }
 
-        const component = mount(<Component {...props} />)
+        const wrappedComponent = mount(<Component {...props} />)
 
         const eventTarget = eventTargets[listenerName]
-          ? component
+          ? wrappedComponent
               .find(eventTargets[listenerName])
               .hostNodes()
               .first()
-          : component
+          : wrappedComponent
               .find('[data-simulate-event-here]')
               .hostNodes()
               .first()
@@ -291,17 +289,25 @@ export default (Component, options: any = {}) => {
         if (customHandler) {
           customHandler(eventShape)
         } else {
+          if (Component.propTypes[listenerName]) {
+            throw new Error(
+              `Handler for '${listenerName}' is not passed to child event emitter element <${eventTarget.type()} />`,
+            )
+          }
           return
         }
 
         // give event listeners opportunity to cleanup
-        if (component.instance() && component.instance().componentWillUnmount) {
-          component.instance().componentWillUnmount()
+        if (wrappedComponent.instance() && wrappedComponent.instance().componentWillUnmount) {
+          wrappedComponent.instance().componentWillUnmount()
         }
 
         // <Dropdown onBlur={handleBlur} />
         //                   ^ was not called once on "blur"
         const leftPad = ' '.repeat(info.displayName.length + listenerName.length + 3)
+
+        // onKeyDown => handleKeyDown
+        const handlerName = _.camelCase(listenerName.replace('on', 'handle'))
 
         try {
           expect(handlerSpy).toHaveBeenCalled()
@@ -317,8 +323,11 @@ export default (Component, options: any = {}) => {
         let errorMessage = 'was not called with (event)'
 
         if (_.has(Component.propTypes, listenerName)) {
-          expectedArgs = [eventShape, component.props()]
-          errorMessage = 'was not called with (event, data)'
+          expectedArgs = [eventShape, wrappedComponent.props()]
+          errorMessage =
+            'was not called with (event, data).\n' +
+            `Ensure that 'props' object is passed to '${listenerName}'\n` +
+            `event handler of <${Component.displayName} />.`
         }
 
         // Components should return the event first, then any data
@@ -443,4 +452,37 @@ export default (Component, options: any = {}) => {
       expect(Component.displayName).toEqual(info.constructorName)
     })
   })
+
+  const validListenerNames = _.reduce(
+    syntheticEvent.types,
+    (result, { listeners }) => [...result, ...listeners],
+    [],
+  )
+
+  // ---------------------------------------
+  // Opt-in tests
+  // ---------------------------------------
+  return {
+    // -------------------------------------
+    // Ensure that props are passed as a
+    // second argument to event handler
+    // -------------------------------------
+    hasExtendedHandlerFor(onEventName) {
+      describe(`has extended handler for '${onEventName}' event`, () => {
+        test(`'${onEventName}' is a valid event listener name`, () => {
+          expect(validListenerNames).toContain(onEventName)
+        })
+
+        test(`is declared in props`, () => {
+          expect(Component.propTypes[onEventName]).toBeTruthy()
+        })
+      })
+
+      // -----------------------------------
+      // Allows chained calls for optional
+      // test suites
+      // -----------------------------------
+      return this
+    },
+  }
 }
