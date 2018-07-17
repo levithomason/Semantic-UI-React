@@ -265,14 +265,14 @@ export default (Component, options: any = {}) => {
           'data-simulate-event-here': true,
         }
 
-        const wrappedComponent = mount(<Component {...props} />)
+        const component = mount(<Component {...props} />)
 
         const eventTarget = eventTargets[listenerName]
-          ? wrappedComponent
+          ? component
               .find(eventTargets[listenerName])
               .hostNodes()
               .first()
-          : wrappedComponent
+          : component
               .find('[data-simulate-event-here]')
               .hostNodes()
               .first()
@@ -297,8 +297,8 @@ export default (Component, options: any = {}) => {
         }
 
         // give event listeners opportunity to cleanup
-        if (wrappedComponent.instance() && wrappedComponent.instance().componentWillUnmount) {
-          wrappedComponent.instance().componentWillUnmount()
+        if (component.instance() && component.instance().componentWillUnmount) {
+          component.instance().componentWillUnmount()
         }
 
         // <Dropdown onBlur={handleBlur} />
@@ -322,7 +322,7 @@ export default (Component, options: any = {}) => {
         let errorMessage = 'was not called with (event)'
 
         if (_.has(Component.propTypes, listenerName)) {
-          expectedArgs = [eventShape, wrappedComponent.props()]
+          expectedArgs = [eventShape, component.props()]
           errorMessage =
             'was not called with (event, data).\n' +
             `Ensure that 'props' object is passed to '${listenerName}'\n` +
