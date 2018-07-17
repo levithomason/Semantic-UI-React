@@ -28,7 +28,6 @@ const staticLabelStyle: CSSProperties = {
   ...commonStyle,
   zIndex: 11,
   opacity: 0.8,
-  bottom: '5px',
   textAlign: 'center',
   fontWeight: 500,
 }
