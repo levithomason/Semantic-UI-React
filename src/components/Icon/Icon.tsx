@@ -16,6 +16,9 @@ class Icon extends UIComponent<any, any> {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
 
+    /** Nackground color of the icon. */
+    background: PropTypes.string,
+
     /** Icon can appear with rectangular border. */
     bordered: PropTypes.bool,
 
@@ -26,25 +29,7 @@ class Icon extends UIComponent<any, any> {
     className: PropTypes.string,
 
     /** Color of the icon. */
-    color: PropTypes.oneOf([
-      'white',
-      'red',
-      'orange',
-      'yellow',
-      'olive',
-      'green',
-      'teal',
-      'blue',
-      'violet',
-      'purple',
-      'pink',
-      'brown',
-      'grey',
-      'black',
-    ]),
-
-    /** Use icon color as a background. */
-    inverted: PropTypes.bool,
+    color: PropTypes.string,
 
     /** The type of font that needs to be used. */
     kind: PropTypes.string,
@@ -58,11 +43,11 @@ class Icon extends UIComponent<any, any> {
 
   static handledProps = [
     'as',
+    'background',
     'bordered',
     'circular',
     'className',
     'color',
-    'inverted',
     'kind',
     'name',
     'size',

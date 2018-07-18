@@ -15,9 +15,9 @@ const Variations = () => (
       examplePath="components/Icon/Variations/IconExampleColored"
     />
     <ComponentExample
-      title="Inverted"
-      description="Use icon color as a background."
-      examplePath="components/Icon/Variations/IconExampleInverted"
+      title="With Background"
+      description="Icon can have a background color."
+      examplePath="components/Icon/Variations/IconExampleBackground"
     />
     <ComponentExample
       title="Bordered"

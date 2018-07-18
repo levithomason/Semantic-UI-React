@@ -28,33 +28,28 @@ const getIcon = (kind, name) => {
 
 const getSize = size => `${sizes.get(size)}em` || '1em'
 
-const swapMainAndBackgroundColors = (style: any) => {
-  const { color } = style
-
-  return {
-    ...style,
-    color: 'white',
-    backgroundColor: color || 'black',
-  }
+const paddedStyle = {
+  padding: '0.5em 0',
+  width: '2em',
+  height: '2em',
 }
 
 const getBorderedStyles = (circular, borderColor, color) => ({
-  lineHeight: '1',
-  padding: '0.5em 0',
+  ...paddedStyle,
   boxShadow: `0 0 0 0.1em ${borderColor || color || 'black'} inset`,
-  width: '2em',
-  height: '2em',
-  ...(circular ? { borderRadius: '50%' } : { verticalAlign: 'baseline' }),
+  ...(circular ? { borderRadius: '50%' } : {}),
 })
 
 const iconRules = {
-  root: ({ props: { color, kind, name, size, bordered, circular }, variables: v }) => {
+  root: ({ props: { color, background, kind, name, size, bordered, circular }, variables: v }) => {
     const { fontFamily, content } = getIcon(kind, name)
     const iconColor = color || v.color
+    const iconBackgroundColor = background || v.backgroundColor
 
     return {
       fontFamily,
       color: iconColor,
+      backgroundColor: iconBackgroundColor,
       display: 'inline-block',
       opacity: 1,
       margin: '0 0.25em 0 0',
@@ -72,12 +67,12 @@ const iconRules = {
       verticalAlign: 'middle',
       lineHeight: 1,
 
-      ...(inverted && {
-        height: '2em',
-        width: '2em',
-        padding: '0.5em 0',
-        border: 'none',
-        boxShadow: 'none',
+      ...((bordered || v.borderColor || circular) &&
+        getBorderedStyles(circular, v.borderColor, iconColor)),
+
+      ...(iconBackgroundColor && {
+        ...paddedStyle,
+        ...(bordered || v.borderColor || { boxShadow: 'none' }),
       }),
 
       '::before': {
@@ -85,11 +80,7 @@ const iconRules = {
         boxSizing: 'inherit',
         background: '0 0',
       },
-
-      ...((bordered || circular) && getBorderedStyles(circular, v.borderColor, iconColor)),
     }
-
-    return inverted ? swapMainAndBackgroundColors(normalStyle) : normalStyle
   },
 }
 
