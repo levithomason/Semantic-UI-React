@@ -1,20 +1,18 @@
 import React from 'react'
 import { Icon } from 'stardust'
 
-const examples = [
-  'chess rock',
-  'book',
-  'expand',
-  'play',
-  'stop',
-  'calendar alternate outline',
-  'coffee',
-  'compass outline',
-  'area chart',
-]
-
 const IconExampleBordered = () => (
-  <div>{examples.map(iconName => <Icon key={iconName} name={iconName} bordered />)}</div>
+  <div>
+    <Icon name="chess rock" bordered />
+    <Icon name="book" bordered />
+    <Icon name="expand" bordered />
+    <Icon name="play" bordered />
+    <Icon name="stop" bordered />
+    <Icon name="calendar alternate outline" bordered />
+    <Icon name="coffee" bordered />
+    <Icon name="compass outline" bordered />
+    <Icon name="area chart" bordered />
+  </div>
 )
 
 export default IconExampleBordered
