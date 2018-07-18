@@ -4,20 +4,20 @@ import { Icon, Menu } from 'semantic-ui-react'
 
 import { updateForKeys } from 'docs/src/hoc'
 
-const ComponentControlsShowRtl: React.SFC = ({ active, onClick }: any) => {
-  const btnLabel = 'RTL'
+const ComponentControlsShowCode: any = ({ active, onClick }) => {
+  const btnLabel = 'Try it'
 
   return (
     <Menu.Item active={active} onClick={onClick}>
-      <Icon color={active ? 'green' : 'grey'} size="large" name="align right" fitted />
+      <Icon color={active ? 'green' : 'grey'} fitted name="code" size="large" />
       {btnLabel}
     </Menu.Item>
   )
 }
 
-ComponentControlsShowRtl.propTypes = {
+ComponentControlsShowCode.propTypes = {
   active: PropTypes.bool,
   onClick: PropTypes.func,
 }
 
-export default updateForKeys(['active'])(ComponentControlsShowRtl)
+export default updateForKeys(['active'])(ComponentControlsShowCode)
