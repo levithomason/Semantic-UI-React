@@ -15,8 +15,10 @@ export interface IButtonProps {
   circular?: boolean
   className?: string
   content?: ReactNode
+  disabled?: boolean
   icon?: ReactNode
   iconPosition?: IconPosition
+  onClick?: (e: MouseEvent) => void
   style?: CSSProperties
   type?: ButtonType
 }
@@ -48,6 +50,9 @@ class Button extends UIComponent<IButtonProps, any> {
     /** Additional classes. */
     className: PropTypes.string,
 
+    /** A button can show it is currently unable to be interacted with. */
+    disabled: PropTypes.bool,
+
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
 
@@ -67,6 +72,7 @@ class Button extends UIComponent<IButtonProps, any> {
     'circular',
     'className',
     'content',
+    'disabled',
     'icon',
     'iconPosition',
     'type',
@@ -81,7 +87,7 @@ class Button extends UIComponent<IButtonProps, any> {
     classes,
     rest,
   }: IRenderResultConfig<IButtonProps>): ReactNode {
-    const { children, content, icon, iconPosition, type } = this.props
+    const { children, content, disabled, icon, iconPosition, type } = this.props
     const primary = type === 'primary'
 
     const getContent = (): ReactNode => {
@@ -109,10 +115,28 @@ class Button extends UIComponent<IButtonProps, any> {
     }
 
     return (
-      <ElementType {...rest} className={classes.root}>
+      <ElementType
+        className={classes.root}
+        disabled={disabled}
+        onClick={this.handleClick}
+        {...rest}
+      >
         {getContent()}
       </ElementType>
     )
+  }
+
+  private handleClick = (e: MouseEvent) => {
+    const { onClick, disabled } = this.props
+
+    if (disabled) {
+      e.preventDefault()
+      return
+    }
+
+    if (onClick) {
+      onClick(e)
+    }
   }
 }
 

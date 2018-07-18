@@ -5,7 +5,7 @@ import { IButtonProps } from './Button'
 
 export default {
   root: ({ props, variables }: { props: IButtonProps; variables: IButtonVariables }) => {
-    const { children, circular, content, icon, type } = props
+    const { children, circular, content, disabled, icon, type } = props
     const primary = type === 'primary'
     const secondary = type === 'secondary'
 
@@ -27,7 +27,7 @@ export default {
       typeSecondaryBorderColor,
     } = variables
 
-    return {
+    const rules = {
       height,
       minWidth,
       maxWidth,
@@ -37,12 +37,8 @@ export default {
       padding: `0 ${pxToRem(paddingLeftRightValue)}`,
       margin: `0 ${pxToRem(8)} 0 0`,
       verticalAlign: 'middle',
-      cursor: 'pointer',
-      borderWidth: `${secondary ? (circular ? 1 : 2) : 0}px`,
       borderRadius: pxToRem(2),
-      ':hover': {
-        backgroundColor: backgroundColorHover,
-      },
+      borderWidth: 0,
 
       ...(children && {
         display: 'inline-block',
@@ -60,6 +56,23 @@ export default {
         padding: 0,
         borderRadius: circularRadius,
       }),
+    }
+
+    if (disabled) {
+      return {
+        ...rules,
+        opacity: 0.45,
+      }
+    }
+
+    return {
+      ...rules,
+
+      borderWidth: `${secondary ? (circular ? 1 : 2) : 0}px`,
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: backgroundColorHover,
+      },
 
       ...(primary && {
         color: typePrimaryColor,
