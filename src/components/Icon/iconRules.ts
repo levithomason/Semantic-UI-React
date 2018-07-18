@@ -28,21 +28,23 @@ const getIcon = (kind, name) => {
 
 const getSize = size => `${sizes.get(size)}em` || '1em'
 
-const getBorderedStyles = circular => ({
+const getBorderedStyles = (circular, borderColor, color) => ({
   lineHeight: '1',
   padding: '0.5em 0',
-  boxShadow: '0 0 0 0.1em rgba(0,0,0,.1) inset',
+  boxShadow: `0 0 0 0.1em ${borderColor || color || 'black'} inset`,
   width: '2em',
   height: '2em',
-  ...(circular ? { borderRadius: '500em' } : { verticalAlign: 'baseline' }),
+  ...(circular ? { borderRadius: '50%' } : { verticalAlign: 'baseline' }),
 })
 
 const iconRules = {
-  root: ({ props: { color, kind, name, size, bordered, circular } }) => {
+  root: ({ props: { color, kind, name, size, bordered, circular }, variables: v }) => {
     const { fontFamily, content } = getIcon(kind, name)
+    const iconColor = color || v.color
+
     return {
       fontFamily,
-      color,
+      color: iconColor,
       display: 'inline-block',
       opacity: 1,
       margin: '0 0.25em 0 0',
@@ -54,7 +56,7 @@ const iconRules = {
       textDecoration: 'inherit',
       textAlign: 'center',
       speak: 'none',
-      fontSmoothing: 'antialiased',
+      '-webkit-font-smoothing': 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
       backfaceVisibility: 'hidden',
       verticalAlign: 'middle',
@@ -66,7 +68,7 @@ const iconRules = {
         background: '0 0!important',
       },
 
-      ...((bordered || circular) && getBorderedStyles(circular)),
+      ...((bordered || circular) && getBorderedStyles(circular, v.borderColor, iconColor)),
     }
   },
 }
