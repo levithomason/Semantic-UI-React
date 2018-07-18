@@ -23,6 +23,10 @@ const fontAwesomeIcons = new Map([
   ['compass outline', 'f14e'],
   ['calendar alternate outline', 'f073'],
   ['thin circle', 'f111'],
+  ['check', 'f00c'],
+  ['minus', 'f068'],
+  ['clock', 'f017'],
+  ['search', 'f002'],
 ])
 
 export default name => {
