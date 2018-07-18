@@ -19,6 +19,16 @@ const Variations = () => (
       description="Use icon color as a background."
       examplePath="components/Icon/Variations/IconExampleInverted"
     />
+    <ComponentExample
+      title="Bordered"
+      description="An icon can be formatted to appear with rectangular border."
+      examplePath="components/Icon/Variations/IconExampleBordered"
+    />
+    <ComponentExample
+      title="Circular"
+      description="An icon can be formatted to appear circular."
+      examplePath="components/Icon/Variations/IconExampleCircular"
+    />
   </ExampleSection>
 )
 

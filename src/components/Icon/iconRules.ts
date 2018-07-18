@@ -38,12 +38,23 @@ const swapMainAndBackgroundColors = (style: any) => {
   }
 }
 
+const getBorderedStyles = (circular, borderColor, color) => ({
+  lineHeight: '1',
+  padding: '0.5em 0',
+  boxShadow: `0 0 0 0.1em ${borderColor || color || 'black'} inset`,
+  width: '2em',
+  height: '2em',
+  ...(circular ? { borderRadius: '50%' } : { verticalAlign: 'baseline' }),
+})
+
 const iconRules = {
-  root: ({ props: { color, inverted, kind, name, size } }) => {
+  root: ({ props: { color, kind, name, size, bordered, circular }, variables: v }) => {
     const { fontFamily, content } = getIcon(kind, name)
-    const normalStyle = {
+    const iconColor = color || v.color
+
+    return {
       fontFamily,
-      color,
+      color: iconColor,
       display: 'inline-block',
       opacity: 1,
       margin: '0 0.25em 0 0',
@@ -55,7 +66,7 @@ const iconRules = {
       textDecoration: 'inherit',
       textAlign: 'center',
       speak: 'none',
-      fontSmoothing: 'antialiased',
+      '-webkit-font-smoothing': 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
       backfaceVisibility: 'hidden',
       verticalAlign: 'middle',
@@ -72,8 +83,10 @@ const iconRules = {
       '::before': {
         content,
         boxSizing: 'inherit',
-        background: '0 0!important',
+        background: '0 0',
       },
+
+      ...((bordered || circular) && getBorderedStyles(circular, v.borderColor, iconColor)),
     }
 
     return inverted ? swapMainAndBackgroundColors(normalStyle) : normalStyle

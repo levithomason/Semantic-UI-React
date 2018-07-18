@@ -22,11 +22,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add missing Button styles @levithomason ([#82](https://github.com/stardust-ui/react/pulls/82))
 
 ### Features
+- Add Icon `circular` and `bordered` props @kuzhelov [#85](https://github.com/stardust-ui/react/pull/85)
 - Add Divider `type` and `important` props @mnajdova ([#67](https://github.com/stardust-ui/react/pulls/67))
+- Add Avatar component @mnajdova ([#75](https://github.com/stardust-ui/react/pull/75))
+- Add Menu `shape` property for describing the shape of the component, instead using the type property @mnajdova ([#68](https://github.com/stardust-ui/react/pull/68))
 
 ### Documentation
 - Add accessibility section to each component @mnajdova ([#46](https://github.com/stardust-ui/react/pulls/46))
 - Fix down doc site, bad links, and bad image src paths @levithomason ([#77](https://github.com/stardust-ui/react/pulls/77))
+- Add JSX and HTML code preview and card view for component examples in the doc site @Bugaa92 ([#62](https://github.com/stardust-ui/react/pull/62))
+- Add shorthand examples for the Label component @mnajdova ([#99](https://github.com/stardust-ui/react/pull/99))
 
 <!--------------------------------[ v0.2.0 ]------------------------------- -->
 ## [v0.2.0](https://github.com/stardust-ui/react/tree/v0.2.0) (2014-07-10)

@@ -22,6 +22,11 @@ export default (Component, options: any = {}) => {
 
   const componentType = typeof Component
 
+  // This is added because of the FelaTheme wrapper and the component itself, because it is mounted
+  const getComponent = wrapper => {
+    return wrapper.childAt(0).childAt(0)
+  }
+
   // make sure components are properly exported
   if (componentType !== 'function') {
     throwError(`Components should export a class or function, got: ${componentType}.`)
@@ -143,19 +148,13 @@ export default (Component, options: any = {}) => {
         ]
 
         tags.forEach(tag => {
-          const component = mount(<Component {...requiredProps} as={tag} />)
-
+          const wrapper = mount(<Component {...requiredProps} as={tag} />)
+          const component = getComponent(wrapper)
           try {
             expect(component.is(tag)).toEqual(true)
           } catch (err) {
-            // TODO: this needs to be addressed
-            // expect(component.type()).not.toEqual(Component)
-            expect(
-              component
-                .find('[as]')
-                .last()
-                .prop('as'),
-            ).toEqual(tag)
+            expect(component.type()).not.toEqual(Component)
+            expect(component.prop('as')).toEqual(tag)
           }
         })
       })
@@ -163,13 +162,13 @@ export default (Component, options: any = {}) => {
       test('renders as a functional component or passes "as" to the next component', () => {
         const MyComponent = () => null
 
-        const component = mount(<Component {...requiredProps} as={MyComponent} />)
+        const wrapper = mount(<Component {...requiredProps} as={MyComponent} />)
+        const component = getComponent(wrapper)
 
         try {
           expect(component.type()).toEqual(MyComponent)
         } catch (err) {
-          // TODO: this needs to be addressed
-          // expect(component.type()).not.toEqual(Component)
+          expect(component.type()).not.toEqual(Component)
           expect(
             component
               .find('[as]')
@@ -186,18 +185,14 @@ export default (Component, options: any = {}) => {
           }
         }
 
-        const component = mount(<Component {...requiredProps} as={MyComponent} />)
+        const wrapper = mount(<Component {...requiredProps} as={MyComponent} />)
+        const component = getComponent(wrapper)
+
         try {
           expect(component.type()).toEqual(MyComponent)
         } catch (err) {
-          // TODO: this needs to be addressed
-          // expect(component.type()).not.toEqual(Component)
-          expect(
-            component
-              .find('[as]')
-              .last()
-              .prop('as'),
-          ).toEqual(MyComponent)
+          expect(component.type()).not.toEqual(Component)
+          expect(component.prop('as')).toEqual(MyComponent)
         }
       })
 
@@ -258,9 +253,6 @@ export default (Component, options: any = {}) => {
         // onKeyDown => keyDown
         const eventName = _.camelCase(listenerName.replace('on', ''))
 
-        // onKeyDown => handleKeyDown
-        const handlerName = _.camelCase(listenerName.replace('on', 'handle'))
-
         const handlerSpy = jest.fn()
         const props = {
           ...requiredProps,
@@ -291,6 +283,11 @@ export default (Component, options: any = {}) => {
         if (customHandler) {
           customHandler(eventShape)
         } else {
+          if (Component.propTypes[listenerName]) {
+            throw new Error(
+              `Handler for '${listenerName}' is not passed to child event emitter element <${eventTarget.type()} />`,
+            )
+          }
           return
         }
 
@@ -302,6 +299,9 @@ export default (Component, options: any = {}) => {
         // <Dropdown onBlur={handleBlur} />
         //                   ^ was not called once on "blur"
         const leftPad = ' '.repeat(info.displayName.length + listenerName.length + 3)
+
+        // onKeyDown => handleKeyDown
+        const handlerName = _.camelCase(listenerName.replace('on', 'handle'))
 
         try {
           expect(handlerSpy).toHaveBeenCalled()
@@ -318,7 +318,10 @@ export default (Component, options: any = {}) => {
 
         if (_.has(Component.propTypes, listenerName)) {
           expectedArgs = [eventShape, component.props()]
-          errorMessage = 'was not called with (event, data)'
+          errorMessage =
+            'was not called with (event, data).\n' +
+            `Ensure that 'props' object is passed to '${listenerName}'\n` +
+            `event handler of <${Component.displayName} />.`
         }
 
         // Components should return the event first, then any data
@@ -443,4 +446,37 @@ export default (Component, options: any = {}) => {
       expect(Component.displayName).toEqual(info.constructorName)
     })
   })
+
+  const validListenerNames = _.reduce(
+    syntheticEvent.types,
+    (result, { listeners }) => [...result, ...listeners],
+    [],
+  )
+
+  // ---------------------------------------
+  // Opt-in tests
+  // ---------------------------------------
+  return {
+    // -------------------------------------
+    // Ensure that props are passed as a
+    // second argument to event handler
+    // -------------------------------------
+    hasExtendedHandlerFor(onEventName) {
+      describe(`has extended handler for '${onEventName}' event`, () => {
+        test(`'${onEventName}' is a valid event listener name`, () => {
+          expect(validListenerNames).toContain(onEventName)
+        })
+
+        test(`is declared in props`, () => {
+          expect(Component.propTypes[onEventName]).toBeTruthy()
+        })
+      })
+
+      // -----------------------------------
+      // Allows chained calls for optional
+      // test suites
+      // -----------------------------------
+      return this
+    },
+  }
 }

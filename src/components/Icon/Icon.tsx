@@ -3,21 +3,31 @@ import PropTypes from 'prop-types'
 import { customPropTypes, UIComponent, SUI } from '../../lib'
 
 import iconRules from './iconRules'
+import iconVariables from './iconVariables'
 
 class Icon extends UIComponent<any, any> {
   static className = 'ui-icon'
 
   static displayName = 'Icon'
 
+  static variables = iconVariables
+
   static propTypes = {
     /** An element type to render as (string or function). */
     as: customPropTypes.as,
+
+    /** Icon can appear with rectangular border. */
+    bordered: PropTypes.bool,
+
+    /** Icon can appear as circular. */
+    circular: PropTypes.bool,
 
     /** Additional classes. */
     className: PropTypes.string,
 
     /** Color of the icon. */
     color: PropTypes.oneOf([
+      'white',
       'red',
       'orange',
       'yellow',
@@ -46,7 +56,17 @@ class Icon extends UIComponent<any, any> {
     size: PropTypes.oneOf(['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']),
   }
 
-  static handledProps = ['as', 'className', 'color', 'inverted', 'kind', 'name', 'size']
+  static handledProps = [
+    'as',
+    'bordered',
+    'circular',
+    'className',
+    'color',
+    'inverted',
+    'kind',
+    'name',
+    'size',
+  ]
 
   static defaultProps = {
     as: 'i',
