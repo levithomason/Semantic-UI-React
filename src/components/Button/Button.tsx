@@ -4,7 +4,7 @@ import React from 'react'
 import { UIComponent, childrenExist, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
-import { ButtonBehavior } from '../../lib/accessibility/behaviors'
+import { ButtonBehavior } from '../../lib/accessibility/Behaviors/behaviors'
 
 /**
  * A button.
@@ -45,7 +45,6 @@ class Button extends UIComponent<any, any> {
 
   constructor(p, s) {
     super(p, s)
-
     this.accBehavior = new ButtonBehavior()
   }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import renderComponent, { IRenderResultConfig } from './renderComponent'
 import { IAccessibilityBehavior } from './accessibility/interfaces'
-import { DefaultBehavior } from './accessibility/behaviors'
+import { DefaultBehavior } from './accessibility/Behaviors/behaviors'
 
 abstract class UIComponent<P, S> extends React.Component<P, S> {
   private readonly childClass = this.constructor as typeof UIComponent
