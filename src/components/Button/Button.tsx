@@ -4,6 +4,7 @@ import React from 'react'
 import { UIComponent, childrenExist, customPropTypes } from '../../lib'
 import buttonRules from './buttonRules'
 import buttonVariables from './buttonVariables'
+import { ButtonBehavior } from '../../lib/accessibility/behaviors'
 
 /**
  * A button.
@@ -40,6 +41,12 @@ class Button extends UIComponent<any, any> {
 
   static defaultProps = {
     as: 'button',
+  }
+
+  constructor(p, s) {
+    super(p, s)
+
+    this.accBehavior = new ButtonBehavior()
   }
 
   renderComponent({ ElementType, classes, rest }) {
