@@ -24,15 +24,15 @@ A shared library means more great ideas and more engineering support for feature
 
 ## Scope
 
-You can think of Stardust as the internals of a good component library.  This encompasses everything except for the actual UI components themselves.
+You can think of Stardust as the internals of a good component library. This encompasses everything except for the actual UI components themselves.
 
-We are currently discussing which, if any, components will be included.  The collaborative result of our specifications will determine Stardust's final scope.
+We are currently discussing which, if any, components will be included. The collaborative result of our specifications will determine Stardust's final scope.
 
 ## Specifications
 
-All our specifications are open for collaboration.  You are also welcome to post your own proposals here.
+All our specifications are open for collaboration. You are also welcome to post your own proposals here.
 
-Stardust's specifications are posted to [`/specifications`][100].  We review and discuss specifications via PRs.
+Stardust's specifications are posted to [`/specifications`][100]. We review and discuss specifications via PRs.
 
 It is our desire that the patterns and utils around modern component libraries are not proprietary but the result of collaboration and shared sentiment among library developers and consumers.
 
@@ -53,11 +53,11 @@ Currently, these teams are actively participating in Stardust's specifications a
 - [Office UI Fabric][300]
 - [Teams (Microsoft)][301]
 
-If you own or are building a UI component library, we'd love to have your input.  [Post an issue][2] introducing yourself and your team and join us today.
+If you own or are building a UI component library, we'd love to have your input. [Post an issue][2] introducing yourself and your team and join us today.
 
 ## Semantic UI React v2
 
-See the [MANIFESTO.md][1] for details.  SUIR v2 will be built on the specifications and tools from Stardust.
+See the [MANIFESTO.md][1] for details. SUIR v2 will be built on the specifications and tools from Stardust.
 
 <!-- REPO -->
 [1]: https://github.com/stardust-ui/react/blob/master/MANIFESTO.md
