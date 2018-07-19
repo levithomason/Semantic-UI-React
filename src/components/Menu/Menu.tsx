@@ -6,10 +6,15 @@ import { AutoControlledComponent, childrenExist, customPropTypes } from '../../l
 import MenuItem from './MenuItem'
 import menuRules from './menuRules'
 
+import { MenuBehavior } from '../../lib/accessibility/Behaviors/behaviors'
+import menuVariables from './menuVariables'
+
 class Menu extends AutoControlledComponent<any, any> {
   static displayName = 'Menu'
 
   static className = 'ui-menu'
+
+  static variables = menuVariables
 
   static create: Function
 
@@ -32,16 +37,14 @@ class Menu extends AutoControlledComponent<any, any> {
     /** Shorthand array of props for Menu. */
     items: customPropTypes.collectionShorthand,
 
-    /** A menu can point to show its relationship to nearby content. */
-    pointing: PropTypes.bool,
-
     /** The menu can have primary or secondary type */
     type: PropTypes.oneOf(['primary', 'secondary']),
+
+    shape: PropTypes.oneOf(['pills', 'pointing', 'underlined']),
   }
 
   static defaultProps = {
     as: 'ul',
-    type: 'primary',
   }
 
   static handledProps = [
@@ -51,7 +54,7 @@ class Menu extends AutoControlledComponent<any, any> {
     'className',
     'defaultActiveIndex',
     'items',
-    'pointing',
+    'shape',
     'type',
   ]
 
@@ -60,6 +63,11 @@ class Menu extends AutoControlledComponent<any, any> {
   static rules = menuRules
 
   static Item = MenuItem
+
+  constructor(p, s) {
+    super(p, s)
+    this.accBehavior = new MenuBehavior()
+  }
 
   handleItemOverrides = predefinedProps => ({
     onClick: (e, itemProps) => {
@@ -72,14 +80,14 @@ class Menu extends AutoControlledComponent<any, any> {
   })
 
   renderItems = () => {
-    const { items, type, pointing } = this.props
+    const { items, type, shape } = this.props
     const { activeIndex } = this.state
 
     return _.map(items, (item, index) =>
       MenuItem.create(item, {
         defaultProps: {
           type,
-          pointing,
+          shape,
           index,
           active: parseInt(activeIndex, 10) === index,
         },
@@ -89,9 +97,13 @@ class Menu extends AutoControlledComponent<any, any> {
   }
 
   renderComponent({ ElementType, classes, rest }) {
-    const { children, content } = this.props
+    const { children } = this.props
     return (
-      <ElementType {...rest} className={classes.root}>
+      <ElementType
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
+        {...rest}
+        className={classes.root}
+      >
         {childrenExist(children) ? children : this.renderItems()}
       </ElementType>
     )
