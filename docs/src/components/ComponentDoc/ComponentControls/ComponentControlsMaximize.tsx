@@ -6,17 +6,18 @@ import { NavLink } from 'react-router-dom'
 
 import { neverUpdate } from 'docs/src/hoc'
 
-const ComponentControlsMaximize: any = ({ examplePath }) => {
-  const href = `/maximize/${_.kebabCase(examplePath.split('/').slice(-1))}`
-  const btnLabel = 'Maximize'
+const ComponentControlsMaximize: any = ({ examplePath }) => (
+  <Menu.Item
+    as={NavLink}
+    to={`/maximize/${_.kebabCase(examplePath.split('/').slice(-1))}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Icon color="grey" fitted name="window maximize" size="large" />
+    Maximize
+  </Menu.Item>
+)
 
-  return (
-    <Menu.Item as={NavLink} to={href} target="_blank" rel="noopener noreferrer">
-      <Icon color="grey" fitted name="window maximize" size="large" />
-      {btnLabel}
-    </Menu.Item>
-  )
-}
 ComponentControlsMaximize.propTypes = {
   examplePath: PropTypes.string.isRequired,
 }
