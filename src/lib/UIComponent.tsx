@@ -12,7 +12,7 @@ abstract class UIComponent<P, S> extends React.Component<P, S> {
   static rules?: any
   static handledProps: any
 
-  public accBehavior: IAccessibilityBehavior
+  public accBehavior: IAccessibilityBehavior<P, S>
 
   constructor(props, context) {
     super(props, context)

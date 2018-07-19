@@ -53,8 +53,8 @@ class Button extends UIComponent<any, any> {
     const { children, content } = this.props
     return (
       <ElementType
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
         {...rest}
-        {...this.accBehavior.generateAriaAttributes()}
         className={classes.root}
       >
         {childrenExist(children) ? children : content}

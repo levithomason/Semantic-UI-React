@@ -1,6 +1,6 @@
 import { IAccessibilityBehavior, ComponentState } from './interfaces'
 
-export class DefaultBehavior implements IAccessibilityBehavior {
+export class DefaultBehavior implements IAccessibilityBehavior<{}, {}> {
   public get name(): string {
     return 'default'
   }
@@ -17,7 +17,7 @@ export class DefaultBehavior implements IAccessibilityBehavior {
   }
 }
 
-export class ButtonBehavior implements IAccessibilityBehavior {
+export class ButtonBehavior implements IAccessibilityBehavior<{}, {}> {
   private attributes = {
     'ms-acc-behavior': this.name,
     role: 'button',
