@@ -23,6 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Fix Accordion to hide the content provided as nested children when closed ([#108](https://github.com/stardust-ui/react/pull/108))
 
 ### Features
+- Add Icon `background` property @kuzhelov [#86](https://github.com/stardust-ui/react/pull/86)
 - Add Icon `circular` and `bordered` props @kuzhelov [#85](https://github.com/stardust-ui/react/pull/85)
 - Add Divider `type` and `important` props @mnajdova ([#67](https://github.com/stardust-ui/react/pulls/67))
 - Add Avatar component @mnajdova ([#75](https://github.com/stardust-ui/react/pull/75))
