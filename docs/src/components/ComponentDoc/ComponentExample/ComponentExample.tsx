@@ -259,7 +259,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
 
   private hasKnobs = () => _.includes(knobsContext.keys(), this.getKnobsFilename())
 
-  private renderError = _.debounce(error => {
+  private setErrorDebounced = _.debounce(error => {
     this.setState({ error })
   }, 800)
 
@@ -285,12 +285,14 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
       const exampleElement = this.renderExampleFromCode(this.state.sourceCode)
 
       if (!isValidElement(exampleElement)) {
-        this.renderError(`Default export is not a valid React element. Check the example syntax.`)
+        this.setErrorDebounced(
+          `Default export is not a valid React element. Check the example syntax.`,
+        )
       } else {
         // immediately render a null error
         // but also ensure the last debounced error call is a null error
         const error = null
-        this.renderError(error)
+        this.setErrorDebounced(error)
         this.setState({
           error,
           exampleElement,
@@ -298,7 +300,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
         })
       }
     } catch (err) {
-      this.renderError(err.message)
+      this.setErrorDebounced(err.message)
     }
   }, 250)
 
@@ -439,7 +441,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   }
 
   private renderJSX = () => {
-    const { error, showCode, sourceCode } = this.state
+    const { showCode, sourceCode } = this.state
 
     if (!showCode) return null
 
@@ -459,13 +461,19 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
             />
           </div>
         )}
-
-        {error && (
-          <Segment size="small" color="red" basic inverted padded secondary>
-            <pre>{error}</pre>
-          </Segment>
-        )}
       </div>
+    )
+  }
+
+  private renderError = () => {
+    const { error } = this.state
+
+    if (!error) return null
+
+    return (
+      <Segment size="small" color="red" basic inverted padded secondary>
+        <pre>{error}</pre>
+      </Segment>
     )
   }
 
@@ -507,8 +515,8 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
   }
 
   private renderVariables = () => {
-    const { error, showVariables } = this.state
-    if (error || !showVariables) return
+    const { showVariables } = this.state
+    if (!showVariables) return
 
     const name = this.getComponentName()
 
@@ -658,6 +666,7 @@ class ComponentExample extends PureComponent<IComponentExampleProps, IComponentE
           </Grid.Column>
           <Grid.Column width={16} style={{ padding: 0, background: EDITOR_BACKGROUND_COLOR }}>
             {this.renderJSX()}
+            {this.renderError()}
             {this.renderHTML()}
             {this.renderVariables()}
           </Grid.Column>
