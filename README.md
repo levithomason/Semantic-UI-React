@@ -9,7 +9,7 @@ Stardust is a set of specifications and tools for building UI libraries. It is b
 - [Why?](#why)
 - [Scope](#scope)
 - [Specifications](#specifications)
-- [Join](#join)
+- [Contribute](#contribute)
 - [SUIR v2](#suir-v2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -45,7 +45,7 @@ It is our desire that the patterns and utils around modern component libraries a
 - [HTML Font Size][107]
 - [Parent Child Coupling][108]
 
-## Join
+## Contribute
 
 Currently, these teams are actively participating in Stardust's specifications and development:
 
