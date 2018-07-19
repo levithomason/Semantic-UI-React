@@ -66,7 +66,7 @@ class Menu extends AutoControlledComponent<any, any> {
 
   constructor(p, s) {
     super(p, s)
-    this.accBehavior = new MenuBehavior(p, s)
+    this.accBehavior = new MenuBehavior()
   }
 
   handleItemOverrides = predefinedProps => ({
@@ -100,7 +100,7 @@ class Menu extends AutoControlledComponent<any, any> {
     const { children } = this.props
     return (
       <ElementType
-        {...this.accBehavior.generateAriaAttributes()}
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
         {...rest}
         className={classes.root}
       >

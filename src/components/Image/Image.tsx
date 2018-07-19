@@ -40,13 +40,13 @@ class Image extends UIComponent<any, any> {
   constructor(p, s) {
     super(p, s)
 
-    this.accBehavior = new ImageBehavior(p, s)
+    this.accBehavior = new ImageBehavior()
   }
 
   renderComponent({ ElementType, classes, rest }) {
     return (
       <ElementType
-        {...this.accBehavior.generateAriaAttributes()}
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
         {...rest}
         className={classes.root}
       />

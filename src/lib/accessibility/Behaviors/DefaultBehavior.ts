@@ -1,6 +1,6 @@
 import { IAccessibilityBehavior, ComponentState } from '../interfaces'
 
-export class DefaultBehavior implements IAccessibilityBehavior {
+export class DefaultBehavior implements IAccessibilityBehavior<{}, {}> {
   public get name(): string {
     return 'default'
   }

@@ -76,7 +76,7 @@ class MenuItem extends UIComponent<any, any> {
 
   constructor(p, s) {
     super(p, s)
-    this.accBehavior = new MenuItemBehavior(p, s)
+    this.accBehavior = new MenuItemBehavior()
   }
 
   handleClick = e => {
@@ -91,7 +91,7 @@ class MenuItem extends UIComponent<any, any> {
         {...rest}
         className={classes.root}
         onClick={this.handleClick}
-        {...this.accBehavior.generateAriaAttributes()}
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
       >
         {childrenExist(children) ? (
           children

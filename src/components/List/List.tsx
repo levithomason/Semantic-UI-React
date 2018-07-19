@@ -64,7 +64,7 @@ class List extends UIComponent<any, any> {
 
   constructor(p, s) {
     super(p, s)
-    this.accBehavior = new ListBehavior(p, s)
+    this.accBehavior = new ListBehavior()
   }
 
   // List props that are passed to each individual Item props
@@ -76,7 +76,7 @@ class List extends UIComponent<any, any> {
 
     return (
       <ElementType
-        {...this.accBehavior.generateAriaAttributes()}
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
         {...rest}
         className={classes.root}
       >

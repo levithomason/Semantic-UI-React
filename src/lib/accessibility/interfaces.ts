@@ -7,8 +7,8 @@ export enum ComponentState {
   inactive,
 }
 
-export interface IAccessibilityBehavior {
+export interface IAccessibilityBehavior<P, S> {
   readonly name: string
-  generateAriaAttributes(): object
+  generateAriaAttributes(props: P, state: S): object
   changeState(newState: ComponentState): void
 }

@@ -1,18 +1,16 @@
 import { IAccessibilityBehavior, ComponentState } from '../../interfaces'
 
-export class ToggleButtonBehavior implements IAccessibilityBehavior {
+export class ToggleButtonBehavior implements IAccessibilityBehavior<{}, {}> {
   private attributes = {
     'ms-acc-behavior': this.name,
     role: 'button',
   }
 
-  constructor(props: object, state: object) {}
-
   public get name(): string {
     return 'toggle-button'
   }
 
-  public generateAriaAttributes(): object {
+  public generateAriaAttributes(props, state): object {
     return this.attributes
   }
 

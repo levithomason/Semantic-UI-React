@@ -52,7 +52,7 @@ class ListItem extends UIComponent<any, any> {
 
   constructor(p, s) {
     super(p, s)
-    this.accBehavior = new ListItemBehavior(p, s)
+    this.accBehavior = new ListItemBehavior()
   }
 
   static handledProps = [
@@ -178,7 +178,7 @@ class ListItem extends UIComponent<any, any> {
         end={endArea}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        {...this.accBehavior.generateAriaAttributes()}
+        {...this.accBehavior.generateAriaAttributes(this.props, this.state)}
         {...rest}
       />
     )
