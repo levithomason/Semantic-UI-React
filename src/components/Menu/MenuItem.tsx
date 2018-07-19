@@ -7,11 +7,14 @@ import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } f
 import { MenuItemBehavior } from '../../lib/accessibility/Behaviors/behaviors'
 
 import menuItemRules from './menuItemRules'
+import menuVariables from './menuVariables'
 
 class MenuItem extends UIComponent<any, any> {
   static displayName = 'MenuItem'
 
   static className = 'ui-menu__item'
+
+  static variables = menuVariables
 
   static create: Function
 
@@ -49,7 +52,9 @@ class MenuItem extends UIComponent<any, any> {
     pointing: PropTypes.bool,
 
     /** The menu can have primary or secondary type */
-    type: PropTypes.oneOf(['default', 'primary', 'secondary']),
+    type: PropTypes.oneOf(['primary', 'secondary']),
+
+    shape: PropTypes.oneOf(['pills', 'pointing', 'underlined']),
   }
 
   static defaultProps = {
@@ -65,6 +70,7 @@ class MenuItem extends UIComponent<any, any> {
     'index',
     'onClick',
     'pointing',
+    'shape',
     'type',
   ]
 
