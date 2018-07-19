@@ -3,16 +3,22 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {
-  childrenExist,
-  createComponent,
-  customPropTypes,
-  getElementType,
-  getUnhandledProps,
-} from '../../lib'
-import menuItemRules from './menuItemRules'
+import { childrenExist, createShorthandFactory, customPropTypes, UIComponent } from '../../lib'
 
-class MenuItem extends React.Component<any, {}> {
+import menuItemRules from './menuItemRules'
+import menuVariables from './menuVariables'
+
+class MenuItem extends UIComponent<any, any> {
+  static displayName = 'MenuItem'
+
+  static className = 'ui-menu__item'
+
+  static variables = menuVariables
+
+  static create: Function
+
+  static rules = menuItemRules
+
   static propTypes = {
     /** A menu item can be active. */
     active: PropTypes.bool,
@@ -29,6 +35,9 @@ class MenuItem extends React.Component<any, {}> {
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
 
+    /** MenuItem index inside Menu. */
+    index: PropTypes.number,
+
     /**
      * Called on click. When passed, the component will render as an `a`
      * tag by default instead of a `div`.
@@ -38,40 +47,51 @@ class MenuItem extends React.Component<any, {}> {
      */
     onClick: PropTypes.func,
 
-    /** FELA styles */
-    styles: PropTypes.object,
+    /** A menu can point to show its relationship to nearby content. */
+    pointing: PropTypes.bool,
+
+    /** The menu can have primary or secondary type */
+    type: PropTypes.oneOf(['primary', 'secondary']),
+
+    shape: PropTypes.oneOf(['pills', 'pointing', 'underlined']),
   }
 
-  static handledProps = ['active', 'as', 'children', 'className', 'content', 'onClick', 'styles']
+  static defaultProps = {
+    as: 'li',
+  }
+
+  static handledProps = [
+    'active',
+    'as',
+    'children',
+    'className',
+    'content',
+    'index',
+    'onClick',
+    'pointing',
+    'shape',
+    'type',
+  ]
 
   handleClick = e => {
     _.invoke(this.props, 'onClick', e, this.props)
   }
 
-  render() {
-    const { children, className, content, onClick, styles } = this.props
-
-    const classes = cx('ui-menu__item', styles.root, className)
-    const anchorClasses = cx('ui-menu__item__anchor', styles.anchor)
-    const ElementType = getElementType(MenuItem, this.props, () => 'li')
-    const rest = getUnhandledProps(MenuItem, this.props)
-
-    if (childrenExist(children)) {
-      return (
-        <ElementType {...rest} className={classes} onClick={this.handleClick}>
-          {children}
-        </ElementType>
-      )
-    }
+  renderComponent({ ElementType, classes, rest }) {
+    const { children, content } = this.props
 
     return (
-      <ElementType {...rest} className={classes} onClick={this.handleClick}>
-        <a className={anchorClasses}>{content}</a>
+      <ElementType {...rest} className={classes.root} onClick={this.handleClick}>
+        {childrenExist(children) ? (
+          children
+        ) : (
+          <a className={cx('ui-menu__item__anchor', classes.anchor)}>{content}</a>
+        )}
       </ElementType>
     )
   }
 }
 
-export default createComponent(MenuItem, {
-  rules: menuItemRules,
-})
+MenuItem.create = createShorthandFactory(MenuItem, content => ({ content }))
+
+export default MenuItem

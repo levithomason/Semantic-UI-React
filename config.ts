@@ -6,7 +6,7 @@ import path from 'path'
 const env = process.env.NODE_ENV || 'development'
 const __DEV__ = env === 'development'
 const __PROD__ = env === 'production'
-const __BASENAME__ = __PROD__ ? '/stardust/' : '/'
+const __BASENAME__ = __PROD__ ? '/react/' : '/'
 
 const envConfig = {
   env,
@@ -91,7 +91,6 @@ const config = {
     'brace/theme/tomorrow',
     'classnames',
     'copy-to-clipboard',
-    'faker',
     'react-ace',
   ],
 }

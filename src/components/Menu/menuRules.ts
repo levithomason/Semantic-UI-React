@@ -1,13 +1,29 @@
 import { pxToRem } from '../../lib'
 
-export default () => ({
-  root: {
-    display: 'flex',
-    border: '1px solid rgba(34, 36, 38, .15)',
-    borderRadius: pxToRem(4),
-    minHeight: pxToRem(28),
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none',
-  },
+const solidBorder = (color: string) => ({
+  border: `1px solid ${color}`,
 })
+
+export default {
+  root: ({ props, variables }) => {
+    const { type, shape } = props
+    return {
+      display: 'flex',
+      ...(shape !== 'pills' &&
+        shape !== 'underlined' && {
+          ...solidBorder(variables.defaultBorderColor),
+          ...(type === 'primary' && {
+            ...solidBorder(variables.typePrimaryBorderColor),
+          }),
+          borderRadius: pxToRem(4),
+        }),
+      ...(shape === 'underlined' && {
+        borderBottom: `1px solid ${variables.defaultBorderColor}`,
+      }),
+      minHeight: pxToRem(28),
+      margin: 0,
+      padding: 0,
+      listStyleType: 'none',
+    }
+  },
+}

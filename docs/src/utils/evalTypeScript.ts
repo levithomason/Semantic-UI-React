@@ -1,9 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as Stardust from 'stardust'
+import * as Stardust from '@stardust-ui/react'
 import * as _ from 'lodash'
 import * as ts from 'typescript'
-import * as faker from 'faker'
 
 /**
  * Converts import statement to expression by converting the module name in
@@ -81,14 +80,17 @@ const transpileTypeScript = (sourceCode): string => {
 interface IExecutionSandboxGlobals {
   REACT: any
   REACT_DOM: any
-  STARDUST: any
-  FAKER: any
+  STARDUST_UI_REACT: any
+  LODASH: any
 }
 /**
  * Executes JavaScript code within our sandbox. Returns the result of the
  * last evaluated expression.
  */
-const execute = (code, { REACT, REACT_DOM, FAKER, STARDUST }: IExecutionSandboxGlobals) => {
+const execute = (
+  code,
+  { REACT, REACT_DOM, STARDUST_UI_REACT, LODASH }: IExecutionSandboxGlobals,
+) => {
   return eval(code) // tslint:disable-line
 }
 
@@ -101,8 +103,8 @@ const evalTypeScript = (sourceCode): any => {
   return execute(transpiledCode, {
     REACT: React,
     REACT_DOM: ReactDOM,
-    STARDUST: Stardust,
-    FAKER: faker,
+    STARDUST_UI_REACT: Stardust,
+    LODASH: _,
   })
 }
 

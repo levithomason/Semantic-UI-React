@@ -10,8 +10,9 @@ const Types = () => (
       examplePath="components/Menu/Types/MenuExample"
     />
     <ComponentExample
-      description="Menu item text can be defined with the content prop."
-      examplePath="components/Menu/Types/MenuExampleContentProp"
+      title="Default Primary"
+      description="A menu can point to show its relationship to nearby content."
+      examplePath="components/Menu/Types/MenuExamplePrimary"
     />
   </ExampleSection>
 )
