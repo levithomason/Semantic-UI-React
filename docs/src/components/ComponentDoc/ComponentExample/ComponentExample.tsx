@@ -251,8 +251,6 @@ class ComponentExample extends PureComponent<any, any> {
 
     try {
       const Example = evalTypeScript(this.state.sourceCode)
-
-      console.log(Example)
       const exampleElement = _.isFunction(Example) ? this.renderWithProvider(Example) : Example
 
       if (!isValidElement(exampleElement)) {
@@ -312,9 +310,6 @@ class ComponentExample extends PureComponent<any, any> {
   getComponentName = () => this.props.examplePath.split('/')[1]
 
   renderWithProvider(ExampleComponent) {
-    console.log('renderWithProvider:state', this.state)
-    console.log('renderWithProivder:componentVariables', this.state.componentVariables)
-
     return (
       <Provider componentVariables={this.state.componentVariables} rtl={this.state.showRtl}>
         <ExampleComponent knobs={this.getKnobsValue()} />
