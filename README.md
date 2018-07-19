@@ -1,6 +1,6 @@
 # Stardust
 
-Stardust is a set of specifications and tools for building UI libraries. It is based on a fork of [Semantic UI React (SUIR)][200], and designed to support two initiatives: Stardust itself and Semantic UI React v2.
+Stardust is a set of specifications and tools for building UI libraries. It is based on a fork of [Semantic UI React (SUIR)][200], and designed to support two initiatives: Stardust itself and SUIR v2.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -10,7 +10,7 @@ Stardust is a set of specifications and tools for building UI libraries. It is b
 - [Scope](#scope)
 - [Specifications](#specifications)
 - [Contribute](#contribute)
-- [SUIR v2](#suir-v2)
+- [Semantic UI React v2](#semantic-ui-react-v2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -55,7 +55,7 @@ Currently, these teams are actively participating in Stardust's specifications a
 
 If you own or are building a UI component library, we'd love to have your input.  [Post an issue][2] introducing yourself and your team and join us today.
 
-## SUIR v2
+## Semantic UI React v2
 
 See the [MANIFESTO.md][1] for details.  SUIR v2 will be built on the specifications and tools from Stardust.
 
