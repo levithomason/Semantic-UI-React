@@ -26,15 +26,13 @@ A shared library means more great ideas and more engineering support for feature
 
 You can think of Stardust as the internals of a good component library. This encompasses everything except for the actual UI components themselves.
 
-We are currently discussing which, if any, components will be included. The collaborative result of our specifications will determine Stardust's final scope.
+We are currently discussing which, if any, components will be included. The collaborative result of our [specifications](#specifications) will determine Stardust's final scope.
 
 ## Specifications
 
-All our specifications are open for collaboration. You are also welcome to post your own proposals here.
+All of our specifications are listed in [/specifications][100], and are open for collaboration. You are also welcome to submit your own proposals via a pull request.
 
-Stardust's specifications are posted to [`/specifications`][100]. We review and discuss specifications via PRs.
-
-It is our desire that the patterns and utils around modern component libraries are not proprietary but the result of collaboration and shared sentiment among library developers and consumers.
+It is our desire that the patterns and utilities around modern component libraries are not proprietary but the result of collaboration and shared sentiment among library developers and consumers.
 
 - [Creating Components][101]
 - [CSS-in-JS][102]
