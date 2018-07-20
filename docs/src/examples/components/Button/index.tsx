@@ -4,7 +4,7 @@ import Variations from './Variations'
 
 const ButtonExamples = () => (
   <div>
-    <Types />
+    {/* <Types /> */}
     <Variations />
   </div>
 )
