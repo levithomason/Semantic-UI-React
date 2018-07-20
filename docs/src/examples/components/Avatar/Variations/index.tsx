@@ -11,7 +11,7 @@ const Variations = () => (
     />
     <ComponentExample
       title="Alt"
-      description="An Avatar showing image can propagate the alternative text to the image."
+      description="The alternative text for the image used in the Avatar."
       examplePath="components/Avatar/Variations/AvatarExampleAlt"
     />
     <ComponentExample
