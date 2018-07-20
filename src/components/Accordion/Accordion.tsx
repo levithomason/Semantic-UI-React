@@ -75,11 +75,6 @@ class Accordion extends AutoControlledComponent<any, any> {
     'panels',
   ]
 
-  static defaultProps = {
-    panels: [],
-    exclusive: false,
-  }
-
   static autoControlledProps = ['activeIndex']
 
   static Title = AccordionTitle
