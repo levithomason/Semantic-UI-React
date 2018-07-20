@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Icon } from 'stardust'
 
-const ButtonExampleLabeledIcon = () => (
+const ButtonExampleContentAndIcon = () => (
   <div>
     <Button type="primary">
       <Icon name="book" color="white" style={{ margin: 'auto' }} />
@@ -14,4 +14,4 @@ const ButtonExampleLabeledIcon = () => (
   </div>
 )
 
-export default ButtonExampleLabeledIcon
+export default ButtonExampleContentAndIcon

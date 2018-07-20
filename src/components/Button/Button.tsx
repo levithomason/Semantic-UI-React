@@ -51,13 +51,8 @@ class Button extends UIComponent<IButtonProps, any> {
     /** Shorthand for primary content. */
     content: customPropTypes.contentShorthand,
 
-    /** Add an Icon by name, props object, or pass an <Icon />. */
-    icon: customPropTypes.some([
-      PropTypes.bool,
-      PropTypes.string,
-      PropTypes.object,
-      PropTypes.element,
-    ]),
+    /** Button can have an icon. */
+    icon: customPropTypes.some([PropTypes.string, PropTypes.object, PropTypes.element]),
 
     /** An icon button can format an Icon to appear on the left or right. */
     iconPosition: PropTypes.oneOf(['left', 'right']),

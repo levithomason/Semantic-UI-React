@@ -6,7 +6,7 @@ const Types = () => (
   <ExampleSection title="Types">
     <ComponentExample
       title="Default"
-      description="A standard button."
+      description="A default button."
       examplePath="components/Button/Types/ButtonExample"
     />
     <ComponentExample
@@ -20,9 +20,9 @@ const Types = () => (
       examplePath="components/Button/Types/ButtonExampleIcon"
     />
     <ComponentExample
-      title="Labeled Icon"
-      description="A button can use an icon as a label."
-      examplePath="components/Button/Types/ButtonExampleLabeledIcon"
+      title="Content and Icon"
+      description="A button can have an icon in addition to content."
+      examplePath="components/Button/Types/ButtonExampleContentAndIcon"
     />
   </ExampleSection>
 )
