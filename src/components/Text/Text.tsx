@@ -30,7 +30,7 @@ class Text extends UIComponent<any, any> {
     /** Set as error Text component */
     error: PropTypes.bool,
 
-    /** The text can appear more important and draw's user attention */
+    /** The text can appear more important and draw user's attention */
     important: PropTypes.bool,
 
     /** The size for the Text component */

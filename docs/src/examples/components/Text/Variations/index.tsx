@@ -16,7 +16,7 @@ const Variations = () => (
     />
     <ComponentExample
       title="Important"
-      description="A text can appear more important and draw's user attention."
+      description="A text can appear more important and draw user's attention."
       examplePath="components/Text/Variations/TextExampleImportant"
     />
   </ExampleSection>
