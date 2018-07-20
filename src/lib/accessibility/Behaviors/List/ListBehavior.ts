@@ -1,5 +1,5 @@
 import { IAccessibilityBehavior, ComponentState } from '../../interfaces'
-import { eventStack } from 'src/lib'
+import { eventStack } from '../../..'
 import { LinkedList } from '../../data-structures'
 
 const UP_ARROW = 38
