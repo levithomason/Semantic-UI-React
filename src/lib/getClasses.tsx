@@ -17,7 +17,7 @@ const getClasses = (props, rules, variables: any = () => {}, theme: any = {}): I
     props,
     theme,
     variables: variables(theme.siteVariables),
-    isRtl: theme.isRtl,
+    rtl: theme.rtl,
   }
 
   return Object.keys(rules).reduce((acc, ruleName) => {
