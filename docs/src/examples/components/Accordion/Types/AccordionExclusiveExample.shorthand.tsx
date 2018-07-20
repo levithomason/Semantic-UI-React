@@ -8,12 +8,12 @@ const panels = [
     content: '2 3 4',
   },
   {
-    key: 'two',
+    key: 'five',
     title: 'Five',
     content: '6 7 8 9',
   },
   {
-    key: 'three',
+    key: 'ten',
     title: "What's next?",
     content: '10',
   },
