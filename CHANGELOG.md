@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixes
 - Remove broken normalize.css button styles @levithomason ([#79](https://github.com/stardust-ui/react/pulls/79))
 - Add missing Button styles @levithomason ([#82](https://github.com/stardust-ui/react/pulls/82))
+- Fix Accordion to hide the content provided as nested children when closed ([#108](https://github.com/stardust-ui/react/pull/108))
 
 ### Features
 - Add Icon `circular` and `bordered` props @kuzhelov [#85](https://github.com/stardust-ui/react/pull/85)
@@ -35,6 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add shorthand examples for the Label component @mnajdova ([#99](https://github.com/stardust-ui/react/pull/99))
 - Replace `stardust` imports with `@stardust-ui/react` to reflect the new npm package @davezuko ([#115](https://github.com/stardust-ui/react/pull/115]))
 - Further improve code edit experience @levithomason ([#100](https://github.com/stardust-ui/react/pulls/100))
+- Improve general clarity in README @davezuko ([#118](https://github.com/stardust-ui/react/pull/118]))
 
 <!--------------------------------[ v0.2.0 ]------------------------------- -->
 ## [v0.2.0](https://github.com/stardust-ui/react/tree/v0.2.0) (2018-07-10)

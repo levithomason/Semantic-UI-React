@@ -13,5 +13,11 @@ export class InputBehavior implements IAccessibilityBehavior<{}, {}> {
     return this.attributes
   }
 
-  public changeState(newState: ComponentState): void {}
+  public changeState(newState: ComponentState): void {
+    if (newState === ComponentState.disabled) {
+      this.attributes['aria-disabled'] = true
+    } else if (newState === ComponentState.enabled) {
+      delete this.attributes['aria-disabled']
+    }
+  }
 }
