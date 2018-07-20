@@ -9,6 +9,8 @@ import AccordionContent from './AccordionContent'
 
 /**
  * A standard Accordion.
+ * @accessibility
+ * Concern: how do we optimally navigate through an Accordion element with nested children?
  */
 class Accordion extends AutoControlledComponent<any, any> {
   static displayName = 'Accordion'
@@ -133,10 +135,13 @@ class Accordion extends AutoControlledComponent<any, any> {
         }),
       )
       children.push(
-        AccordionContent.create(content, {
-          autoGenerateKey: true,
-          defaultProps: { active },
-        }),
+        AccordionContent.create(
+          { content },
+          {
+            autoGenerateKey: true,
+            defaultProps: { active },
+          },
+        ),
       )
     })
 
