@@ -35,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add Input component @alinais ([#64](https://github.com/stardust-ui/react/pull/64))
 - Add Text `important` prop @mnajdova ([#120](https://github.com/stardust-ui/react/pull/120))
 - Add Avatar `alt` prop @mnajdova ([#124](https://github.com/stardust-ui/react/pull/124))
+- Add Icon `disabled` prop @Bugaa92 ([#113](https://github.com/stardust-ui/react/pull/113))
 
 ### Documentation
 - Add accessibility section to each component @mnajdova ([#46](https://github.com/stardust-ui/react/pulls/46))

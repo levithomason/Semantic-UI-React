@@ -38,7 +38,7 @@ const getBorderedStyles = (circular, borderColor, color) => ({
 })
 
 const iconRules = {
-  root: ({ props: { color, kind, name, size, bordered, circular }, variables: v }) => {
+  root: ({ props: { color, disabled, kind, name, size, bordered, circular }, variables: v }) => {
     const { fontFamily, content } = getIcon(kind, name)
     const iconColor = color || v.color
 
@@ -69,6 +69,11 @@ const iconRules = {
       },
 
       ...((bordered || circular) && getBorderedStyles(circular, v.borderColor, iconColor)),
+
+      ...(disabled && {
+        color: 'grey',
+        opacity: 0.45,
+      }),
     }
   },
 }
