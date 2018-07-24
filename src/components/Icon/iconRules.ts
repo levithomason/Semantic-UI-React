@@ -47,7 +47,7 @@ const iconRules = {
       color: iconColor,
       display: 'inline-block',
       opacity: 1,
-      margin: '0 0.25em 0 0',
+      margin: v.margin,
       width: '1.18em',
       height: '1em',
       fontSize: getSize(size),
