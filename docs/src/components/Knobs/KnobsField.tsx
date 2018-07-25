@@ -2,8 +2,7 @@ import { createComponent } from 'react-fela'
 import { pxToRem } from 'src/lib'
 
 const KnobsField = createComponent(() => ({
-  padding: `${pxToRem(5)} 0`,
-  width: pxToRem(300),
+  // padding: `${pxToRem(4)} 0`,
 }))
 
 export default KnobsField
